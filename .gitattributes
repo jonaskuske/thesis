@@ -1,0 +1,3 @@
+# mark as binary so yarn upgrades don't show huge diffs
+/.yarn/releases/** binary
+/.yarn/plugins/** binary

@@ -1,0 +1,105 @@
+{
+  "name": "thesis",
+  "packageManager": "yarn@3.2.3",
+  "private": true,
+  "//": "until nodejs/node#43772 ships, then use github.com/esbuild-kit/tsx",
+  "type": "commonjs",
+  "scripts": {
+    "dev": "run server",
+    "prod": "run build && run server:prod",
+    "build": "vite build",
+    "server": "ts-node ./server",
+    "server:prod": "NODE_ENV=production ts-node ./server",
+    "lint": "eslint . --ext .js,.cjs,.mjs,.jsx,.ts,.cts,.mts,.tsx,.vue",
+    "typecheck": "vue-tsc --noEmit",
+    "typecheck:watch": "run typecheck --watch",
+    "postinstall": "husky install"
+  },
+  "dependencies": {
+    "@fastify/compress": "^6.1.1",
+    "@fastify/middie": "^8.0.0",
+    "@fastify/static": "^6.5.0",
+    "@types/connect": "^3.4.35",
+    "@types/node": "^16.11.57",
+    "@vitejs/plugin-vue": "^3.1.0",
+    "@vue/compiler-sfc": "^3.2.38",
+    "@vue/server-renderer": "^3.2.38",
+    "fastify": "^4.5.3",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.2",
+    "vite": "^3.1.0",
+    "vite-plugin-ssr": "^0.4.31",
+    "vue": "^3.2.38"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.36.2",
+    "@typescript-eslint/parser": "^5.36.2",
+    "@vue/tsconfig": "0.1.3",
+    "@yarnpkg/sdks": "^3.0.0-rc.18",
+    "eslint": "^8.23.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-vue": "^9.4.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "prettier": "~2.7.1",
+    "vue-tsc": "^0.40.9"
+  },
+  "lint-staged": {
+    "*.{cjs,mjs,js,jsx,cts,mts,ts,tsx,vue}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{css,html,md,json,webmanifest}": "prettier --write"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "printWidth": 100,
+    "trailingComma": "all"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/eslint-recommended",
+      "plugin:@typescript-eslint/recommended-requiring-type-checking",
+      "plugin:vue/vue3-recommended",
+      "prettier"
+    ],
+    "plugins": [
+      "@typescript-eslint"
+    ],
+    "parserOptions": {
+      "parser": "@typescript-eslint/parser",
+      "project": [
+        "./tsconfig.json"
+      ],
+      "extraFileExtensions": [
+        ".vue"
+      ]
+    },
+    "rules": {
+      "vue/multi-word-component-names": "off",
+      "@typescript-eslint/consistent-type-imports": "error",
+      "@typescript-eslint/no-unsafe-argument": "off"
+    }
+  },
+  "eslintIgnore": [
+    "*.min.*",
+    "*.d.ts",
+    "CHANGELOG.md",
+    "dist",
+    "LICENSE*",
+    "output",
+    "coverage",
+    "public",
+    "temp",
+    "packages-lock.json",
+    "pnpm-lock.yaml",
+    "yarn.lock",
+    "__snapshots__",
+    "!.github",
+    "!.vitepress",
+    "!.vscode"
+  ]
+}
