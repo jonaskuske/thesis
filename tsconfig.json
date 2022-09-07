@@ -1,12 +1,7 @@
 {
   "extends": "@vue/tsconfig/tsconfig.json",
   "compilerOptions": {
-    "lib": ["DOM", "DOM.Iterable", "ESNext"]
-  },
-  "ts-node": {
-    "transpileOnly": true,
-    "compilerOptions": {
-      "module": "Node16"
-    }
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "module": "Node16"
   }
 }
