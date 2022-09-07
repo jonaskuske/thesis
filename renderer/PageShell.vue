@@ -1,18 +1,20 @@
 <template>
-  <div class="layout">
+  <div v-if="content_only === 'true'" class="content"><slot /></div>
+  <div v-else class="layout">
     <div class="navigation">
-      <a href="/" class="logo">
-        <img src="./logo.svg" height="64" width="64" alt="logo" />
-      </a>
       <Link href="/">Home</Link>
       <Link href="/about">About</Link>
     </div>
-    <div class="content"><slot /></div>
+    <div v-if="shell_only !== 'true'" class="content"><slot /></div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import Link from './Link.vue'
+import { usePageContext } from './usePageContext'
+
+const ctx = usePageContext()
+const { content_only, shell_only } = ctx.urlParsed.search
 </script>
 
 <style>
@@ -47,9 +49,5 @@ a {
   flex-direction: column;
   align-items: center;
   line-height: 1.8em;
-}
-.logo {
-  margin-top: 20px;
-  margin-bottom: 10px;
 }
 </style>
