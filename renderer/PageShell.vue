@@ -6,6 +6,7 @@
       <Link href="/about">About</Link>
     </div>
     <div v-if="shell_only !== 'true'" class="content"><slot /></div>
+    <template v-else><!--MARKER--></template>
   </div>
 </template>
 
