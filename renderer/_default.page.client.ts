@@ -9,6 +9,10 @@ function render(pageContext: PageContextBuiltInClient & PageContext) {
   app.mount('#app')
 }
 
+void navigator.serviceWorker.register('/serviceWorker.ts', {
+  type: 'module',
+})
+
 /* To enable Client-side Routing:
 export const clientRouting = true
 // !! WARNING !! Before doing so, read https://vite-plugin-ssr.com/clientRouting */
