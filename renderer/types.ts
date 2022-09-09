@@ -1,6 +1,6 @@
 import type { PageContextBuiltIn } from 'vite-plugin-ssr'
 import type { ComponentOptions } from 'vue'
-import type { passToClient } from './_default.page.server'
+import type { passToClient } from './passToClient'
 
 export type PageProps = Record<string, unknown>
 // The `pageContext` that are available in both on the server-side and browser-side

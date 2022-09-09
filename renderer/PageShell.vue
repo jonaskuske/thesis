@@ -1,21 +1,32 @@
 <template>
-  <div v-if="content_only === 'true'" class="content"><slot /></div>
+  <div v-if="contentOnly" class="content"><slot /></div>
   <div v-else class="layout">
-    <div class="navigation">
+    <div :key="rerenderKey" class="navigation">
       <Link href="/">Home</Link>
       <Link href="/about">About</Link>
     </div>
-    <div v-if="shell_only !== 'true'" class="content"><slot /></div>
-    <template v-else><!--MARKER--></template>
+    <div v-if="shellOnly" data-marker></div>
+    <div v-else class="content"><slot /></div>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { nextTick, ref } from 'vue'
 import Link from './Link.vue'
+
 import { usePageContext } from './usePageContext'
 
-const ctx = usePageContext()
-const { content_only, shell_only } = ctx.urlParsed.search
+// force full rerender in shell (comes from cache) to fix hydration mismatches
+let rerenderKey = ref(0)
+void nextTick().then(() => rerenderKey.value++)
+
+const { urlParsed } = usePageContext()
+
+// @ts-expect-error
+const isServer = import.meta.env.SSR
+
+const shellOnly = isServer && urlParsed.search.shell_only === 'true'
+const contentOnly = isServer && urlParsed.search.content_only === 'true'
 </script>
 
 <style>
@@ -32,16 +43,16 @@ a {
 </style>
 
 <style scoped>
-.layout {
-  display: flex;
-  max-width: 900px;
-  margin: auto;
-}
 .content {
   padding: 20px;
   border-left: 2px solid #eee;
   padding-bottom: 50px;
-  min-height: 100vh;
+  min-height: 10 0vh;
+}
+.layout {
+  display: flex;
+  max-width: 900px;
+  margin: auto;
 }
 .navigation {
   padding: 20px;

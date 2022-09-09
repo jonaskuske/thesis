@@ -4,6 +4,7 @@ import fastify from 'fastify'
 import compress from '@fastify/compress'
 import { renderPage } from 'vite-plugin-ssr'
 
+// @ts-expect-error
 const root = fileURLToPath(new URL('..', import.meta.url))
 const isProduction = process.env.NODE_ENV === 'production'
 
@@ -29,13 +30,18 @@ async function startServer() {
     await app.use(devServer.middlewares)
   }
 
-  app.get('*', async (request, reply) => {
+  app.get<{ Querystring: Record<string, string> }>('*', async (request, reply) => {
     const pageContext = await renderPage({ urlOriginal: request.url })
 
     if (!pageContext.httpResponse) return
 
-    const { body, statusCode, contentType } = pageContext.httpResponse
-    return reply.code(statusCode).type(contentType).send(body)
+    const { httpResponse } = pageContext
+
+    if (!isProduction) console.log(new Date().toLocaleTimeString(), request.url)
+
+    reply.raw.statusCode = httpResponse.statusCode
+    reply.raw.setHeader('Content-Type', httpResponse.contentType)
+    httpResponse.pipe(reply.raw)
   })
 
   const port = Number(process.env.PORT ?? 3000)
