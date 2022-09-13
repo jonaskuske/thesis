@@ -76,8 +76,6 @@
       "parser": "@typescript-eslint/parser",
       "project": [
         "./tsconfig.json",
-        "./tsconfig.client.json",
-        "./tsconfig.server.json",
         "./tsconfig.sw.json"
       ],
       "extraFileExtensions": [

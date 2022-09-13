@@ -1,8 +1,12 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.client.json" },
-    { "path": "./tsconfig.server.json" },
-    { "path": "./tsconfig.sw.json" }
-  ]
+  "extends": "@vue/tsconfig/tsconfig.web.json",
+  "include": ["**/*", "**/*.vue"],
+  "exclude": ["**/serviceWorker.ts", "**/service-worker.ts", "**/serviceworker.ts", "**/sw.ts"],
+  "compilerOptions": {
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "Node16",
+    "target": "ES2022",
+    "types": ["node"]
+  },
+  "references": [{ "path": "./tsconfig.sw.json" }]
 }

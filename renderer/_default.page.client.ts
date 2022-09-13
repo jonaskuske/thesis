@@ -1,5 +1,5 @@
-import { createApp } from './app'
-import type { PageContextClient } from './types'
+import { createApp } from './createApp'
+import type { PageContextClient } from '../utils/types'
 
 export function render(pageContext: PageContextClient) {
   const app = createApp(pageContext)

@@ -3,19 +3,19 @@
 
 import { inject } from 'vue'
 import type { App, InjectionKey } from 'vue'
-import type { PageContext } from './types'
+import type { PageContextShared } from '../utils/types'
 
-export { usePageContext }
-export { setPageContext }
+const key: InjectionKey<PageContextShared> = Symbol()
 
-const key: InjectionKey<PageContext> = Symbol()
+export function usePageContext(): PageContextShared
+export function usePageContext<Context>(): Context
 
-function usePageContext() {
+export function usePageContext() {
   const pageContext = inject(key)
   if (!pageContext) throw new Error('setPageContext() not called in parent')
   return pageContext
 }
 
-function setPageContext(app: App, pageContext: PageContext) {
+export function setPageContext(app: App, pageContext: PageContextShared) {
   app.provide(key, pageContext)
 }

@@ -1,11 +1,9 @@
 import { createSSRApp, defineComponent, h } from 'vue'
-import PageShell from './PageShell.vue'
-import { setPageContext } from './usePageContext'
-import type { PageContext } from './types'
+import PageShell from '../components/PageShell.vue'
+import { setPageContext } from '../composables/usePageContext'
+import type { PageContextShared } from '../utils/types'
 
-export { createApp }
-
-function createApp(pageContext: PageContext) {
+export function createApp(pageContext: PageContextShared) {
   const { Page, pageProps } = pageContext
 
   const PageWithLayout = defineComponent({

@@ -6,7 +6,7 @@
 
 <script lang="ts" setup>
 import { useAttrs } from 'vue'
-import { usePageContext } from './usePageContext'
+import { usePageContext } from '../composables/usePageContext'
 
 const attrs = useAttrs()
 const ctx = usePageContext()

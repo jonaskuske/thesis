@@ -1,7 +1,7 @@
 import { pipeToNodeWritable, type SSRContext } from '@vue/server-renderer'
 import { escapeInject, stampPipe } from 'vite-plugin-ssr'
-import { createApp } from './app'
-import type { PageContextServer } from './types'
+import { createApp } from './createApp'
+import type { PageContextServer } from '../utils/types'
 import type internal from 'stream'
 
 export { render }

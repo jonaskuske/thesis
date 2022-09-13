@@ -6,13 +6,23 @@ import helmet from '@fastify/helmet'
 import { renderPage } from 'vite-plugin-ssr'
 import { createHash } from 'crypto'
 import type { ServerResponse } from 'http'
-import type { PageContextInit } from '../renderer/types'
+import type { PageContextInit } from '../utils/types'
 
 // @ts-expect-error
 const root = fileURLToPath(new URL('..', import.meta.url))
 const isProduction = process.env.NODE_ENV === 'production'
 
 startServer().catch((err) => console.error('Failed to start server', err))
+
+async function getShellHash() {
+  const shell = await renderPage<{}, PageContextInit>({
+    urlOriginal: '/_shell',
+    contentOnly: false,
+  })
+
+  const body = (await shell.httpResponse?.getBody()) as string
+  return createHash('SHA1').update(body).digest('hex')
+}
 
 async function startServer() {
   const app = fastify()
@@ -41,46 +51,37 @@ async function startServer() {
     await app.use(devServer.middlewares)
   }
 
-  const shell = await renderPage({ urlOriginal: '/_shell' })
-  const body = (await shell.httpResponse?.getBody()) as string
-  let hash = createHash('SHA1').update(body).digest('hex')
+  let hash = await getShellHash()
 
   app.get<{ Querystring: Record<string, string> }>('*', async (request, reply) => {
     request.headers['x-shell-hash'] ??= request.headers['service-worker-navigation-preload']
 
+    if (!isProduction) hash = await getShellHash()
+
+    const contentOnly = request.headers['x-shell-hash'] === hash
+
     if (!isProduction) {
-      const shell = await renderPage<{}, PageContextInit>({ urlOriginal: '/_shell' })
-      const body = (await shell.httpResponse?.getBody()) as string
-      hash = createHash('SHA1').update(body).digest('hex')
+      console.log(
+        new Date().toLocaleTimeString(),
+        request.url,
+        contentOnly ? `contentOnly (${request.headers['x-shell-hash'] as string})` : '',
+      )
     }
 
     const pageContext = await renderPage<{}, PageContextInit>({
       urlOriginal: request.url,
-      contentOnly: request.headers['x-shell-hash'] === hash,
+      contentOnly,
     })
 
     if (!pageContext.httpResponse) return
 
     const { httpResponse } = pageContext
 
-    if (!isProduction) {
-      console.log(
-        new Date().toLocaleTimeString(),
-        request.url,
-        pageContext.contentOnly
-          ? `contentOnly (${request.headers['x-shell-hash'] as string} from ${
-              request.headers['service-worker-navigation-preload']
-                ? 'service-worker-navigation-preload'
-                : 'x-shell-hash'
-            })`
-          : '',
-      )
-    }
-
     reply.raw.statusCode = httpResponse.statusCode
     reply.raw.setHeader('content-type', httpResponse.contentType)
     reply.raw.setHeader('x-shell-hash', hash)
     reply.raw.setHeader('vary', 'x-shell-hash,service-worker-navigation-preload')
+
     httpResponse.pipe(reply.raw)
 
     return new Promise((resolve) => reply.raw.once('finish', resolve))

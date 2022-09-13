@@ -11,5 +11,6 @@
   "editor.codeActionsOnSave": {
     "source.fixAll": true
   },
-  "task.allowAutomaticTasks": "on"
+  "task.allowAutomaticTasks": "on",
+  "terminal.integrated.enablePersistentSessions": false
 }

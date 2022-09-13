@@ -13,9 +13,9 @@
       "icon": { "id": "server-process", "color": "terminal.ansiBlue" },
       "problemMatcher": [
         {
-          "owner": "tsc",
+          "owner": "typescript",
           "source": "ts",
-          "applyTo": "closedDocuments",
+          "applyTo": "allDocuments",
           "fileLocation": ["relative", "${cwd}"],
           "pattern": {
             "regexp": "^([^\\s].*)[\\(:](\\d+)[,:](\\d+)(?:\\):\\s+|\\s+-\\s+)(error|warning|info)\\s+TS(\\d+)\\s*:\\s*(.*)$",
