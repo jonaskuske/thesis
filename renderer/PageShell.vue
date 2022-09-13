@@ -1,12 +1,12 @@
 <template>
   <div v-if="contentOnly" class="content"><slot /></div>
+
   <div v-else class="layout">
     <div :key="rerenderKey" class="navigation">
       <Link href="/">Home</Link>
       <Link href="/about">About</Link>
     </div>
-    <div v-if="shellOnly" data-marker></div>
-    <div v-else class="content"><slot /></div>
+    <div class="content"><slot /></div>
   </div>
 </template>
 
@@ -20,13 +20,12 @@ import { usePageContext } from './usePageContext'
 let rerenderKey = ref(0)
 void nextTick().then(() => rerenderKey.value++)
 
-const { urlParsed } = usePageContext()
+const ctx = usePageContext()
 
 // @ts-expect-error
 const isServer = import.meta.env.SSR
 
-const shellOnly = isServer && urlParsed.search.shell_only === 'true'
-const contentOnly = isServer && urlParsed.search.content_only === 'true'
+const contentOnly = isServer && ctx.contentOnly
 </script>
 
 <style>

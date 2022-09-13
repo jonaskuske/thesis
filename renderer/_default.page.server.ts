@@ -1,14 +1,13 @@
 import { pipeToNodeWritable, type SSRContext } from '@vue/server-renderer'
 import { escapeInject, stampPipe } from 'vite-plugin-ssr'
 import { createApp } from './app'
-import type { PageContext } from './types'
-import type { PageContextBuiltIn } from 'vite-plugin-ssr'
+import type { PageContextServer } from './types'
 import type internal from 'stream'
 
 export { render }
 export { passToClient } from './passToClient'
 
-function render(pageContext: PageContextBuiltIn & PageContext) {
+function render(pageContext: PageContextServer) {
   const appCtx: SSRContext = {}
   const app = createApp(pageContext)
 
@@ -22,10 +21,9 @@ function render(pageContext: PageContextBuiltIn & PageContext) {
   const title = (documentProps && documentProps.title) || 'Thesis'
   const desc = (documentProps && documentProps.description) || 'Prototype for the thesis'
 
-  const documentHtml =
-    pageContext.urlParsed.search.content_only === 'true'
-      ? escapeInject`${pipeWrapper}</div></div>`
-      : escapeInject`<!DOCTYPE html>
+  const documentHtml = pageContext.contentOnly
+    ? escapeInject`${pipeWrapper}</div></div>`
+    : escapeInject`<!DOCTYPE html>
     <html lang="en">
       <head>
         <meta charset="UTF-8" />

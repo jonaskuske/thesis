@@ -8,5 +8,5 @@
     "**/serviceworker.ts",
     "**/sw.ts"
   ],
-  "compilerOptions": { "composite": true, "module": "Node16" }
+  "compilerOptions": { "composite": true, "module": "Node16", "target": "ES2022" }
 }
