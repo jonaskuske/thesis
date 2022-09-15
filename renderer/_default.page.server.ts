@@ -32,7 +32,7 @@ function render(pageContext: PageContextServer) {
         <title>${title}</title>
       </head>
       <body>
-        <div id="app">${pipeWrapper}`
+        <div id="app">${pipeWrapper}</div>`
 
   return {
     documentHtml,

@@ -366,10 +366,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^16.11.58":
-  version: 16.11.58
-  resolution: "@types/node@npm:16.11.58"
-  checksum: e22bdb1ac0995dbde26562385ddcb76cad3c0fe44c2e61c3090eee4cca3bb5d1de117e3ae099eebdfb5b85da7a8ebdb1f33a6c541fa7da9b2ffad34c250912b4
+"@types/node@npm:^16.11.59":
+  version: 16.11.59
+  resolution: "@types/node@npm:16.11.59"
+  checksum: 8ad50b0680ee48e368700e4f8482c4e3f03432d8a2b7802b4a45daf1064e1fc391e343f696b4249713f9cdd1cc20a3474c26bf67f183476112dcefb14e0e1c79
   languageName: node
   linkType: hard
 
@@ -2176,9 +2176,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fastify@npm:^4.5.3":
-  version: 4.5.3
-  resolution: "fastify@npm:4.5.3"
+"fastify@npm:^4.6.0":
+  version: 4.6.0
+  resolution: "fastify@npm:4.6.0"
   dependencies:
     "@fastify/ajv-compiler": "npm:^3.1.1"
     "@fastify/error": "npm:^3.0.0"
@@ -2194,7 +2194,7 @@ __metadata:
     secure-json-parse: "npm:^2.4.0"
     semver: "npm:^7.3.7"
     tiny-lru: "npm:^8.0.2"
-  checksum: 6f08522968f12df36c23ab59a94006cf52eaa96b58b97c75237b1b4ce4387e4c6ed719cd320c22d28e390d2a1db2402ef08dc890bbcb2cd7135c4268c53156c3
+  checksum: 2a662427f7af23dfb5c97d3b8bb32c4bedc3bb51bce86836cb94c158b29b5307adbc10fe2c6892b36925df4cd28d7973fbe6c342b45680383b969a2947178ffe
   languageName: node
   linkType: hard
 
@@ -4260,7 +4260,7 @@ __metadata:
     "@fastify/middie": "npm:^8.0.0"
     "@fastify/static": "npm:^6.5.0"
     "@types/connect": "npm:^3.4.35"
-    "@types/node": "npm:^16.11.58"
+    "@types/node": "npm:^16.11.59"
     "@typescript-eslint/eslint-plugin": "npm:^5.37.0"
     "@typescript-eslint/parser": "npm:^5.37.0"
     "@vitejs/plugin-vue": "npm:^3.1.0"
@@ -4272,13 +4272,13 @@ __metadata:
     eslint: "npm:^8.23.1"
     eslint-config-prettier: "npm:^8.5.0"
     eslint-plugin-vue: "npm:^9.4.0"
-    fastify: "npm:^4.5.3"
+    fastify: "npm:^4.6.0"
     husky: "npm:^8.0.1"
     lint-staged: "npm:^13.0.3"
     prettier: "npm:~2.7.1"
     typescript: "npm:^4.8.3"
-    vite: "npm:^3.1.0"
-    vite-plugin-ssr: "npm:^0.4.32"
+    vite: "npm:^3.1.1"
+    vite-plugin-ssr: "npm:^0.4.34"
     vue: "npm:^3.2.39"
     vue-tsc: "npm:^0.40.13"
   languageName: unknown
@@ -4470,9 +4470,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite-plugin-ssr@npm:^0.4.32":
-  version: 0.4.32
-  resolution: "vite-plugin-ssr@npm:0.4.32"
+"vite-plugin-ssr@npm:^0.4.34":
+  version: 0.4.34
+  resolution: "vite-plugin-ssr@npm:0.4.34"
   dependencies:
     "@brillout/json-serializer": "npm:^0.5.1"
     "@brillout/vite-plugin-import-build": "npm:^0.1.0"
@@ -4486,13 +4486,13 @@ __metadata:
     vite: ">=3.0.0"
   bin:
     vite-plugin-ssr: node/bin/vite-plugin-ssr.js
-  checksum: bcd8a7f9f6c0873695389b139b7209b763a246536c9fec804df39be697e1b32a00144299e6aa38f87fe78f7ccbb7bac9b0b64c6c4e79643b518598a13e6cf727
+  checksum: 360b22891124a21337c2874f6288599aa47a7e300613731e5a17cd11f614eb65d591d23ff3cff394817d30d28883459cef582fa81785a322628289c81a1e52e4
   languageName: node
   linkType: hard
 
-"vite@npm:^3.1.0":
-  version: 3.1.0
-  resolution: "vite@npm:3.1.0"
+"vite@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "vite@npm:3.1.1"
   dependencies:
     esbuild: "npm:^0.15.6"
     fsevents: "npm:~2.3.2"
@@ -4518,7 +4518,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 104c3eeb8cbefc6a69e00f32673567f4300201739e282ac8ffaf46f8bee92d85e67ee565227049324c8b2b0b3572d9452705b03758256c300a9a913422c59e83
+  checksum: fa2bc33e931d82dab91cf877a84d8286ad045b8cf414e15c4c779e9b22826e010202ebf39bb57f5db1d79ff72f2d88d906f05a3edec17c3526507b29f9aa957d
   languageName: node
   linkType: hard
 

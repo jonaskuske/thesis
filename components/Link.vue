@@ -14,9 +14,7 @@ const ctx = usePageContext()
 
 <style scoped>
 a {
+  color: inherit !important;
   padding: 3px 10px;
-}
-a.active {
-  background-color: #eee;
 }
 </style>

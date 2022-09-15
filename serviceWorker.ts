@@ -136,7 +136,21 @@ class ShellTransform extends TransformStream<BufferSource, BufferSource> {
           return controller.enqueue(chunk)
         }
 
-        const stripped = decoded.replace(/(<div[^>]*class="content"[^>]*>).*/su, '$1')
+        let stripped = decoded.replace(/(<div[^>]*class="content"[^>]*>).*/su, '$1')
+
+        // @ts-expect-error
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        if (import.meta.env.DEV) {
+          stripped = stripped.replace(
+            '</head>',
+            `
+<script>
+document.querySelectorAll('link[rel="stylesheet"]').forEach(e => e.remove())
+</script>
+$&`.trim(),
+          )
+        }
+
         controller.enqueue(this.encoder.encode(stripped))
 
         controller.terminate()

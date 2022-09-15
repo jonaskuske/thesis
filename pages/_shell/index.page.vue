@@ -1,4 +1,4 @@
 <script lang="ts" setup>
 /* eslint-disable */
 </script>
-<template></template>
+<template><p></p></template>
