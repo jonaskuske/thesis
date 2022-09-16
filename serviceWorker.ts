@@ -86,12 +86,26 @@ self$.addEventListener('fetch', (event) => {
         const headers = new Headers(event.request.headers)
         headers.set('x-shell-hash', shellHash)
 
-        const serverResponse = await Promise.any(
-          [
-            event.preloadResponse?.then((r: Response | undefined) => r || Promise.reject()),
-            fetch(new Request(event.request, { headers })),
-          ].filter(Boolean),
-        )
+        let serverResponse: Response | undefined
+
+        try {
+          // https://github.com/web-platform-tests/wpt/pull/5921#issuecomment-1245559630
+          if (event.preloadResponse != null && isFirefox()) {
+            serverResponse = await Promise.any([
+              event.preloadResponse.then((res: Response | undefined) => res ?? Promise.reject()),
+              fetch(new Request(event.request, { headers })),
+            ])
+          } else {
+            serverResponse = await Promise.resolve<Response | undefined>(event.preloadResponse)
+          }
+
+          serverResponse ??= await fetch(new Request(event.request, { headers }))
+        } catch (err) {
+          serverResponse = new Response(`<p>Error:</p><pre>${String(err)}</pre>`, {
+            headers: { 'content-type': 'text/html', 'x-shell-hash': shellHash },
+            status: 500,
+          })
+        }
 
         const shellIsUpToDate = shellHash === serverResponse.headers.get('x-shell-hash')
 
@@ -119,6 +133,10 @@ self$.addEventListener('fetch', (event) => {
     )
   }
 })
+
+function isFirefox(): boolean {
+  return /firefox/i.test(self$.navigator.userAgent)
+}
 
 function isWindowClient(client?: Client): client is WindowClient {
   return client?.type === 'window'
@@ -181,6 +199,11 @@ class ContentTransform extends TransformStream<BufferSource, BufferSource> {
 
           controller.enqueue(this.encoder.encode(stripped))
           this.shellStripped = true
+        }
+      },
+      flush(controller) {
+        if (!this.shellStripped) {
+          controller.enqueue(this.encoder.encode(this.bufferString))
         }
       },
     } as Transformer<BufferSource, BufferSource> & {
