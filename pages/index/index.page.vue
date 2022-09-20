@@ -23,19 +23,13 @@
     </div>
     <button type="submit" class="sr-only">Suchen</button>
   </form>
-  <EmptyGraphic width="302" height="300" class="empty-img" />
-
-  <h2>Keine Orte ausgewählt</h2>
-  <p>
-    Um Progonosen zur Sichtung der ISS zu bekommen, kannst du Orte über die Suche hinzufügen oder
-    deinen aktuellen Standort verwenden.
-  </p>
+  <LocationList class="list" />
   <button type="button">Aktuellen Standort verwenden</button>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import EmptyGraphic from '../../components/EmptyGraphic.vue'
+import LocationList from './LocationList.vue'
 
 const search = ref('')
 </script>
@@ -69,8 +63,14 @@ form {
   margin-left: 8px;
   width: 100%;
 }
-.empty-img {
+.list {
+  align-self: center;
   margin-top: 48px;
+  margin-bottom: 16px;
+}
+/* form, */
+.list {
+  max-width: 400px;
 }
 
 button[type='button'] {

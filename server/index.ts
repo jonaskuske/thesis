@@ -1,12 +1,13 @@
 import path from 'path'
 import { fileURLToPath } from 'url'
-import fastify from 'fastify'
+import fastify, { type FastifyRequest } from 'fastify'
 import compress from '@fastify/compress'
 import helmet from '@fastify/helmet'
 import { renderPage } from 'vite-plugin-ssr'
 import { createHash } from 'crypto'
 import type { ServerResponse } from 'http'
 import type { PageContextInit } from '../utils/types'
+import { PassThrough } from 'stream'
 
 // @ts-expect-error
 const root = fileURLToPath(new URL('..', import.meta.url))
@@ -56,38 +57,48 @@ async function startServer() {
   app.get<{ Querystring: Record<string, string> }>('*', async (request, reply) => {
     request.headers['x-shell-hash'] ??= request.headers['service-worker-navigation-preload']
 
-    if (!isProduction) hash = await getShellHash()
-
-    const contentOnly = request.headers['x-shell-hash'] === hash
-
     if (!isProduction) {
-      console.log(
-        new Date().toLocaleTimeString(),
-        request.url,
-        contentOnly ? `contentOnly (${request.headers['x-shell-hash'] as string})` : '',
-      )
+      hash = await getShellHash()
+      logRequest(request, hash)
     }
+
+    const preRenderTime = performance.now()
 
     const pageContext = await renderPage<{}, PageContextInit>({
       urlOriginal: request.url,
-      contentOnly,
+      contentOnly: request.headers['x-shell-hash'] === hash,
     })
+
+    const renderTime = performance.now() - preRenderTime
 
     if (!pageContext.httpResponse) return
 
     const { httpResponse } = pageContext
 
-    reply.raw.statusCode = httpResponse.statusCode
-    reply.raw.setHeader('content-type', httpResponse.contentType)
-    reply.raw.setHeader('x-shell-hash', hash)
-    reply.raw.setHeader('vary', 'x-shell-hash,service-worker-navigation-preload')
+    const responseStream = new PassThrough()
 
-    httpResponse.pipe(reply.raw)
+    httpResponse.pipe(responseStream)
 
-    return new Promise((resolve) => reply.raw.once('finish', resolve))
+    await reply
+      .status(httpResponse.statusCode)
+      .type(httpResponse.contentType)
+      .header('x-shell-hash', hash)
+      .header('vary', 'x-shell-hash,service-worker-navigation-preload')
+      .header('server-timing', `render;dur=${renderTime};desc="Vue Render"`)
+      .send(responseStream)
   })
 
   const port = Number(process.env.PORT ?? 3000)
   await app.listen({ port })
   console.log(`Server running at http://localhost:${port}`)
+}
+
+function logRequest(request: FastifyRequest, shellHash: string) {
+  const contentOnly = shellHash === request.headers['x-shell-hash']
+
+  console.log(
+    new Date().toLocaleTimeString(),
+    request.url,
+    contentOnly ? `contentOnly (${request.headers['x-shell-hash'] as string})` : '',
+  )
 }

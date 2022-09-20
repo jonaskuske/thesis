@@ -1,6 +1,7 @@
-const self$ = self as ServiceWorkerGlobalScope & typeof globalThis
+declare const self: ServiceWorkerGlobalScope & typeof globalThis
 
 const SHELL_URL = '/_shell'
+const MANIFEST_URL = '/manifest.json'
 
 function verifyResponseStatus(response: Response) {
   if (!response.ok) throw response
@@ -8,51 +9,54 @@ function verifyResponseStatus(response: Response) {
 }
 
 async function cacheShell(updateHash = true): Promise<string> {
-  const [cache, response] = await Promise.all([
+  const [cache, shellResp, manifestResp] = await Promise.all([
     caches.open('cache'),
     fetch(SHELL_URL).then(verifyResponseStatus),
+    fetch(MANIFEST_URL).then(verifyResponseStatus),
   ])
 
-  const shellHash = response.headers.get('x-shell-hash')
+  const shellHash = shellResp.headers.get('x-shell-hash')
   if (!shellHash) throw Error('Shell response is missing the `x-shell-hash` header')
 
   await cache.put(
     SHELL_URL,
-    new Response(response.body!.pipeThrough(new ShellTransform()), response),
+    new Response(shellResp.body!.pipeThrough(new ShellTransform()), shellResp),
   )
 
-  if (updateHash) await self$.registration?.navigationPreload?.setHeaderValue(shellHash)
+  await cache.put(MANIFEST_URL, manifestResp)
+
+  if (updateHash) await self.registration?.navigationPreload?.setHeaderValue(shellHash)
 
   return shellHash
 }
 
 let initialShellHash: string | null = null
 
-self$.addEventListener('install', (event) => {
+self.addEventListener('install', (event) => {
   event.waitUntil(
     (async () => {
       initialShellHash = await cacheShell(false)
-      await self$.skipWaiting()
+      await self.skipWaiting()
     })(),
   )
 })
 
-self$.addEventListener('activate', (event) => {
+self.addEventListener('activate', (event) => {
   event.waitUntil(
     (async () => {
-      if (self$.registration?.navigationPreload?.setHeaderValue != null) {
+      if (self.registration?.navigationPreload?.setHeaderValue != null) {
         initialShellHash ??= await cacheShell(false)
-        await self$.registration.navigationPreload.enable()
-        await self$.registration.navigationPreload.setHeaderValue(initialShellHash)
+        await self.registration.navigationPreload.enable()
+        await self.registration.navigationPreload.setHeaderValue(initialShellHash)
       }
-      await self$.clients.claim()
+      await self.clients.claim()
     })(),
   )
 })
 
 const responseCache = new Map<string, ReadableStream<BufferSource>>()
 
-self$.addEventListener('fetch', (event) => {
+self.addEventListener('fetch', (event) => {
   if (event.request.mode === 'navigate') {
     const url = new URL(event.request.url)
 
@@ -76,10 +80,16 @@ self$.addEventListener('fetch', (event) => {
           }
         }
 
-        const shellResponse = (await caches.match(SHELL_URL))!
-        const shellSent = shellResponse.body!.pipeTo(responseStream.writable, {
-          preventClose: true,
-        })
+        const [shellResponse, manifest] = await Promise.all([
+          caches.match(SHELL_URL) as Promise<Response>,
+          caches.match(MANIFEST_URL).then((res) => res!.json()) as Promise<Record<string, any>>,
+        ])
+
+        const shellSent = shellResponse
+          .body!.pipeThrough(new InsertCssTransform(url, manifest))
+          .pipeTo(responseStream.writable, {
+            preventClose: true,
+          })
 
         const shellHash = shellResponse.headers.get('x-shell-hash')!
 
@@ -110,7 +120,7 @@ self$.addEventListener('fetch', (event) => {
         const shellIsUpToDate = shellHash === serverResponse.headers.get('x-shell-hash')
 
         if (!shellIsUpToDate && event.resultingClientId) {
-          const client = await self$.clients.get(event.resultingClientId)
+          const client = await self.clients.get(event.resultingClientId)
 
           if (isWindowClient(client)) {
             responseCache.set(event.resultingClientId, serverResponse.body!)
@@ -135,7 +145,7 @@ self$.addEventListener('fetch', (event) => {
 })
 
 function isFirefox(): boolean {
-  return /firefox/i.test(self$.navigator.userAgent)
+  return /firefox/i.test(self.navigator.userAgent)
 }
 
 function isWindowClient(client?: Client): client is WindowClient {
@@ -159,14 +169,11 @@ class ShellTransform extends TransformStream<BufferSource, BufferSource> {
         // @ts-expect-error
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         if (import.meta.env.DEV) {
-          stripped = stripped.replace(
-            '</head>',
-            `
-<script>
-document.querySelectorAll('link[rel="stylesheet"]').forEach(e => e.remove())
-</script>
-$&`.trim(),
-          )
+          const src = `data:application/javascript;utf-8,${encodeURIComponent(
+            `(${devRemoveStylesheets.toString()})()`,
+          )}`
+
+          stripped = stripped.replace('</head>', `<script src="${src}" async></script>$&`)
         }
 
         controller.enqueue(this.encoder.encode(stripped))
@@ -177,6 +184,45 @@ $&`.trim(),
       encoder: TextEncoder
       decoder: TextDecoder
     })
+  }
+}
+
+/* eslint-disable */
+function devRemoveStylesheets() {
+  // @ts-ignore
+  document.querySelectorAll('link[rel="stylesheet"]').forEach((el) => el.remove())
+}
+/* eslint-enable */
+
+class InsertCssTransform extends TransformStream<BufferSource, BufferSource> {
+  constructor(url: URL, manifest: Record<string, { css?: string[] }>) {
+    super({
+      encoder: new TextEncoder(),
+      decoder: new TextDecoder(),
+      transform(chunk, controller) {
+        const decoded = this.decoder.decode(chunk, { stream: true })
+
+        // @ts-expect-error
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        if (!decoded.includes('</head>') || import.meta.env.DEV) {
+          return controller.enqueue(chunk)
+        }
+
+        const entry = `pages${url.pathname.match(/^(\/.+?)\/?$/)?.[1] ?? '/index'}/index.page.vue`
+        const styleUrls: string[] = manifest[entry]?.css ?? []
+        const styleLinks = styleUrls.map(
+          // @ts-expect-error
+          // eslint-disable-next-line
+          (url) => `<link rel="stylesheet" href="${import.meta.env.BASE_URL}${url}"></link>`,
+        )
+
+        const chunkWithInsertedCss = this.encoder.encode(
+          decoded.replace('</head>', `${styleLinks.join('')}$&`),
+        )
+
+        controller.enqueue(chunkWithInsertedCss)
+      },
+    } as Transformer<BufferSource, BufferSource> & { encoder: TextEncoder; decoder: TextDecoder })
   }
 }
 
