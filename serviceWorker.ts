@@ -3,6 +3,13 @@ declare const self: ServiceWorkerGlobalScope & typeof globalThis
 const SHELL_URL = '/_shell'
 const MANIFEST_URL = '/manifest.json'
 
+// @ts-expect-error
+const PROD = import.meta.env.PROD
+// @ts-expect-error
+const DEV = import.meta.env.DEV
+// @ts-expect-error
+const BASE_URL = import.meta.env.BASE_URL
+
 function verifyResponseStatus(response: Response) {
   if (!response.ok) throw response
   return response
@@ -12,7 +19,7 @@ async function cacheShell(updateHash = true): Promise<string> {
   const [cache, shellResp, manifestResp] = await Promise.all([
     caches.open('cache'),
     fetch(SHELL_URL).then(verifyResponseStatus),
-    fetch(MANIFEST_URL).then(verifyResponseStatus),
+    PROD && fetch(MANIFEST_URL).then(verifyResponseStatus),
   ])
 
   const shellHash = shellResp.headers.get('x-shell-hash')
@@ -23,7 +30,7 @@ async function cacheShell(updateHash = true): Promise<string> {
     new Response(shellResp.body!.pipeThrough(new ShellTransform()), shellResp),
   )
 
-  await cache.put(MANIFEST_URL, manifestResp)
+  if (PROD) await cache.put(MANIFEST_URL, manifestResp as Response)
 
   if (updateHash) await self.registration?.navigationPreload?.setHeaderValue(shellHash)
 
@@ -82,14 +89,12 @@ self.addEventListener('fetch', (event) => {
 
         const [shellResponse, manifest] = await Promise.all([
           caches.match(SHELL_URL) as Promise<Response>,
-          caches.match(MANIFEST_URL).then((res) => res!.json()) as Promise<Record<string, any>>,
+          caches.match(MANIFEST_URL).then<Record<string, any> | undefined>((res) => res?.json()),
         ])
 
         const shellSent = shellResponse
           .body!.pipeThrough(new InsertCssTransform(url, manifest))
-          .pipeTo(responseStream.writable, {
-            preventClose: true,
-          })
+          .pipeTo(responseStream.writable, { preventClose: true })
 
         const shellHash = shellResponse.headers.get('x-shell-hash')!
 
@@ -166,9 +171,7 @@ class ShellTransform extends TransformStream<BufferSource, BufferSource> {
 
         let stripped = decoded.replace(/(<div[^>]*class="content"[^>]*>).*/su, '$1')
 
-        // @ts-expect-error
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        if (import.meta.env.DEV) {
+        if (DEV) {
           const src = `data:application/javascript;utf-8,${encodeURIComponent(
             `(${devRemoveStylesheets.toString()})()`,
           )}`
@@ -195,34 +198,33 @@ function devRemoveStylesheets() {
 /* eslint-enable */
 
 class InsertCssTransform extends TransformStream<BufferSource, BufferSource> {
-  constructor(url: URL, manifest: Record<string, { css?: string[] }>) {
-    super({
-      encoder: new TextEncoder(),
-      decoder: new TextDecoder(),
-      transform(chunk, controller) {
-        const decoded = this.decoder.decode(chunk, { stream: true })
+  constructor(url: URL, manifest?: Record<string, { css?: string[] }>) {
+    if (!manifest) super() // no manifest → no-op
+    else {
+      super({
+        encoder: new TextEncoder(),
+        decoder: new TextDecoder(),
+        transform(chunk, controller) {
+          const decoded = this.decoder.decode(chunk, { stream: true })
 
-        // @ts-expect-error
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        if (!decoded.includes('</head>') || import.meta.env.DEV) {
-          return controller.enqueue(chunk)
-        }
+          if (!decoded.includes('</head>')) {
+            return controller.enqueue(chunk)
+          }
 
-        const entry = `pages${url.pathname.match(/^(\/.+?)\/?$/)?.[1] ?? '/index'}/index.page.vue`
-        const styleUrls: string[] = manifest[entry]?.css ?? []
-        const styleLinks = styleUrls.map(
-          // @ts-expect-error
-          // eslint-disable-next-line
-          (url) => `<link rel="stylesheet" href="${import.meta.env.BASE_URL}${url}"></link>`,
-        )
+          const entry = `pages${url.pathname.match(/^(\/.+?)\/?$/)?.[1] ?? '/index'}/index.page.vue`
+          const styleUrls: string[] = manifest[entry]?.css ?? []
+          const styleLinks = styleUrls.map(
+            (url) => `<link rel="stylesheet" href="${BASE_URL}${url}"></link>`,
+          )
 
-        const chunkWithInsertedCss = this.encoder.encode(
-          decoded.replace('</head>', `${styleLinks.join('')}$&`),
-        )
+          const chunkWithInsertedCss = this.encoder.encode(
+            decoded.replace('</head>', `${styleLinks.join('')}$&`),
+          )
 
-        controller.enqueue(chunkWithInsertedCss)
-      },
-    } as Transformer<BufferSource, BufferSource> & { encoder: TextEncoder; decoder: TextDecoder })
+          controller.enqueue(chunkWithInsertedCss)
+        },
+      } as Transformer<BufferSource, BufferSource> & { encoder: TextEncoder; decoder: TextDecoder })
+    }
   }
 }
 
