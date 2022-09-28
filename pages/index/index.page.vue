@@ -1,3 +1,9 @@
+<script setup lang="ts">
+import LocationList from './LocationList.vue'
+
+let search = $ref('')
+</script>
+
 <template>
   <h1>ISS Tracker</h1>
 
@@ -26,13 +32,6 @@
   <LocationList class="list" />
   <button type="button">Aktuellen Standort verwenden</button>
 </template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
-import LocationList from './LocationList.vue'
-
-const search = ref('')
-</script>
 
 <style scoped>
 h1,

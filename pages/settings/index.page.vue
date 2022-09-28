@@ -1,3 +1,5 @@
+<script setup lang="ts"></script>
+
 <template>
   <div class="heading">
     <a href="/">
@@ -92,8 +94,6 @@
   <label for="notifications">Mitteilungen erlauben</label>
   <label for="notification-time">Erinnerung an Sichtung</label>
 </template>
-
-<script setup lang="ts"></script>
 
 <style scoped>
 .card {

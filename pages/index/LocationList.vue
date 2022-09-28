@@ -1,3 +1,16 @@
+<script setup lang="ts">
+import { onServerPrefetch } from 'vue'
+import EmptyGraphic from '../../components/EmptyGraphic.vue'
+import { wait } from '../../utils'
+
+const locations = $ref([])
+
+onServerPrefetch(async () => {
+  // to simulate data loading
+  await wait(0)
+})
+</script>
+
 <template>
   <div v-if="locations.length === 0" class="list">
     <EmptyGraphic width="302" height="300" class="empty-img" />
@@ -9,19 +22,6 @@
     </p>
   </div>
 </template>
-
-<script setup lang="ts">
-import { onServerPrefetch, ref } from 'vue'
-import EmptyGraphic from '../../components/EmptyGraphic.vue'
-import { wait } from '../../utils'
-
-const locations = ref([])
-
-onServerPrefetch(async () => {
-  // to simulate data loading
-  await wait(0)
-})
-</script>
 
 <style scoped>
 .list {

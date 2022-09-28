@@ -1,0 +1,67 @@
+{
+  "Vue SFC": {
+    "prefix": "component",
+    "body": [
+      "<script setup lang=\"ts\">",
+      "",
+      "</script>",
+      "",
+      "<template>",
+      "\t$1",
+      "</template>",
+      "",
+      "<style scoped>",
+      "",
+      "</style>"
+    ],
+    "description": "Bootstrap Vue component with <script setup> and <style scoped>"
+  },
+  "<script setup>": {
+    "scope": "vue",
+    "prefix": "script setup",
+    "body": ["<script lang=\"ts\" setup>", "$1", "</script>"],
+    "description": "Create <script setup> block"
+  },
+  "Add prop": {
+    "prefix": "prop",
+    "description": "Add prop definition",
+    "body": [
+      "const { ${1:propName} } = defineProps<{ ${1/^.*?(['`\"\\p{L}$_][^\\s=:]*)([^=]*=)?.*$/$1${2:+?}/su}: ${2:${1/^[^=]*(?!$)+(?:=\\s*(?:(?<string>['\"`])|(?<bigint>(?:\\d|\\.|\\+|-)+n)|(?<number>\\d|\\.|\\+|-)|(?<boolean>true|false)|(?<array>\\[)|(?<object>{)|(?<regexp>\\/)).*)?(?<no_match>.*)?$/${1:+string}${2:+bigint}${3:+number}${4:+boolean}${5:+unknown[]}${6:+Record<string, unknown>}${7:+RegExp}${8:+unknown}/s}} }>()"
+    ]
+  },
+  "Add props": {
+    "prefix": "props",
+    "description": "Define multiple props",
+    "body": [
+      "const { ${1:firstProp}, ${3:secondProp} ${5/^(\\s*[^,])?.*$/${1:+,}/} ${5:, thirdProp} } = defineProps<{ ${1/^.*?(['`\"\\p{L}$_][^\\s=:]*)([^=]*=)?.*$/$1${2:+?}/su}: ${2:${1/^[^=]*(?!$)+(?:=\\s*(?:(?<string>['\"`])|(?<bigint>(?:\\d|\\.|\\+|-)+n)|(?<number>\\d|\\.|\\+|-)|(?<boolean>true|false)|(?<array>\\[)|(?<object>{)|(?<regexp>\\/)).*)?(?<no_match>.*)?$/${1:+string}${2:+bigint}${3:+number}${4:+boolean}${5:+unknown[]}${6:+Record<string, unknown>}${7:+RegExp}${8:+unknown};/s}} ${3/^.*?(['`\"\\p{L}$_][^\\s=:]*)([^=]*=)?.*$/$1${2:+?}:/su} ${4:${3/^[^=]*(?!$)+(?:=\\s*(?:(?<string>['\"`])|(?<bigint>(?:\\d|\\.|\\+|-)+n)|(?<number>\\d|\\.|\\+|-)|(?<boolean>true|false)|(?<array>\\[)|(?<object>{)|(?<regexp>\\/)).*)?(?<no_match>.*)?$/${1:+string}${2:+bigint}${3:+number}${4:+boolean}${5:+unknown[]}${6:+Record<string, unknown>}${7:+RegExp}${8:+unknown};/s}} ${5/^.*?(['`\"\\p{L}$_][^\\s=:]*)([^=]*=)?.*$/$1${2:+?}:/su} ${6:${5/^[^=]*(?!$)+(?:=\\s*(?:(?<string>['\"`])|(?<bigint>(?:\\d|\\.|\\+|-)+n)|(?<number>\\d|\\.|\\+|-)|(?<boolean>true|false)|(?<array>\\[)|(?<object>{)|(?<regexp>\\/)).*)?(?<no_match>.*)?$/${1:+string}${2:+bigint}${3:+number}${4:+boolean}${5:+unknown[]}${6:+Record<string, unknown>}${7:+RegExp}${8:+unknown} /s}}}>()"
+    ]
+  },
+  "Vue ref": {
+    "prefix": "ref",
+    "body": ["let ${1:name} = \\$ref(${2:initialValue})"],
+    "description": "Vue Ref"
+  },
+  "Vue computed": {
+    "prefix": "computed",
+    "body": ["const ${1:name} = \\$computed(${2:initialValue})"],
+    "description": "Vue Computed"
+  },
+  "<template>": {
+    "scope": "vue",
+    "prefix": "template",
+    "body": ["<template>", "  $1", "</template>"],
+    "description": "Create <template> block"
+  },
+  "<style scoped>": {
+    "scope": "vue",
+    "prefix": "style",
+    "body": ["<style scoped>", "$1", "</style>"],
+    "description": "Create <style scoped> block"
+  },
+  "<style>": {
+    "scope": "vue",
+    "prefix": "style",
+    "body": ["<style>", "$1", "</style>"],
+    "description": "Create <style> block"
+  }
+}
