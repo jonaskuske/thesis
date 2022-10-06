@@ -43,7 +43,7 @@ async function startServer() {
         if (path.endsWith('.ts')) {
           res.setHeader('content-type', 'text/javascript;charset=utf-8')
         }
-        if (/s(?:ervice)?-?(?:worker)?)\.[jt]s/i.test(path)) {
+        if (/s(?:ervice)?-?(?:worker)?\.[jt]s/i.test(path)) {
           res.setHeader('cache-control', 'no-cache')
         }
       },
