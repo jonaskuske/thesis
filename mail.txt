@@ -1,0 +1,13 @@
+Subject: Betreuung Bachelorarbeit
+
+Sehr geehrter Herr Prof. Radfelder,
+
+ich schreibe Ihnen, da ich auf der Suche nach einem Zweitkorrektor für meine Bachelorarbeit bin. Im Rahmen der BA untersuche ich die Vor- und Nachteile verschiedener Frontend-Architekturen für Webapplikationen. Insbesondere möchte ich dabei einen Ansatz untersuchen, bei dem offline gecachte und vom Server abgerufene HTML-Partials von einem Service Worker zu einem Antwortstream zusammengefasst werden. Das erlaubt die Verwendung eines App-Shells auch für Seiten, die nicht als Single-Page-Application konzipiert sind.
+Könnten Sie sich vorstellen, für diese Arbeit die Zweitkorrektur zu übernehmen? Ansonsten wäre ich Ihnen sehr dankbar, falls Sie mir jemanden empfehlen könnten, für den das Thema in Frage kommen könnte!
+
+Das Exposé für die Bachelorarbeit habe ich angehängt. Außerdem finden Sie einen ersten Prototypen des Projekts unter dem folgenden Link: https://github.com/jonaskuske/thesis
+
+
+Viele Grüße,
+Jonas Kuske
+

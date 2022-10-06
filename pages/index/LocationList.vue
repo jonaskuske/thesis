@@ -29,4 +29,7 @@ onServerPrefetch(async () => {
   flex-direction: column;
   align-items: center;
 }
+.empty-img {
+  margin-bottom: 16px;
+}
 </style>

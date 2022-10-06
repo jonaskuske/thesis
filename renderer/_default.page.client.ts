@@ -15,6 +15,10 @@ export function onHydrationEnd() {
   }
 }
 
+if ('virtualKeyboard' in navigator) {
+  navigator.virtualKeyboard.overlaysContent = true
+}
+
 void navigator.serviceWorker
   .register('/serviceWorker.ts', { type: 'module' })
   .then(() => console.log('Service Worker registered.'))

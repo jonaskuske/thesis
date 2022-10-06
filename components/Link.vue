@@ -13,8 +13,10 @@ const ctx = usePageContext()
 </template>
 
 <style scoped>
-a {
-  color: inherit !important;
-  padding: 3px 10px;
+a,
+a:focus,
+a:active,
+a:visited {
+  color: inherit;
 }
 </style>

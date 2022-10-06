@@ -5,8 +5,6 @@ let search = $ref('')
 </script>
 
 <template>
-  <h1>ISS Tracker</h1>
-
   <form action="">
     <div class="input-wrapper">
       <label :style="{ opacity: +!search }" for="location-input" class="label"
@@ -38,9 +36,6 @@ h1,
 form {
   width: 100%;
 }
-form {
-  margin-top: 16px;
-}
 
 .input-wrapper {
   display: flex;
@@ -62,9 +57,11 @@ form {
   margin-left: 8px;
   width: 100%;
 }
+form {
+  margin-bottom: 48px;
+}
 .list {
   align-self: center;
-  margin-top: 48px;
   margin-bottom: 16px;
 }
 /* form, */

@@ -6,3 +6,13 @@
 
 <br>
 <br>
+
+---
+
+### Current results:
+
+#### Server-side rendering w/ client hydration for interactivity
+
+#### Cached HTML shell, server-side render of page body, merged into one response stream from service worker
+
+> for some rea

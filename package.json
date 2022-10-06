@@ -19,32 +19,32 @@
   "dependencies": {
     "@esbuild-kit/cjs-loader": "^2.3.3",
     "@fastify/compress": "^6.1.1",
-    "@fastify/helmet": "^10.0.0",
+    "@fastify/helmet": "^10.0.1",
     "@fastify/middie": "^8.0.0",
     "@fastify/static": "^6.5.0",
-    "@vue/server-renderer": "^3.2.39",
-    "fastify": "^4.6.0",
-    "vite-plugin-ssr": "^0.4.36",
-    "vue": "^3.2.39"
+    "@vue/server-renderer": "^3.2.40",
+    "fastify": "^4.7.0",
+    "vite-plugin-ssr": "^0.4.39",
+    "vue": "^3.2.40"
   },
   "devDependencies": {
     "@types/connect": "^3.4.35",
-    "@types/node": "^16.11.59",
-    "@typescript-eslint/eslint-plugin": "^5.38.0",
-    "@typescript-eslint/parser": "^5.38.0",
-    "@vitejs/plugin-vue": "^3.1.0",
-    "@vue/compiler-sfc": "^3.2.39",
+    "@types/node": "^16.11.64",
+    "@typescript-eslint/eslint-plugin": "^5.39.0",
+    "@typescript-eslint/parser": "^5.39.0",
+    "@vitejs/plugin-vue": "^3.1.2",
+    "@vue/compiler-sfc": "^3.2.40",
     "@vue/tsconfig": "^0.1.3",
-    "@yarnpkg/sdks": "^3.0.0-rc.20",
-    "esbuild": "^0.15.8",
-    "eslint": "^8.23.1",
+    "@yarnpkg/sdks": "^3.0.0-rc.22",
+    "esbuild": "^0.15.10",
+    "eslint": "^8.24.0",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-vue": "^9.5.1",
+    "eslint-plugin-vue": "^9.6.0",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
     "prettier": "~2.7.1",
-    "typescript": "^4.8.3",
-    "vite": "^3.1.3",
+    "typescript": "^4.8.4",
+    "vite": "^3.1.6",
     "vue-tsc": "^0.40.13"
   },
   "lint-staged": {
@@ -95,7 +95,8 @@
       "vue/multi-word-component-names": "off",
       "vue/no-setup-props-destructure": "off",
       "@typescript-eslint/consistent-type-imports": "error",
-      "@typescript-eslint/no-unsafe-argument": "off"
+      "@typescript-eslint/no-unsafe-argument": "off",
+      "vue/require-toggle-inside-transition": "off"
     }
   },
   "eslintIgnore": [

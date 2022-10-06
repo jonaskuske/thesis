@@ -18,8 +18,9 @@ function verifyResponseStatus(response: Response) {
 async function cacheShell(updateHash = true): Promise<string> {
   const [cache, shellResp, manifestResp] = await Promise.all([
     caches.open('cache'),
-    fetch(SHELL_URL).then(verifyResponseStatus),
-    PROD && fetch(MANIFEST_URL).then(verifyResponseStatus),
+    fetch(SHELL_URL, { headers: { 'cache-control': 'no-cache' } }).then(verifyResponseStatus),
+    PROD &&
+      fetch(MANIFEST_URL, { headers: { 'cache-control': 'no-cache' } }).then(verifyResponseStatus),
   ])
 
   const shellHash = shellResp.headers.get('x-shell-hash')
