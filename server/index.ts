@@ -19,6 +19,7 @@ async function getShellHash() {
   const shell = await renderPage<{}, PageContextInit>({
     urlOriginal: '/_shell',
     contentOnly: false,
+    enableServiceWorker: process.env.DISABLE_SW !== 'true',
   })
 
   const body = (await shell.httpResponse?.getBody()) as string
@@ -72,6 +73,7 @@ async function startServer() {
     const pageContext = await renderPage<{}, PageContextInit>({
       urlOriginal: request.url,
       contentOnly: request.headers['x-shell-hash'] === hash,
+      enableServiceWorker: process.env.DISABLE_SW !== 'true',
     })
 
     const renderTime = performance.now() - preRenderTime
@@ -94,7 +96,7 @@ async function startServer() {
   })
 
   const port = Number(process.env.PORT ?? 3000)
-  await app.listen({ port })
+  await app.listen({ port, host: '0.0.0.0' })
   console.log(`Server running at http://localhost:${port}`)
 }
 

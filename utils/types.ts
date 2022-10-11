@@ -3,7 +3,11 @@ import type { PageContextBuiltInClient } from 'vite-plugin-ssr/client'
 import type { ComponentOptions } from 'vue'
 import type { passToClient } from '../renderer/passToClient'
 
-export type PageContextInit = { urlOriginal: string; contentOnly: boolean }
+export type PageContextInit = {
+  urlOriginal: string
+  contentOnly: boolean
+  enableServiceWorker: boolean
+}
 
 export type PageContextShared = (
   | PageContextBuiltIn<ComponentOptions>

@@ -1,5 +1,5 @@
 import { pipeToNodeWritable, type SSRContext } from '@vue/server-renderer'
-import { escapeInject, stampPipe } from 'vite-plugin-ssr'
+import { dangerouslySkipEscape, escapeInject, stampPipe } from 'vite-plugin-ssr'
 import { createApp } from './createApp'
 import type { PageContextServer } from '../utils/types'
 import type internal from 'stream'
@@ -42,6 +42,16 @@ function render(pageContext: PageContextServer) {
         <link rel="shortcut icon" href="/favicons/favicon.ico">
         <meta name="msapplication-TileColor" content="#2b5797">
         <meta name="msapplication-config" content="/favicons/browserconfig.xml">
+        ${
+          pageContext.enableServiceWorker
+            ? dangerouslySkipEscape(`<script>
+        navigator.serviceWorker
+          .register('/serviceWorker.ts', { type: 'module' })
+          .then(() => console.log('Service Worker registered.'))
+          .catch((err) => console.error('Failed to register Service Worker:', err))
+        </script>`)
+            : ''
+        }
       </head>
       <body>
         <div id="app">${pipeWrapper}</div>`

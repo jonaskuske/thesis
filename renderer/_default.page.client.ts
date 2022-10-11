@@ -19,11 +19,6 @@ if ('virtualKeyboard' in navigator) {
   navigator.virtualKeyboard.overlaysContent = true
 }
 
-void navigator.serviceWorker
-  .register('/serviceWorker.ts', { type: 'module' })
-  .then(() => console.log('Service Worker registered.'))
-  .catch((err) => console.error('Failed to register Service Worker:', err))
-
 /* To enable Client-side Routing:
 export const clientRouting = true
 // !! WARNING !! Before doing so, read https://vite-plugin-ssr.com/clientRouting */
