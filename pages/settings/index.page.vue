@@ -1,8 +1,7 @@
 <script lang="ts">
 export const headerTitle = 'Einstellungen'
+export default {}
 </script>
-
-<script setup lang="ts"></script>
 
 <template>
   <h2>Account</h2>
