@@ -7,6 +7,7 @@
     version="1.1"
     x="0px"
     y="0px"
+    class="fill-current"
     viewBox="0 0 100 100"
     xml:space="preserve"
   >

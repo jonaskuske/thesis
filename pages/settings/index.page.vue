@@ -1,3 +1,7 @@
+<script lang="ts">
+export const headerTitle = 'Einstellungen'
+</script>
+
 <script setup lang="ts"></script>
 
 <template>

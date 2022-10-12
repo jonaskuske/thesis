@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import { nextTick, onMounted } from 'vue'
 import Link from './Link.vue'
-import Cog from './Cog.vue'
+import Cog from './icons/Cog.vue'
+import ArrowLeft from './icons/ArrowLeft.vue'
 
 import { isServer } from '../utils'
 
@@ -20,9 +21,6 @@ const title = $computed(() => (isHome ? 'ISS Tracker' : (ctx.exports.headerTitle
 
 const contentOnly = isServer && (ctx as PageContextServer).contentOnly
 
-// @ts-ignore
-if (!isServer) window.toggle = () => (isHome = !isHome)
-
 onMounted(async () => {
   await nextTick()
   isHome = ctx.urlPathname === '/' || ctx.urlPathname === '/_shell'
@@ -35,27 +33,17 @@ onMounted(async () => {
   <div v-else class="layout">
     <header class="navigation">
       <TransitionGroup>
-        <Link v-if="!isHome" key="back" href="/">
-          <svg
-            width="32"
-            height="33"
-            viewBox="0 0 32 33"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M16 27.1667L5.33331 16.5L16 5.83337L17.9 7.70004L10.4333 15.1667H26.6666V17.8334H10.4333L17.9 25.3L16 27.1667Z"
-              fill="white"
-            />
-          </svg>
+        <Link v-show="!isHome" key="back" class="back" href="/">
+          <span class="sr-only">Zurück</span>
+          <ArrowLeft width="32" />
         </Link>
-        <h1 key="title">
+        <h1 key="title" class="title">
           <Transition mode="out-in">
             <span :key="title">{{ title }}</span>
           </Transition>
         </h1>
-        <Link key="cog" class="link-settings" href="/settings">
-          <Cog style="fill: white; width: 26px" />
+        <Link key="cog" class="settings" href="/settings">
+          <Cog width="30" />
           <span class="sr-only">Einstellungen</span>
         </Link>
       </TransitionGroup>
@@ -64,34 +52,71 @@ onMounted(async () => {
   </div>
 </template>
 
-<style>
-.v-move {
-  transition: transform 350ms 700ms;
-}
-a.v-enter-from,
-a.v-leave-to {
-  opacity: 0;
-}
-a.v-leave-active {
-  position: absolute;
-  top: 0;
-  left: 0;
-  visibility: hidden;
-}
-a.v-enter-active {
-  transition: opacity 150ms 800ms ease-in;
-}
-h1 .v-leave-to,
-h1 .v-enter-from {
-  opacity: 0;
-}
-h1 .v-leave-active {
-  transition: opacity 180ms ease-out;
-}
-h1 .v-enter-active {
-  transition: opacity 650ms ease-in;
+<style scoped>
+.content {
+  display: flex;
+  flex-direction: column;
+  padding: 0 16px 24px;
 }
 
+.layout {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.navigation {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+
+.back,
+.settings {
+  line-height: 0;
+}
+
+.back {
+  margin-right: 6px;
+  margin-left: -6px;
+}
+.back.v-move {
+  transition: transform 1ms;
+}
+.back.v-enter-from,
+.back.v-leave-to {
+  opacity: 0;
+}
+.back.v-enter-active {
+  transition: opacity 200ms 225ms ease-in;
+}
+.back.v-leave-active {
+  position: absolute;
+  visibility: hidden;
+}
+
+.title.v-move {
+  transition: transform 450ms ease-out;
+}
+.title .v-leave-to,
+.title .v-enter-from {
+  opacity: 0;
+}
+.title .v-leave-active {
+  transition: opacity 200ms 120ms ease-in;
+}
+.title .v-enter-active {
+  transition: opacity 400ms ease-out;
+}
+
+.settings {
+  margin-left: auto;
+}
+</style>
+
+<style>
 .sr-only {
   clip: rect(0, 0, 0, 0);
   border-width: 0;
@@ -102,6 +127,10 @@ h1 .v-enter-active {
   position: absolute;
   white-space: nowrap;
   width: 1px;
+}
+
+.fill-current {
+  fill: currentColor;
 }
 
 html {
@@ -144,37 +173,5 @@ h1 {
 h2 {
   font-size: 24px;
   font-weight: 400;
-}
-</style>
-
-<style scoped>
-.layout {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  width: 100%;
-  margin: 0 auto;
-}
-a {
-  vertical-align: bottom;
-}
-a svg {
-  display: inline-block;
-}
-header {
-  padding: 20px;
-}
-header h1,
-header a {
-  display: inline-block;
-}
-.link-settings {
-  float: right;
-  margin-top: 9px;
-}
-.content {
-  display: flex;
-  flex-direction: column;
-  padding: 0 16px 24px;
 }
 </style>
