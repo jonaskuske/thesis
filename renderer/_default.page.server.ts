@@ -1,6 +1,7 @@
 import { pipeToNodeWritable, type SSRContext } from '@vue/server-renderer'
 import { dangerouslySkipEscape, escapeInject, stampPipe } from 'vite-plugin-ssr'
 import { createApp } from './createApp'
+import { isDev } from '../utils/index'
 import type { PageContextServer } from '../utils/types'
 import type internal from 'stream'
 
@@ -27,11 +28,7 @@ function render(pageContext: PageContextServer) {
     <html lang="en">
       <head>
         <meta charset="UTF-8" />
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=block">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <style>body{font-family: 'Space Grotesk', sans-serif}</style>
         <meta name="description" content="${desc}" />
         <title>${title}</title>
         <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
@@ -42,11 +39,33 @@ function render(pageContext: PageContextServer) {
         <link rel="shortcut icon" href="/favicons/favicon.ico">
         <meta name="msapplication-TileColor" content="#2b5797">
         <meta name="msapplication-config" content="/favicons/browserconfig.xml">
+        <link rel="preload" as="font" href="/fonts/spacegrotesk/v13/V8mDoQDjQSkFtoMM3T6r8E7mPbF4Cw.woff2" crossorigin="anonymous">
+        <style>
+          @font-face {
+            font-family: 'Space Grotesk';
+            font-style: normal;
+            font-weight: 400;
+            font-display: block;
+            src: url(/fonts/spacegrotesk/v13/V8mDoQDjQSkFtoMM3T6r8E7mPbF4Cw.woff2) format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+          }
+          @font-face {
+            font-family: 'Space Grotesk';
+            font-style: normal;
+            font-weight: 700;
+            font-display: block;
+            src: url(/fonts/spacegrotesk/v13/V8mDoQDjQSkFtoMM3T6r8E7mPbF4Cw.woff2) format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+          }
+          body{
+            font-family: 'Space Grotesk', sans-serif;
+          }
+        </style>
         ${
           pageContext.enableServiceWorker
             ? dangerouslySkipEscape(`<script>
         navigator.serviceWorker
-          .register('/serviceWorker.ts', { type: 'module' })
+          .register('/serviceWorker.ts', { type: '${isDev ? 'module' : 'classic'}' })
           .then(() => console.log('Service Worker registered.'))
           .catch((err) => console.error('Failed to register Service Worker:', err))
         </script>`)
