@@ -1,3 +1,8 @@
 .dockerignore
 Dockerfile
 node_modules
+README.md
+.husky
+.vscode
+dist
+node_modules
