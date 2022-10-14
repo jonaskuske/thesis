@@ -1,7 +1,6 @@
 import { pipeToNodeWritable, type SSRContext } from '@vue/server-renderer'
-import { dangerouslySkipEscape, escapeInject, stampPipe } from 'vite-plugin-ssr'
+import { escapeInject, stampPipe } from 'vite-plugin-ssr'
 import { createApp } from './createApp'
-import { isDev } from '../utils/index'
 import type { PageContextServer } from '../utils/types'
 import type internal from 'stream'
 
@@ -61,16 +60,6 @@ function render(pageContext: PageContextServer) {
             font-family: 'Space Grotesk', sans-serif;
           }
         </style>
-        ${
-          pageContext.enableServiceWorker
-            ? dangerouslySkipEscape(`<script>
-        navigator.serviceWorker
-          .register('/serviceWorker.ts', { type: '${isDev ? 'module' : 'classic'}' })
-          .then(() => console.log('Service Worker registered.'))
-          .catch((err) => console.error('Failed to register Service Worker:', err))
-        </script>`)
-            : ''
-        }
       </head>
       <body>
         <div id="app">${pipeWrapper}</div>`

@@ -7,6 +7,7 @@ export type PageContextInit = {
   urlOriginal: string
   contentOnly: boolean
   enableServiceWorker: boolean
+  nonce: string
 }
 
 export type PageContextShared = (

@@ -4,14 +4,15 @@ import fastify, { type FastifyRequest } from 'fastify'
 import compress from '@fastify/compress'
 import helmet from '@fastify/helmet'
 import { renderPage } from 'vite-plugin-ssr'
-import { createHash } from 'crypto'
+import { createHash, randomBytes } from 'crypto'
 import type { ServerResponse } from 'http'
 import type { PageContextInit } from '../utils/types'
 import { PassThrough } from 'stream'
 
 // @ts-expect-error
 const root = fileURLToPath(new URL('..', import.meta.url))
-const isProduction = process.env.NODE_ENV === 'production'
+const isProd = process.env.NODE_ENV === 'production'
+const isDev = process.env.NODE_ENV !== 'production'
 
 startServer().catch((err) => console.error('Failed to start server', err))
 
@@ -20,6 +21,7 @@ async function getShellHash() {
     urlOriginal: '/_shell',
     contentOnly: false,
     enableServiceWorker: process.env.DISABLE_SW !== 'true',
+    nonce: '',
   })
 
   const body = (await shell.httpResponse?.getBody()) as string
@@ -31,15 +33,26 @@ async function startServer() {
 
   await app.register(compress)
 
-  await app.register(helmet, { contentSecurityPolicy: { reportOnly: true } })
+  await app.register(helmet, {
+    contentSecurityPolicy: {
+      reportOnly: isDev,
+      directives: {
+        scriptSrc: [
+          "'self'",
+          // eslint-disable-next-line
+          (_, res: any) => `nonce-${(res.cspNonce = randomBytes(16).toString('hex'))}`,
+        ],
+      },
+    },
+  })
 
-  if (isProduction) {
+  if (isProd) {
     const fastifyStatic = (await import('@fastify/static')).default
     await app.register(fastifyStatic, {
       root: path.join(root, 'dist/client'),
       wildcard: false,
       immutable: true,
-      maxAge: isProduction ? 1000 * 60 * 60 * 24 * 365 : 1000 * 60,
+      maxAge: isProd ? 1000 * 60 * 60 * 24 * 365 : 1000 * 60,
       setHeaders(res: ServerResponse, path: string) {
         if (path.endsWith('.ts')) {
           res.setHeader('content-type', 'text/javascript;charset=utf-8')
@@ -63,7 +76,7 @@ async function startServer() {
   app.get<{ Querystring: Record<string, string> }>('*', async (request, reply) => {
     request.headers['x-shell-hash'] ??= request.headers['service-worker-navigation-preload']
 
-    if (!isProduction) {
+    if (isDev) {
       hash = await getShellHash()
       logRequest(request, hash)
     }
@@ -74,6 +87,7 @@ async function startServer() {
       urlOriginal: request.url,
       contentOnly: request.headers['x-shell-hash'] === hash,
       enableServiceWorker: process.env.DISABLE_SW !== 'true',
+      nonce: (reply.raw as any).cspNonce, // eslint-disable-line
     })
 
     const renderTime = performance.now() - preRenderTime
