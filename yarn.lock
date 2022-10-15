@@ -147,6 +147,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fastify/cookie@npm:^8.3.0":
+  version: 8.3.0
+  resolution: "@fastify/cookie@npm:8.3.0"
+  dependencies:
+    cookie: "npm:^0.5.0"
+    fastify-plugin: "npm:^4.0.0"
+  checksum: 4cf9531f35f0094dd80c1b1519745534e4da9cb8d070bf62648d1fbcf1db464f7978ce4aee08005d0f97cf13fb17fb97cefed689aa654437592a55573f90c3dc
+  languageName: node
+  linkType: hard
+
 "@fastify/deepmerge@npm:^1.0.0":
   version: 1.1.0
   resolution: "@fastify/deepmerge@npm:1.1.0"
@@ -2865,7 +2875,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:^4.17.15, lodash@npm:^4.17.21":
+"lodash@npm:^4.15.0, lodash@npm:^4.17.15, lodash@npm:^4.17.21":
   version: 4.17.21
   resolution: "lodash@npm:4.17.21"
   checksum: 3ac18e92108d68f88429fcddee609e42cf2b653583d9bac22308815a4cd6b185b89a0ad0d9b0c670c371d9d6b61571a98fee6b36e1db14e52766ca253ed9cba0
@@ -4216,6 +4226,7 @@ __metadata:
   dependencies:
     "@esbuild-kit/cjs-loader": "npm:^2.4.0"
     "@fastify/compress": "npm:^6.1.1"
+    "@fastify/cookie": "npm:^8.3.0"
     "@fastify/helmet": "npm:^10.0.1"
     "@fastify/middie": "npm:^8.0.0"
     "@fastify/static": "npm:^6.5.0"
@@ -4241,6 +4252,7 @@ __metadata:
     vite-plugin-ssr: "npm:^0.4.40"
     vue: "npm:^3.2.40"
     vue-tsc: "npm:^1.0.7"
+    zip-to-city: "npm:^0.1.1"
   languageName: unknown
   linkType: soft
 
@@ -4628,5 +4640,14 @@ __metadata:
   version: 0.1.0
   resolution: "yocto-queue@npm:0.1.0"
   checksum: 63eceacd482622afd71290541a9823a0e5eed88a6b58a5d136a5fb8151ed4d1549c80f28d74d4ad351582f9890635d49e6cf70f8d3cc64948640f839f6a37c70
+  languageName: node
+  linkType: hard
+
+"zip-to-city@npm:^0.1.1":
+  version: 0.1.1
+  resolution: "zip-to-city@npm:0.1.1"
+  dependencies:
+    lodash: "npm:^4.15.0"
+  checksum: 50cc2fc0459bd841b6ff6c46336006cce73d4b47525b1dad4455876a96897aa3d2a2226b0afa80e82a557f382a521ba6941b8cdc03e5560917fba85bd696ba30
   languageName: node
   linkType: hard

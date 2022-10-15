@@ -2,6 +2,7 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import fastify, { type FastifyRequest } from 'fastify'
 import compress from '@fastify/compress'
+import cookie from '@fastify/cookie'
 import helmet from '@fastify/helmet'
 import { renderPage } from 'vite-plugin-ssr'
 import { createHash, randomBytes } from 'crypto'
@@ -22,6 +23,7 @@ async function getShellHash() {
     contentOnly: false,
     enableServiceWorker: process.env.DISABLE_SW !== 'true',
     nonce: '',
+    cookies: {},
   })
 
   const body = (await shell.httpResponse?.getBody()) as string
@@ -32,6 +34,8 @@ async function startServer() {
   const app = fastify()
 
   await app.register(compress)
+
+  await app.register(cookie)
 
   await app.register(helmet, {
     contentSecurityPolicy: {
@@ -88,6 +92,7 @@ async function startServer() {
       contentOnly: request.headers['x-shell-hash'] === hash,
       enableServiceWorker: process.env.DISABLE_SW !== 'true',
       nonce: (reply.raw as any).cspNonce, // eslint-disable-line
+      cookies: request.cookies,
     })
 
     const renderTime = performance.now() - preRenderTime

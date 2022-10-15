@@ -28,6 +28,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@esbuild-kit/cjs-loader", "npm:2.4.0"],\
           ["@fastify/compress", "npm:6.1.1"],\
+          ["@fastify/cookie", "npm:8.3.0"],\
           ["@fastify/helmet", "npm:10.0.1"],\
           ["@fastify/middie", "npm:8.0.0"],\
           ["@fastify/static", "npm:6.5.0"],\
@@ -52,7 +53,8 @@ const RAW_RUNTIME_STATE =
           ["vite", "virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:3.1.8"],\
           ["vite-plugin-ssr", "virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:0.4.40"],\
           ["vue", "npm:3.2.40"],\
-          ["vue-tsc", "virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:1.0.7"]\
+          ["vue-tsc", "virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:1.0.7"],\
+          ["zip-to-city", "npm:0.1.1"]\
         ],\
         "linkType": "SOFT"\
       }]\
@@ -217,6 +219,17 @@ const RAW_RUNTIME_STATE =
           ["peek-stream", "npm:1.1.3"],\
           ["pump", "npm:3.0.0"],\
           ["pumpify", "npm:2.0.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@fastify/cookie", [\
+      ["npm:8.3.0", {\
+        "packageLocation": "./.yarn/cache/@fastify-cookie-npm-8.3.0-d4b09e29b0-4cf9531f35.zip/node_modules/@fastify/cookie/",\
+        "packageDependencies": [\
+          ["@fastify/cookie", "npm:8.3.0"],\
+          ["cookie", "npm:0.5.0"],\
+          ["fastify-plugin", "npm:4.1.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -4968,6 +4981,7 @@ const RAW_RUNTIME_STATE =
           ["thesis", "workspace:."],\
           ["@esbuild-kit/cjs-loader", "npm:2.4.0"],\
           ["@fastify/compress", "npm:6.1.1"],\
+          ["@fastify/cookie", "npm:8.3.0"],\
           ["@fastify/helmet", "npm:10.0.1"],\
           ["@fastify/middie", "npm:8.0.0"],\
           ["@fastify/static", "npm:6.5.0"],\
@@ -4992,7 +5006,8 @@ const RAW_RUNTIME_STATE =
           ["vite", "virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:3.1.8"],\
           ["vite-plugin-ssr", "virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:0.4.40"],\
           ["vue", "npm:3.2.40"],\
-          ["vue-tsc", "virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:1.0.7"]\
+          ["vue-tsc", "virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:1.0.7"],\
+          ["zip-to-city", "npm:0.1.1"]\
         ],\
         "linkType": "SOFT"\
       }]\
@@ -5479,6 +5494,16 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/cache/yocto-queue-npm-0.1.0-c6c9a7db29-63eceacd48.zip/node_modules/yocto-queue/",\
         "packageDependencies": [\
           ["yocto-queue", "npm:0.1.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["zip-to-city", [\
+      ["npm:0.1.1", {\
+        "packageLocation": "./.yarn/cache/zip-to-city-npm-0.1.1-f5b7b2b3dc-50cc2fc045.zip/node_modules/zip-to-city/",\
+        "packageDependencies": [\
+          ["zip-to-city", "npm:0.1.1"],\
+          ["lodash", "npm:4.17.21"]\
         ],\
         "linkType": "HARD"\
       }]\

@@ -3,7 +3,25 @@ import { onServerPrefetch } from 'vue'
 import EmptyGraphic from '../../components/EmptyGraphic.vue'
 import { wait } from '../../utils'
 
-const locations = $ref([])
+const { locations = [] } = defineProps<{ locations?: { id: string; city: string }[] }>()
+
+const emit = defineEmits<{
+  (e: 'location', address: Record<string, string>): void // eslint-disable-line
+}>()
+
+let loading = $ref(false)
+
+const emitLocation = () => {
+  loading = true
+  navigator.geolocation.getCurrentPosition(({ coords: { latitude: lat, longitude: lon } }) => {
+    void fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`)
+      .then((response) => response.json())
+      .then(({ address }) => {
+        emit('location', address)
+        loading = false
+      })
+  })
+}
 
 onServerPrefetch(async () => {
   // to simulate data loading
@@ -20,16 +38,76 @@ onServerPrefetch(async () => {
       Um Progonosen zur Sichtung der ISS zu bekommen, kannst du Orte über die Suche hinzufügen oder
       deinen aktuellen Standort verwenden.
     </p>
+    <button :aria-disabled="loading" :disabled="loading" type="button" @click="emitLocation">
+      Aktuellen Standort verwenden
+    </button>
+  </div>
+  <div v-else>
+    <div v-for="location in locations" :key="location.id" class="city">
+      <p class="city-name">{{ location.city }}</p>
+      <p class="city-other">Keine Informationen vorhanden.</p>
+    </div>
   </div>
 </template>
 
 <style scoped>
+p {
+  margin: 0;
+}
 .list {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+.city {
+  width: 100%;
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 24px;
+  gap: 12px;
+
+  /* Card Color */
+  background: rgba(108, 91, 216, 0.2);
+  /* Drop Shadow */
+  box-shadow: 0px 0px 6px 2px rgba(164, 164, 164, 0.25);
+  border-radius: 8px;
+}
+.city-name {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 18px;
+}
+.city-other {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 31px;
 }
 .empty-img {
   margin-bottom: 16px;
+}
+button[type='button'] {
+  padding: 8px 16px;
+  background: #4d009c;
+  color: inherit;
+  box-shadow: 1px 2px 0px 2px #00000040;
+  border-radius: 8px;
+  align-self: center;
+  user-select: none;
+}
+button:disabled {
+  background-color: hsl(240, 8%, 53%);
+  color: #ffffffaa;
+}
+button:active {
+  background: #5d00b9;
 }
 </style>

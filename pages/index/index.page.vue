@@ -1,11 +1,41 @@
 <script setup lang="ts">
+import { watchEffect, ref } from 'vue'
 import LocationList from './LocationList.vue'
+import cities from 'zip-to-city/germany.json'
+import type { ReactiveVariable } from 'vue/macros'
+import { useCookies } from '../../composables/useCookies'
+import { isServer } from '../../utils'
+
+let form = ref<HTMLFormElement | null>(null)
 
 let search = $ref('')
+let results: ReactiveVariable<typeof cities[0][]> = $ref([])
+
+const [get, set] = useCookies()
+
+watchEffect(() => {
+  if (!search.length) results = []
+  else {
+    results = cities.filter(
+      (c) =>
+        c.city.toLowerCase().startsWith(search.toLowerCase()) ||
+        c.zip.toLowerCase().startsWith(search.toLowerCase()),
+    )
+  }
+})
+
+let locationIds: Set<string> = $ref(
+  new Set(JSON.parse((await get('locations')) || '[]') as string[]),
+)
+const locations = $computed(() => [...locationIds].map((id) => cities.find((c) => c.id === id)!))
+
+if (!isServer) {
+  watchEffect(() => void set('locations', JSON.stringify([...locationIds])))
+}
 </script>
 
 <template>
-  <form action="">
+  <form ref="form" action="">
     <div class="input-wrapper">
       <label :style="{ opacity: +!search }" for="location-input" class="label"
         >Ort hinzufügen</label
@@ -27,8 +57,18 @@ let search = $ref('')
     </div>
     <button type="submit" class="sr-only">Suchen</button>
   </form>
-  <LocationList class="list" />
-  <button type="button">Aktuellen Standort verwenden</button>
+  <LocationList
+    v-if="!search"
+    :locations="locations"
+    class="list"
+    @location="search = $event.postcode"
+  />
+  <template v-else>
+    <div v-for="r in results" :key="r.id" class="city">
+      <p>{{ r.zip }} {{ r.city }}</p>
+      <button @click="locationIds.add(r.id), (search = '')">Hinzufügen</button>
+    </div>
+  </template>
 </template>
 
 <style scoped>
@@ -51,6 +91,7 @@ form {
   align-items: center;
   inset: 0;
   left: 34px;
+  pointer-events: none;
 }
 .input {
   all: unset;
@@ -64,22 +105,16 @@ form {
   align-self: center;
   margin-bottom: 16px;
 }
-/* form, */
-.list {
-  max-width: 400px;
-}
 
-button[type='button'] {
-  padding: 8px 16px;
-  background: #4d009c;
-  color: inherit;
-  box-shadow: 1px 2px 0px 2px #00000040;
-  border-radius: 8px;
-}
 form ~ * {
   align-self: center;
 }
 h2 + p {
   text-align: center;
+}
+.city {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 </style>

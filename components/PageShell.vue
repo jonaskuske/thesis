@@ -28,7 +28,9 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div v-if="contentOnly" class="content"><slot /></div>
+  <div v-if="contentOnly" class="content">
+    <Suspense><slot /></Suspense>
+  </div>
 
   <div v-else class="layout">
     <header class="navigation">
@@ -48,7 +50,9 @@ onMounted(async () => {
         </Link>
       </TransitionGroup>
     </header>
-    <div class="content"><slot /></div>
+    <div class="content">
+      <Suspense><slot /></Suspense>
+    </div>
   </div>
 </template>
 

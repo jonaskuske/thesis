@@ -8,6 +8,7 @@ export type PageContextInit = {
   contentOnly: boolean
   enableServiceWorker: boolean
   nonce: string
+  cookies: { [cookieName: string]: string | undefined }
 }
 
 export type PageContextShared = (
