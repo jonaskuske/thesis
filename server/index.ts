@@ -46,6 +46,7 @@ async function startServer() {
           // eslint-disable-next-line
           (_, res: any) => `nonce-${(res.cspNonce = randomBytes(16).toString('hex'))}`,
         ],
+        connectSrc: ["'self'", 'https://nominatim.openstreetmap.org'],
       },
     },
   })
