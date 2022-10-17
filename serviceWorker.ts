@@ -71,9 +71,13 @@ self.addEventListener('fetch', (event) => {
     const responseStream = new TransformStream()
 
     event.respondWith(
-      new Response(responseStream.readable, {
-        headers: { 'content-type': 'text/html;charset=utf-8' },
-      }),
+      (async () => {
+        const shellResponse = (await caches.match(SHELL_URL)) as Response
+
+        return new Response(responseStream.readable, {
+          headers: shellResponse.headers,
+        })
+      })(),
     )
 
     event.waitUntil(
