@@ -28,16 +28,15 @@ let locationIds: Set<string> = $ref(new Set(JSON.parse(initialData) as string[])
 
 const locations = $computed(() => [...locationIds].map((id) => cities.find((c) => c.id === id)!))
 
-let queue = Promise.resolve()
 if (!isServer) {
   watchEffect(() => {
-    queue = queue.then(() => set('locations', JSON.stringify([...locationIds])))
+    void set('locations', JSON.stringify([...locationIds]))
   })
 }
 </script>
 
 <template>
-  <form action="">
+  <form action="" @submit.prevent>
     <div class="input-wrapper">
       <label :style="{ opacity: +!search }" for="location-input" class="label"
         >Ort hinzufügen</label
@@ -66,9 +65,9 @@ if (!isServer) {
     @location="search = $event.postcode"
   />
   <template v-else>
-    <div v-for="r in results" :key="r.id" class="city">
-      <p>{{ r.zip }} {{ r.city }}</p>
-      <button @click="locationIds.add(r.id), (search = '')">Hinzufügen</button>
+    <div v-for="{ city, zip, id } in results" :key="id" class="city">
+      <p class="result-name">{{ zip }} {{ city }}</p>
+      <button @click="locationIds.add(id), (search = '')">Hinzufügen</button>
     </div>
   </template>
 </template>
@@ -99,6 +98,9 @@ form {
   all: unset;
   margin-left: 8px;
   width: 100%;
+}
+.result-name {
+  font-weight: 700;
 }
 form {
   margin-bottom: 48px;

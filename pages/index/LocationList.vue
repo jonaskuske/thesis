@@ -2,6 +2,7 @@
 import { onServerPrefetch } from 'vue'
 import EmptyGraphic from '../../components/EmptyGraphic.vue'
 import { wait } from '../../utils'
+import Link from '../../components/Link.vue'
 
 const { locations = [] } = defineProps<{ locations?: { id: string; city: string }[] }>()
 
@@ -44,7 +45,9 @@ onServerPrefetch(async () => {
   </div>
   <div v-else>
     <div v-for="location in locations" :key="location.id" class="city">
-      <p class="city-name">{{ location.city }}</p>
+      <Link class="link" :href="`/locations/${location.id}`">
+        <p class="city-name">{{ location.city }}</p>
+      </Link>
       <p class="city-other">Keine Informationen vorhanden.</p>
     </div>
   </div>
@@ -61,7 +64,16 @@ p {
   gap: 16px;
   width: 100%;
 }
+.link::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
 .city {
+  position: relative;
   width: 100%;
   /* Auto layout */
 
@@ -81,7 +93,7 @@ p {
   font-family: 'Space Grotesk';
   font-style: normal;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 18px;
   line-height: 18px;
 }
 .city-other {

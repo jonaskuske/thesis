@@ -5,4 +5,5 @@ export const passToClient = [
   'routeParams',
   'urlPathname',
   'urlParsed',
+  'headerTitle',
 ] as const

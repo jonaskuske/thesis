@@ -17,7 +17,9 @@ void nextTick().then(() => rerenderKey++)
 
 let isHome = $ref(true)
 
-const title = $computed(() => (isHome ? 'ISS Tracker' : (ctx.exports.headerTitle as string)))
+const title = $computed(() =>
+  isHome ? 'ISS Tracker' : ((ctx.exports.headerTitle || ctx.headerTitle) as string),
+)
 
 const contentOnly = isServer && (ctx as PageContextServer).contentOnly
 
