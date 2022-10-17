@@ -41,6 +41,7 @@ const RAW_RUNTIME_STATE =
           ["@vue/server-renderer", "virtual:ee1b0f06d22c7073f87fcc94e688c4d6a5316dd1aa1770a54121d2942b302f08768362afc7b1370cd6826afa7582fad4a548059bae34f23d21a4fef21024b7a3#npm:3.2.40"],\
           ["@vue/tsconfig", "virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:0.1.3"],\
           ["@yarnpkg/sdks", "npm:3.0.0-rc.25"],\
+          ["cookie-store", "npm:4.0.0-next.2"],\
           ["esbuild", "npm:0.15.10"],\
           ["eslint", "npm:8.25.0"],\
           ["eslint-config-prettier", "virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:8.5.0"],\
@@ -1706,6 +1707,15 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/cache/cookie-npm-0.5.0-e2d58a161a-23bd6dd64f.zip/node_modules/cookie/",\
         "packageDependencies": [\
           ["cookie", "npm:0.5.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["cookie-store", [\
+      ["npm:4.0.0-next.2", {\
+        "packageLocation": "./.yarn/cache/cookie-store-npm-4.0.0-next.2-cf4a37be45-3f55970113.zip/node_modules/cookie-store/",\
+        "packageDependencies": [\
+          ["cookie-store", "npm:4.0.0-next.2"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -4994,6 +5004,7 @@ const RAW_RUNTIME_STATE =
           ["@vue/server-renderer", "virtual:ee1b0f06d22c7073f87fcc94e688c4d6a5316dd1aa1770a54121d2942b302f08768362afc7b1370cd6826afa7582fad4a548059bae34f23d21a4fef21024b7a3#npm:3.2.40"],\
           ["@vue/tsconfig", "virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:0.1.3"],\
           ["@yarnpkg/sdks", "npm:3.0.0-rc.25"],\
+          ["cookie-store", "npm:4.0.0-next.2"],\
           ["esbuild", "npm:0.15.10"],\
           ["eslint", "npm:8.25.0"],\
           ["eslint-config-prettier", "virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:8.5.0"],\

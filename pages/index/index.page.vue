@@ -1,41 +1,43 @@
 <script setup lang="ts">
-import { watchEffect, ref } from 'vue'
+import { watchEffect } from 'vue'
 import LocationList from './LocationList.vue'
 import cities from 'zip-to-city/germany.json'
 import type { ReactiveVariable } from 'vue/macros'
 import { useCookies } from '../../composables/useCookies'
 import { isServer } from '../../utils'
 
-let form = ref<HTMLFormElement | null>(null)
-
 let search = $ref('')
-let results: ReactiveVariable<typeof cities[0][]> = $ref([])
+let results: ReactiveVariable<typeof cities> = $ref([])
 
 const [get, set] = useCookies()
 
 watchEffect(() => {
   if (!search.length) results = []
   else {
+    const lowercasedSearch = search.toLowerCase()
     results = cities.filter(
-      (c) =>
-        c.city.toLowerCase().startsWith(search.toLowerCase()) ||
-        c.zip.toLowerCase().startsWith(search.toLowerCase()),
+      ({ city, zip }) =>
+        city.toLowerCase().startsWith(lowercasedSearch) ||
+        zip.toLowerCase().startsWith(lowercasedSearch),
     )
   }
 })
 
-let locationIds: Set<string> = $ref(
-  new Set(JSON.parse((await get('locations')) || '[]') as string[]),
-)
+const initialData = (await get('locations')) || '[]'
+let locationIds: Set<string> = $ref(new Set(JSON.parse(initialData) as string[]))
+
 const locations = $computed(() => [...locationIds].map((id) => cities.find((c) => c.id === id)!))
 
+let queue = Promise.resolve()
 if (!isServer) {
-  watchEffect(() => void set('locations', JSON.stringify([...locationIds])))
+  watchEffect(() => {
+    queue = queue.then(() => set('locations', JSON.stringify([...locationIds])))
+  })
 }
 </script>
 
 <template>
-  <form ref="form" action="">
+  <form action="">
     <div class="input-wrapper">
       <label :style="{ opacity: +!search }" for="location-input" class="label"
         >Ort hinzufügen</label
