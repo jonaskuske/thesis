@@ -13,9 +13,13 @@
 
 ## Published versions:
 
-#### Multi-Page-Application (MPA) — [https://thesis-mpa.joku.co](https://thesis-mpa.joku.co)
+#### Multi-Page-Application (MPA) — [https://thesis-nojs.joku.co](https://thesis-nojs.joku.co)
 
-A "classic" website, pages are fully server-rendered. After clicking a link, the browser performs a full navigation, loading a new document in a fresh context.
+A "classic" website, pages are fully server-rendered. After clicking a link, the browser performs a full navigation, loading a new document in a fresh context. Interactions are handled through `<form>` navigations.
+
+#### Hydrated MPA — [https://thesis-mpa.joku.co](https://thesis-mpa.joku.co)
+
+Fully server-rendered, clicking a link performs a full navigation. Instead of using `<form>`, pages are made interactive through client-side JavaScript in a process called "hydration" and operations happen through async `fetch` requests.
 
 #### MPA with Stream Stitching — [https://thesis.joku.co](https://thesis.joku.co)
 
