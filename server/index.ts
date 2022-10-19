@@ -3,6 +3,7 @@ import { fileURLToPath } from 'url'
 import fastify, { type FastifyRequest } from 'fastify'
 import compress from '@fastify/compress'
 import cookie from '@fastify/cookie'
+import formbody from '@fastify/formbody'
 import helmet from '@fastify/helmet'
 import { renderPage } from 'vite-plugin-ssr'
 import { createHash, randomBytes } from 'crypto'
@@ -22,6 +23,7 @@ async function getShellHash() {
     urlOriginal: '/_shell',
     contentOnly: false,
     enableServiceWorker: process.env.DISABLE_SW !== 'true',
+    enableHydration: process.env.DISABLE_JS !== 'true',
     nonce: '',
     cookies: {},
   })
@@ -36,6 +38,8 @@ async function startServer() {
   await app.register(compress)
 
   await app.register(cookie)
+
+  await app.register(formbody)
 
   await app.register(helmet, {
     contentSecurityPolicy: {
@@ -78,6 +82,24 @@ async function startServer() {
 
   let hash = await getShellHash()
 
+  app.post<{ Body: { id: string } }>(
+    '/locations',
+    { schema: { body: { type: 'object', properties: { id: { type: 'string' } } } } },
+    async (request, reply) => {
+      if (isDev) logRequest(request, hash)
+
+      const cookies = JSON.parse(request.cookies.locations || '[]') as string[]
+
+      const ids = new Set(cookies)
+      ids.add(request.body.id)
+
+      await reply
+        .cookie('locations', JSON.stringify([...ids]))
+        .redirect(303, '/')
+        .send()
+    },
+  )
+
   app.get<{ Querystring: Record<string, string> }>('*', async (request, reply) => {
     request.headers['x-shell-hash'] ??= request.headers['service-worker-navigation-preload']
 
@@ -92,6 +114,7 @@ async function startServer() {
       urlOriginal: request.url,
       contentOnly: request.headers['x-shell-hash'] === hash,
       enableServiceWorker: process.env.DISABLE_SW !== 'true',
+      enableHydration: process.env.DISABLE_JS !== 'true',
       nonce: (reply.raw as any).cspNonce, // eslint-disable-line
       cookies: request.cookies,
     })

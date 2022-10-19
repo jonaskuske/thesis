@@ -65,7 +65,7 @@ self.addEventListener('activate', (event) => {
 const responseCache = new Map<string, ReadableStream<BufferSource>>()
 
 self.addEventListener('fetch', (event) => {
-  if (event.request.mode === 'navigate') {
+  if (event.request.mode === 'navigate' && event.request.method === 'GET') {
     const url = new URL(event.request.url)
 
     const responseStream = new TransformStream()
@@ -119,12 +119,19 @@ self.addEventListener('fetch', (event) => {
             serverResponse = await Promise.resolve<Response | undefined>(event.preloadResponse)
           }
 
+          if (serverResponse?.type === 'opaque' || serverResponse?.type === 'opaqueredirect') {
+            throw Error("Received an opaque response that can't be streamed.")
+          }
+
           serverResponse ??= await fetch(new Request(event.request, { headers }))
         } catch (err) {
-          serverResponse = new Response(`<p>Error:</p><pre>${String(err)}</pre>`, {
-            headers: { 'content-type': 'text/html', 'x-shell-hash': shellHash },
-            status: 500,
-          })
+          serverResponse = new Response(
+            `<h2>Error:</h2><pre style="white-space:normal">${String(err)}</pre>`,
+            {
+              headers: { 'content-type': 'text/html', 'x-shell-hash': shellHash },
+              status: 500,
+            },
+          )
         }
 
         const shellIsUpToDate = shellHash === serverResponse.headers.get('x-shell-hash')

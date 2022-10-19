@@ -5,8 +5,11 @@ import cities from 'zip-to-city/germany.json'
 import type { ReactiveVariable } from 'vue/macros'
 import { useCookies } from '../../composables/useCookies'
 import { isServer } from '../../utils'
+import { usePageContext } from '../../composables/usePageContext'
 
-let search = $ref('')
+const ctx = usePageContext()
+
+let search = $ref(ctx.urlParsed.search?.location ?? '')
 let results: ReactiveVariable<typeof cities> = $ref([])
 
 const [get, set] = useCookies()
@@ -26,7 +29,11 @@ watchEffect(() => {
 const initialData = (await get('locations')) || '[]'
 let locationIds: Set<string> = $ref(new Set(JSON.parse(initialData) as string[]))
 
-const locations = $computed(() => [...locationIds].map((id) => cities.find((c) => c.id === id)!))
+const locations = $computed(() =>
+  [...locationIds]
+    .map((id) => cities.find((city) => city.id === id))
+    .filter((city): city is typeof cities[0] => city != null),
+)
 
 if (!isServer) {
   watchEffect(() => {
@@ -36,11 +43,8 @@ if (!isServer) {
 </script>
 
 <template>
-  <form action="" @submit.prevent>
+  <form class="search-form" @submit.prevent>
     <div class="input-wrapper">
-      <label :style="{ opacity: +!search }" for="location-input" class="label"
-        >Ort hinzufügen</label
-      >
       <svg
         width="18"
         height="18"
@@ -54,7 +58,15 @@ if (!isServer) {
         />
       </svg>
 
-      <input id="location-input" v-model="search" class="input" type="search" name="location" />
+      <input
+        id="location-input"
+        v-model="search"
+        placeholder=" "
+        class="input"
+        type="search"
+        name="location"
+      />
+      <label for="location-input" class="label">Ort hinzufügen</label>
     </div>
     <button type="submit" class="sr-only">Suchen</button>
   </form>
@@ -65,16 +77,24 @@ if (!isServer) {
     @location="search = $event.postcode"
   />
   <template v-else>
-    <div v-for="{ city, zip, id } in results" :key="id" class="city">
+    <form
+      v-for="{ city, zip, id } in results"
+      :key="id"
+      method="post"
+      action="/locations"
+      class="city"
+      @submit.prevent
+    >
       <p class="result-name">{{ zip }} {{ city }}</p>
-      <button @click="locationIds.add(id), (search = '')">Hinzufügen</button>
-    </div>
+      <input type="hidden" name="id" :value="id" />
+      <button type="submit" @click="locationIds.add(id), (search = '')">Hinzufügen</button>
+    </form>
   </template>
 </template>
 
 <style scoped>
 h1,
-form {
+.search-form {
   width: 100%;
 }
 
@@ -99,10 +119,13 @@ form {
   margin-left: 8px;
   width: 100%;
 }
+.input:not(:placeholder-shown) + label {
+  opacity: 0;
+}
 .result-name {
   font-weight: 700;
 }
-form {
+.search-form {
   margin-bottom: 48px;
 }
 .list {
@@ -110,7 +133,7 @@ form {
   margin-bottom: 16px;
 }
 
-form ~ * {
+.search-form ~ * {
   align-self: center;
 }
 h2 + p {
@@ -120,5 +143,7 @@ h2 + p {
   width: 100%;
   display: flex;
   justify-content: space-between;
+  margin: 0;
+  padding: 0;
 }
 </style>

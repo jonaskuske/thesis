@@ -7,6 +7,7 @@ export type PageContextInit = {
   urlOriginal: string
   contentOnly: boolean
   enableServiceWorker: boolean
+  enableHydration: boolean
   nonce: string
   cookies: { [cookieName: string]: string | undefined }
 }

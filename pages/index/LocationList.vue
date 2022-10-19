@@ -56,6 +56,8 @@ onServerPrefetch(async () => {
 <style scoped>
 p {
   margin: 0;
+  max-width: 45ch;
+  text-align: center;
 }
 .list {
   display: flex;

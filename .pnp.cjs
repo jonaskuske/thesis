@@ -29,6 +29,7 @@ const RAW_RUNTIME_STATE =
           ["@esbuild-kit/cjs-loader", "npm:2.4.0"],\
           ["@fastify/compress", "npm:6.1.1"],\
           ["@fastify/cookie", "npm:8.3.0"],\
+          ["@fastify/formbody", "npm:7.3.0"],\
           ["@fastify/helmet", "npm:10.0.1"],\
           ["@fastify/middie", "npm:8.0.0"],\
           ["@fastify/static", "npm:6.5.0"],\
@@ -259,6 +260,17 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@fastify/fast-json-stringify-compiler", "npm:4.1.0"],\
           ["fast-json-stringify", "npm:5.1.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@fastify/formbody", [\
+      ["npm:7.3.0", {\
+        "packageLocation": "./.yarn/cache/@fastify-formbody-npm-7.3.0-f510eb1e03-59aee2bbc4.zip/node_modules/@fastify/formbody/",\
+        "packageDependencies": [\
+          ["@fastify/formbody", "npm:7.3.0"],\
+          ["fast-querystring", "npm:1.0.0"],\
+          ["fastify-plugin", "npm:4.1.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -4992,6 +5004,7 @@ const RAW_RUNTIME_STATE =
           ["@esbuild-kit/cjs-loader", "npm:2.4.0"],\
           ["@fastify/compress", "npm:6.1.1"],\
           ["@fastify/cookie", "npm:8.3.0"],\
+          ["@fastify/formbody", "npm:7.3.0"],\
           ["@fastify/helmet", "npm:10.0.1"],\
           ["@fastify/middie", "npm:8.0.0"],\
           ["@fastify/static", "npm:6.5.0"],\

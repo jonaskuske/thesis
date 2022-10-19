@@ -7,8 +7,10 @@ let enableServiceWorker = false
 export function render(pageContext: PageContextClient) {
   enableServiceWorker = pageContext.enableServiceWorker
 
-  const app = createApp(pageContext)
-  app.mount('#app')
+  if (pageContext.enableHydration) {
+    const app = createApp(pageContext)
+    app.mount('#app')
+  }
 }
 
 export function onHydrationEnd() {
