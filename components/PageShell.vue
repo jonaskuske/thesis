@@ -1,38 +1,25 @@
 <script lang="ts" setup>
-import { nextTick, onMounted } from 'vue'
+import Content from './Content.vue'
 import Link from './Link.vue'
 import Cog from './icons/Cog.vue'
 import ArrowLeft from './icons/ArrowLeft.vue'
-
-import { isServer } from '../utils'
-
 import { usePageContext } from '../composables/usePageContext'
+import { useIsHome } from '../composables/useIsHome'
+import { useTitle } from '../composables/useTitle'
+import { isServer } from '../utils'
 import type { PageContextServer } from '../utils/types'
 
 const ctx = usePageContext()
 
-// force full rerender in shell (comes from cache) to fix hydration mismatches
-let rerenderKey = $ref(0)
-void nextTick().then(() => rerenderKey++)
+const isHome = $(useIsHome())
 
-let isHome = $ref(true)
-
-const title = $computed(() =>
-  isHome ? 'ISS Tracker' : ((ctx.exports.headerTitle || ctx.headerTitle) as string),
-)
+const title = $(useTitle())
 
 const contentOnly = isServer && (ctx as PageContextServer).contentOnly
-
-onMounted(async () => {
-  await nextTick()
-  isHome = ctx.urlPathname === '/' || ctx.urlPathname === '/_shell'
-})
 </script>
 
 <template>
-  <div v-if="contentOnly" class="content">
-    <Suspense><slot /></Suspense>
-  </div>
+  <Content v-if="contentOnly"><slot /></Content>
 
   <div v-else class="layout">
     <header class="navigation">
@@ -52,9 +39,7 @@ onMounted(async () => {
         </Link>
       </TransitionGroup>
     </header>
-    <div class="content">
-      <Suspense><slot /></Suspense>
-    </div>
+    <Content><slot /></Content>
   </div>
 </template>
 

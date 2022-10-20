@@ -1,20 +1,4 @@
-<script lang="ts">
-import cities from 'zip-to-city/germany.json'
-
-export function onBeforeRender(pageContext: PageContextBuiltIn) {
-  const id = pageContext.routeParams.locationId
-  return {
-    pageContext: {
-      headerTitle: cities.find((c) => c.id === id)?.city,
-    },
-  }
-}
-export default {}
-</script>
-
 <script setup lang="ts">
-import type { PageContextBuiltIn } from 'vite-plugin-ssr'
-
 import NoFlyOverGraphic from '../../components/NoFlyOverGraphic.vue'
 </script>
 

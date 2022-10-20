@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { watchEffect } from 'vue'
+import { watch } from 'vue'
 import LocationList from './LocationList.vue'
-import cities from 'zip-to-city/germany.json'
+import type cities from 'zip-to-city/germany.json'
 import type { ReactiveVariable } from 'vue/macros'
 import { useCookies } from '../../composables/useCookies'
-import { isServer } from '../../utils'
+
 import { usePageContext } from '../../composables/usePageContext'
 
 const ctx = usePageContext()
@@ -12,34 +12,38 @@ const ctx = usePageContext()
 let search = $ref(ctx.urlParsed.search?.location ?? '')
 let results: ReactiveVariable<typeof cities> = $ref([])
 
-const [get, set] = useCookies()
+const [get, setCookie] = useCookies()
 
-watchEffect(() => {
+watch($$(search), (search, _, onCleanup) => {
+  let abortHandler = new AbortController()
+
   if (!search.length) results = []
   else {
-    const lowercasedSearch = search.toLowerCase()
-    results = cities.filter(
-      ({ city, zip }) =>
-        city.toLowerCase().startsWith(lowercasedSearch) ||
-        zip.toLowerCase().startsWith(lowercasedSearch),
-    )
+    void fetch(`/cities?search=${search}`, { signal: abortHandler.signal })
+      .then((response) => response.json())
+      .then((cityResults: typeof cities) => (results = cityResults))
   }
+
+  onCleanup(() => abortHandler.abort())
 })
 
-const initialData = (await get('locations')) || '[]'
-let locationIds: Set<string> = $ref(new Set(JSON.parse(initialData) as string[]))
-
-const locations = $computed(() =>
-  [...locationIds]
-    .map((id) => cities.find((city) => city.id === id))
-    .filter((city): city is typeof cities[0] => city != null),
+let locationIds = $ref(
+  (ctx.pageProps?.locationIds ||
+    new Set(JSON.parse((await get('locations')) || '[]'))) as Set<string>,
 )
 
-if (!isServer) {
-  watchEffect(() => {
-    void set('locations', JSON.stringify([...locationIds]))
-  })
-}
+let locations = $ref((ctx.pageProps?.locations || []) as typeof cities)
+
+watch($$(locationIds), (ids, _, onCleanup) => {
+  const abortHandler = new AbortController()
+
+  void fetch(`/cities?include=${[...ids].join(',')}`)
+    .then((response) => response.json())
+    .then((cityResults: typeof cities) => (locations = cityResults))
+    .then(() => setCookie('locations', JSON.stringify([...ids])))
+
+  onCleanup(() => abortHandler.abort())
+})
 </script>
 
 <template>

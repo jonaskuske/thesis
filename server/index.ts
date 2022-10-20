@@ -10,6 +10,7 @@ import { createHash, randomBytes } from 'crypto'
 import type { ServerResponse } from 'http'
 import type { PageContextInit } from '../utils/types'
 import { PassThrough } from 'stream'
+import cities from 'zip-to-city/germany.json'
 
 // @ts-expect-error
 const root = fileURLToPath(new URL('..', import.meta.url))
@@ -82,6 +83,38 @@ async function startServer() {
 
   let hash = await getShellHash()
 
+  app.get<{ Querystring: { search?: string; include?: string[] } }>(
+    '/cities',
+    {
+      schema: {
+        querystring: {
+          type: 'object',
+          properties: {
+            search: { type: 'string' },
+            include: { type: 'array', uniqueItems: true, items: { type: 'string' } },
+          },
+        },
+      },
+    },
+    async (request, reply) => {
+      let cityList = cities
+
+      if (request.query.include) {
+        const includedIds = new Set(request.query.include)
+        cityList = cityList.filter(({ id }) => includedIds.has(id))
+      }
+
+      if (request.query.search?.trim()) {
+        const search = request.query.search?.trim().toLowerCase()
+        cityList = cityList.filter(
+          ({ city, zip }) => city.toLowerCase().startsWith(search) || zip.startsWith(search),
+        )
+      }
+
+      return reply.send(cityList)
+    },
+  )
+
   app.post<{ Body: { id: string } }>(
     '/locations',
     { schema: { body: { type: 'object', properties: { id: { type: 'string' } } } } },
@@ -100,43 +133,46 @@ async function startServer() {
     },
   )
 
-  app.get<{ Querystring: Record<string, string> }>('*', async (request, reply) => {
-    request.headers['x-shell-hash'] ??= request.headers['service-worker-navigation-preload']
+  app.get<{ Headers: { 'x-shell-hash'?: string; 'service-worker-navigation-preload'?: string } }>(
+    '*',
+    async (request, reply) => {
+      request.headers['x-shell-hash'] ??= request.headers['service-worker-navigation-preload']
 
-    if (isDev) {
-      hash = await getShellHash()
-      logRequest(request, hash)
-    }
+      if (isDev) {
+        hash = await getShellHash()
+        logRequest(request, hash)
+      }
 
-    const preRenderTime = performance.now()
+      const preRenderTime = performance.now()
 
-    const pageContext = await renderPage<{}, PageContextInit>({
-      urlOriginal: request.url,
-      contentOnly: request.headers['x-shell-hash'] === hash,
-      enableServiceWorker: process.env.DISABLE_SW !== 'true',
-      enableHydration: process.env.DISABLE_JS !== 'true',
-      nonce: (reply.raw as any).cspNonce, // eslint-disable-line
-      cookies: request.cookies,
-    })
+      const pageContext = await renderPage<{}, PageContextInit>({
+        urlOriginal: request.url,
+        contentOnly: request.headers['x-shell-hash'] === hash,
+        enableServiceWorker: process.env.DISABLE_SW !== 'true',
+        enableHydration: process.env.DISABLE_JS !== 'true',
+        nonce: (reply.raw as any).cspNonce, // eslint-disable-line
+        cookies: request.cookies,
+      })
 
-    const renderTime = performance.now() - preRenderTime
+      const renderTime = performance.now() - preRenderTime
 
-    if (!pageContext.httpResponse) return
+      if (!pageContext.httpResponse) return
 
-    const { httpResponse } = pageContext
+      const { httpResponse } = pageContext
 
-    const responseStream = new PassThrough()
+      const responseStream = new PassThrough()
 
-    httpResponse.pipe(responseStream)
+      httpResponse.pipe(responseStream)
 
-    await reply
-      .status(httpResponse.statusCode)
-      .type(httpResponse.contentType)
-      .header('x-shell-hash', hash)
-      .header('vary', 'x-shell-hash,service-worker-navigation-preload')
-      .header('server-timing', `render;dur=${renderTime};desc="Vue Render"`)
-      .send(responseStream)
-  })
+      await reply
+        .status(httpResponse.statusCode)
+        .type(httpResponse.contentType)
+        .header('x-shell-hash', hash)
+        .header('vary', 'x-shell-hash,service-worker-navigation-preload')
+        .header('server-timing', `render;dur=${renderTime};desc="Vue Render"`)
+        .send(responseStream)
+    },
+  )
 
   const port = Number(process.env.PORT ?? 3000)
   await app.listen({ port, host: '0.0.0.0' })
