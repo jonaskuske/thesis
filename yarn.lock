@@ -4579,7 +4579,7 @@ __metadata:
     prettier: "npm:~2.7.1"
     typescript: "npm:^4.8.4"
     vite: "npm:^3.1.8"
-    vite-plugin-ssr: "npm:^0.4.42"
+    vite-plugin-ssr: "npm:^0.4.43"
     vue: "npm:^3.2.41"
     vue-tsc: "npm:^1.0.8"
     zip-to-city: "npm:^0.1.1"
@@ -4772,9 +4772,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite-plugin-ssr@npm:^0.4.42":
-  version: 0.4.42
-  resolution: "vite-plugin-ssr@npm:0.4.42"
+"vite-plugin-ssr@npm:^0.4.43":
+  version: 0.4.43
+  resolution: "vite-plugin-ssr@npm:0.4.43"
   dependencies:
     "@brillout/json-serializer": "npm:^0.5.1"
     "@brillout/vite-plugin-import-build": "npm:^0.1.0"
@@ -4792,7 +4792,7 @@ __metadata:
       optional: true
   bin:
     vite-plugin-ssr: node/bin/vite-plugin-ssr.js
-  checksum: f2920a08215ee1d7a277fcb0ac5d6c55746ea15aa14040fe77fe4ff3d9fbf5faecb708bcb763b86135629d5f47644945d7be77752c190c583b23ea30a3edaf17
+  checksum: 94bfce47a9156c505100713e5b5f2e6999684b7eba499dc17d1119dae10f3fd7f035db4975c371f4afd9100798f35c7440d2eee1579067f4fda8f248dc233cef
   languageName: node
   linkType: hard
 
