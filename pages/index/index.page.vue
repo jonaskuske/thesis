@@ -2,7 +2,6 @@
 import { watch } from 'vue'
 import LocationList from './LocationList.vue'
 import type cities from 'zip-to-city/germany.json'
-import type { ReactiveVariable } from 'vue/macros'
 import { useCookies } from '../../composables/useCookies'
 
 import { usePageContext } from '../../composables/usePageContext'
@@ -10,7 +9,7 @@ import { usePageContext } from '../../composables/usePageContext'
 const ctx = usePageContext()
 
 let search = $ref(ctx.urlParsed.search?.location ?? '')
-let results: ReactiveVariable<typeof cities> = $ref(ctx.pageProps?.results || [])
+let results = $ref((ctx.pageProps?.results || []) as typeof cities)
 
 const [get, setCookie] = useCookies()
 
@@ -34,16 +33,20 @@ let locationIds = $ref(
 
 let locations = $ref((ctx.pageProps?.locations || []) as typeof cities)
 
-watch($$(locationIds), (ids, _, onCleanup) => {
-  const abortHandler = new AbortController()
+watch(
+  $$(locationIds),
+  (ids, _, onCleanup) => {
+    const abortHandler = new AbortController()
 
-  void fetch(`/cities?include=${[...ids].join(',')}`)
-    .then((response) => response.json())
-    .then((cityResults: typeof cities) => (locations = cityResults))
-    .then(() => setCookie('locations', JSON.stringify([...ids])))
+    void fetch(`/cities?include=${[...ids].join(',')}`)
+      .then((response) => response.json())
+      .then((cityResults: typeof cities) => (locations = cityResults))
+      .then(() => setCookie('locations', JSON.stringify([...ids])))
 
-  onCleanup(() => abortHandler.abort())
-}, { deep: true })
+    onCleanup(() => abortHandler.abort())
+  },
+  { deep: true },
+)
 </script>
 
 <template>

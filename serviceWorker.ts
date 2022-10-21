@@ -169,6 +169,10 @@ function isWindowClient(client?: Client): client is WindowClient {
   return client?.type === 'window'
 }
 
+function escapeRegExp(string: string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+}
+
 class ShellTransform extends TransformStream<BufferSource, BufferSource> {
   constructor() {
     super({
@@ -219,18 +223,38 @@ class InsertCssTransform extends TransformStream<BufferSource, BufferSource> {
         transform(chunk, controller) {
           const decoded = this.decoder.decode(chunk, { stream: true })
 
-          if (!decoded.includes('</head>')) {
+          if (!/<head[^>]*>/su.test(decoded)) {
             return controller.enqueue(chunk)
           }
 
-          const entry = `pages${url.pathname.match(/^(\/.+?)\/?$/)?.[1] ?? '/index'}/index.page.vue`
-          const styleUrls: string[] = manifest[entry]?.css ?? []
+          const path = `pages${url.pathname.match(/^(\/.+?)\/?$/)?.[1] ?? '/index'}`
+          const dirNameEntry = `${path}/index.page.vue`
+          const fileNameEntry = `${path}.page.vue`
+
+          const pageFiles = Object.keys(manifest).filter((file) =>
+            /^pages\/.*\.page(?:(?:\.server)|(?:\.client))?\.vue$/.test(file),
+          )
+
+          let entryFile = ''
+
+          for (const pageFile of pageFiles) {
+            const pageFileRegex = new RegExp(
+              '^' + escapeRegExp(pageFile).replace(/@[^/.]+/g, '[^./]+') + '$',
+            )
+
+            if (pageFileRegex.test(dirNameEntry) || pageFileRegex.test(fileNameEntry)) {
+              entryFile = pageFile
+              break
+            }
+          }
+
+          const styleUrls = manifest[entryFile]?.css ?? []
           const styleLinks = styleUrls.map(
             (url) => `<link rel="stylesheet" href="${BASE_URL}${url}"></link>`,
           )
 
           const chunkWithInsertedCss = this.encoder.encode(
-            decoded.replace('</head>', `${styleLinks.join('')}$&`),
+            decoded.replace(/<head[^>]*>/su, `$&${styleLinks.join('')}`),
           )
 
           controller.enqueue(chunkWithInsertedCss)
