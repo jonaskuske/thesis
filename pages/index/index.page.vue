@@ -43,7 +43,7 @@ watch($$(locationIds), (ids, _, onCleanup) => {
     .then(() => setCookie('locations', JSON.stringify([...ids])))
 
   onCleanup(() => abortHandler.abort())
-})
+}, { deep: true })
 </script>
 
 <template>
