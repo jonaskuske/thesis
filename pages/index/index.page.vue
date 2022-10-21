@@ -3,15 +3,21 @@ import { watch } from 'vue'
 import LocationList from './LocationList.vue'
 import type cities from 'zip-to-city/germany.json'
 import { useCookies } from '../../composables/useCookies'
-
 import { usePageContext } from '../../composables/usePageContext'
 
 const ctx = usePageContext()
+const [get, setCookie] = useCookies()
+
+const {
+  results: initialResults,
+  locationIds: initialLocationIds,
+  locations: initialLocations,
+} = defineProps<{ results: typeof cities; locationIds: Set<string>; locations: typeof cities }>()
 
 let search = $ref(ctx.urlParsed.search?.location ?? '')
-let results = $ref((ctx.pageProps?.results || []) as typeof cities)
-
-const [get, setCookie] = useCookies()
+let results = $ref(initialResults || [])
+let locationIds = $ref(initialLocationIds || new Set(JSON.parse((await get('locations')) || '[]')))
+let locations = $ref(initialLocations || [])
 
 watch($$(search), (search, _, onCleanup) => {
   let abortHandler = new AbortController()
@@ -26,22 +32,16 @@ watch($$(search), (search, _, onCleanup) => {
   onCleanup(() => abortHandler.abort())
 })
 
-let locationIds = $ref(
-  (ctx.pageProps?.locationIds ||
-    new Set(JSON.parse((await get('locations')) || '[]'))) as Set<string>,
-)
-
-let locations = $ref((ctx.pageProps?.locations || []) as typeof cities)
-
 watch(
   $$(locationIds),
   (ids, _, onCleanup) => {
     const abortHandler = new AbortController()
 
-    void fetch(`/cities?include=${[...ids].join(',')}`)
+    void fetch(`/cities?include=${[...ids].join(',')}`, { signal: abortHandler.signal })
       .then((response) => response.json())
       .then((cityResults: typeof cities) => (locations = cityResults))
       .then(() => setCookie('locations', JSON.stringify([...ids])))
+      .then(() => (search = ''))
 
     onCleanup(() => abortHandler.abort())
   },
@@ -94,7 +94,7 @@ watch(
     >
       <p class="result-name">{{ zip }} {{ city }}</p>
       <input type="hidden" name="id" :value="id" />
-      <button type="submit" @click="locationIds.add(id), (search = '')">Hinzufügen</button>
+      <button type="submit" @click="locationIds.add(id)">Hinzufügen</button>
     </form>
   </template>
 </template>
