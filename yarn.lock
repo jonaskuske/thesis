@@ -400,10 +400,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^16.11.68":
-  version: 16.11.68
-  resolution: "@types/node@npm:16.11.68"
-  checksum: d4e945fa286f5228bc6af35095bf6e9a8ae346371be162a3a9d881081d46c2bbe89163d814c04095baef2044586a143bf56ad3ee03c8f4b7697562001a038448
+"@types/node@npm:^18.11.3":
+  version: 18.11.3
+  resolution: "@types/node@npm:18.11.3"
+  checksum: a5764e83c872478f994bbc93807640db0d1ed6da7e9d55d18a9610691a89f169722414d480c44388550945b3c16a838f5e3e94de28207cc0616f12dba70edb96
   languageName: node
   linkType: hard
 
@@ -4560,7 +4560,7 @@ __metadata:
     "@fastify/middie": "npm:^8.0.0"
     "@fastify/static": "npm:^6.5.0"
     "@types/connect": "npm:^3.4.35"
-    "@types/node": "npm:^16.11.68"
+    "@types/node": "npm:^18.11.3"
     "@typescript-eslint/eslint-plugin": "npm:^5.40.1"
     "@typescript-eslint/parser": "npm:^5.40.1"
     "@vitejs/plugin-vue": "npm:^3.1.2"
