@@ -1,40 +1,25 @@
-import path from 'path'
-import { fileURLToPath } from 'url'
-import fastify, { type FastifyRequest } from 'fastify'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+import type { ServerResponse } from 'node:http'
+import { randomBytes } from 'node:crypto'
+import fastify from 'fastify'
 import compress from '@fastify/compress'
 import cookie from '@fastify/cookie'
 import formbody from '@fastify/formbody'
 import helmet from '@fastify/helmet'
-import { renderPage } from 'vite-plugin-ssr'
-import { createHash, randomBytes } from 'crypto'
-import type { ServerResponse } from 'http'
-import type { PageContextInit } from '../utils/types'
-import { PassThrough } from 'stream'
-import cities from 'zip-to-city/germany.json'
+import appRoutes from './app'
+import citiesRoutes from './cities'
+import locationsRoutes from './locations'
 
 // @ts-expect-error
 const root = fileURLToPath(new URL('..', import.meta.url))
 const isProd = process.env.NODE_ENV === 'production'
 const isDev = process.env.NODE_ENV !== 'production'
 
-startServer().catch((err) => console.error('Failed to start server', err))
-
-async function getShellHash() {
-  const shell = await renderPage<{}, PageContextInit>({
-    urlOriginal: '/_shell',
-    contentOnly: false,
-    enableServiceWorker: process.env.DISABLE_SW !== 'true',
-    enableHydration: process.env.DISABLE_JS !== 'true',
-    nonce: '',
-    cookies: {},
-  })
-
-  const body = (await shell.httpResponse?.getBody()) as string
-  return createHash('SHA1').update(body).digest('hex')
-}
+startServer().catch((err) => console.log('Failed to start server:', err))
 
 async function startServer() {
-  const app = fastify()
+  const app = fastify({ logger: isDev })
 
   await app.register(compress)
 
@@ -81,110 +66,10 @@ async function startServer() {
     await app.use(devServer.middlewares)
   }
 
-  let hash = await getShellHash()
-
-  app.get<{ Querystring: { search?: string; include?: string[] } }>(
-    '/cities',
-    {
-      schema: {
-        querystring: {
-          type: 'object',
-          properties: {
-            search: { type: 'string' },
-            include: { type: 'array', uniqueItems: true, items: { type: 'string' } },
-          },
-        },
-      },
-    },
-    async (request, reply) => {
-      let cityList = cities
-
-      if (request.query.include) {
-        const includedIds = new Set(request.query.include)
-        cityList = cityList.filter(({ id }) => includedIds.has(id))
-      }
-
-      if (request.query.search?.trim()) {
-        const search = request.query.search?.trim().toLowerCase()
-        cityList = cityList.filter(
-          ({ city, zip }) => city.toLowerCase().startsWith(search) || zip.startsWith(search),
-        )
-      }
-
-      return reply.send(cityList)
-    },
-  )
-
-  app.post<{ Body: { id: string } }>(
-    '/locations',
-    { schema: { body: { type: 'object', properties: { id: { type: 'string' } } } } },
-    async (request, reply) => {
-      if (isDev) logRequest(request, hash)
-
-      const cookies = JSON.parse(request.cookies.locations || '[]') as string[]
-
-      const ids = new Set(cookies)
-      ids.add(request.body.id)
-
-      await reply
-        .cookie('locations', JSON.stringify([...ids]))
-        .redirect(303, '/')
-        .send()
-    },
-  )
-
-  app.get<{ Headers: { 'x-shell-hash'?: string; 'service-worker-navigation-preload'?: string } }>(
-    '*',
-    async (request, reply) => {
-      request.headers['x-shell-hash'] ??= request.headers['service-worker-navigation-preload']
-
-      if (isDev) {
-        hash = await getShellHash()
-        logRequest(request, hash)
-      }
-
-      const preRenderTime = performance.now()
-
-      const pageContext = await renderPage<{}, PageContextInit>({
-        urlOriginal: request.url,
-        contentOnly: request.headers['x-shell-hash'] === hash,
-        enableServiceWorker: process.env.DISABLE_SW !== 'true',
-        enableHydration: process.env.DISABLE_JS !== 'true',
-        nonce: (reply.raw as any).cspNonce, // eslint-disable-line
-        cookies: request.cookies,
-      })
-
-      const renderTime = performance.now() - preRenderTime
-
-      if (!pageContext.httpResponse) return
-
-      const { httpResponse } = pageContext
-
-      const responseStream = new PassThrough()
-
-      httpResponse.pipe(responseStream)
-
-      await reply
-        .status(httpResponse.statusCode)
-        .type(httpResponse.contentType)
-        .header('x-shell-hash', hash)
-        .header('vary', 'x-shell-hash,service-worker-navigation-preload')
-        .header('server-timing', `render;dur=${renderTime};desc="Vue Render"`)
-        .send(responseStream)
-    },
-  )
+  await app.register(appRoutes, { isDev, isProd })
+  await app.register(citiesRoutes, { isDev, isProd })
+  await app.register(locationsRoutes, { isDev, isProd })
 
   const port = Number(process.env.PORT ?? 3000)
   await app.listen({ port, host: '0.0.0.0' })
-  console.log(`Server running at http://localhost:${port}`)
-}
-
-function logRequest(request: FastifyRequest, shellHash: string) {
-  const contentOnly = shellHash === request.headers['x-shell-hash']
-
-  console.log(
-    new Date().toLocaleTimeString(),
-    request.url,
-    contentOnly ? `contentOnly (${request.headers['x-shell-hash'] as string})` : '',
-  )
 }

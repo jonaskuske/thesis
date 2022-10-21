@@ -104,6 +104,7 @@
       "vue/no-setup-props-destructure": "off",
       "@typescript-eslint/consistent-type-imports": "error",
       "@typescript-eslint/no-unsafe-argument": "off",
+      "@typescript-eslint/require-await": "off",
       "vue/require-toggle-inside-transition": "off"
     }
   },
