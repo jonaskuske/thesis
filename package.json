@@ -41,7 +41,7 @@
     "@vitejs/plugin-vue": "^3.1.2",
     "@vue/compiler-sfc": "^3.2.41",
     "@yarnpkg/sdks": "^3.0.0-rc.26",
-    "esbuild": "^0.15.11",
+    "esbuild": "^0.15.12",
     "eslint": "^8.25.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-vue": "^9.6.0",
