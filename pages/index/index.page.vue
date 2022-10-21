@@ -10,7 +10,7 @@ import { usePageContext } from '../../composables/usePageContext'
 const ctx = usePageContext()
 
 let search = $ref(ctx.urlParsed.search?.location ?? '')
-let results: ReactiveVariable<typeof cities> = $ref([])
+let results: ReactiveVariable<typeof cities> = $ref(ctx.pageProps?.results || [])
 
 const [get, setCookie] = useCookies()
 

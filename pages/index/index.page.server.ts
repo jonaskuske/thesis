@@ -8,7 +8,14 @@ export function onBeforeRender(pageContext: PageContextServer) {
     .map((id) => cities.find((city) => city.id === id))
     .filter((city): city is typeof cities[0] => city != null)
 
+  const search = pageContext.urlParsed.search?.location?.toLowerCase() ?? ''
+  const results = search
+    ? cities.filter(
+        ({ city, zip }) => city.toLowerCase().startsWith(search) || zip.startsWith(search),
+      )
+    : []
+
   return {
-    pageContext: { pageProps: { locations, locationIds } },
+    pageContext: { pageProps: { locations, locationIds, results } },
   }
 }
