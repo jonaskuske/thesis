@@ -6,7 +6,7 @@ import { useCookies } from '../../composables/useCookies'
 import { usePageContext } from '../../composables/usePageContext'
 
 const ctx = usePageContext()
-const [get, setCookie] = useCookies()
+const { get, set } = useCookies()
 
 const {
   results: initialResults,
@@ -40,7 +40,7 @@ watch(
     void fetch(`/cities?include=${[...ids].join(',')}`, { signal: abortHandler.signal })
       .then((response) => response.json())
       .then((cityResults: typeof cities) => (locations = cityResults))
-      .then(() => setCookie('locations', JSON.stringify([...ids])))
+      .then(() => set('locations', JSON.stringify([...ids])))
       .then(() => (search = ''))
 
     onCleanup(() => abortHandler.abort())

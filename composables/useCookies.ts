@@ -30,5 +30,13 @@ export function useCookies() {
     }
   }
 
-  return [get, set] as const
+  const remove = (name: string) => {
+    if (isServer) {
+      console.error('Application must not remove cookies on server.')
+    } else {
+      return getCookieStore().then((store) => store.delete(name))
+    }
+  }
+
+  return { get, set, remove }
 }
