@@ -12,7 +12,7 @@ export type PageContextInit = {
   cookies: { [cookieName: string]: string | undefined }
 }
 
-export type PageContextShared = (
+export type PageContextShared<PageData = undefined> = (
   | PageContextBuiltIn<ComponentOptions>
   | PageContextBuiltInClient<ComponentOptions>
 ) & {
@@ -22,12 +22,17 @@ export type PageContextShared = (
     ? PageContextInit[Key]
     : unknown
 } & {
-  pageProps?: Record<string, unknown>
+  data: PageData
   exports: { documentProps?: { title?: string; description?: string } }
 }
 
-export type PageContextServer = PageContextShared &
+export type PageContextServer<PageData = undefined> = PageContextShared<PageData> &
   PageContextBuiltIn<ComponentOptions> &
   PageContextInit
 
-export type PageContextClient = PageContextShared & PageContextBuiltInClient<ComponentOptions>
+export type PageContextClient<PageData = undefined> = PageContextShared<PageData> &
+  PageContextBuiltInClient<ComponentOptions>
+
+export type OnBeforeRender<PageData = undefined> = (pageContext: PageContextServer) => void | {
+  pageContext: Partial<PageContextServer<PageData>>
+}

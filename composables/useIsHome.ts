@@ -1,20 +1,21 @@
-import { nextTick, onMounted, type Ref } from 'vue'
+import { computed, nextTick, onMounted, type Ref } from 'vue'
 import { useIsPageShell } from './useIsPageShell'
 import { usePageContext } from './usePageContext'
 
 const isHomePath = (urlPathname: string) => urlPathname === '/' || urlPathname === '/_shell'
 
 export function useIsHome(): Ref<boolean> {
-  const { enableHydration, urlPathname } = usePageContext()
+  const { enableHydration, urlPathname } = $(usePageContext())
   const isPageShell = useIsPageShell()
 
-  if (isPageShell && enableHydration) {
-    let isHome = $ref(true)
-    onMounted(() => void nextTick(() => (isHome = isHomePath(urlPathname))))
-    return $$(isHome)
-  }
+  const isHome = $computed(() => isHomePath(urlPathname))
 
-  const isHome = $ref(isHomePath(urlPathname))
+  if (isPageShell && enableHydration) {
+    let mounted = $ref(false)
+    onMounted(() => void nextTick(() => (mounted = true)))
+
+    return computed(() => (mounted ? isHome : true))
+  }
 
   return $$(isHome)
 }

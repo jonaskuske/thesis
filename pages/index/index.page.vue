@@ -1,23 +1,47 @@
+<script lang="ts">
+import { isServer } from '../../utils'
+import type { OnBeforeRender } from '../../utils/types'
+import cities from 'zip-to-city/germany.json'
+import * as store from '../../utils/cookies'
+
+type Data = {
+  search: string
+  results: typeof cities
+  locationIds: Set<string>
+  locations: typeof cities
+}
+
+export let onBeforeRender: OnBeforeRender<Data>
+
+if (isServer) {
+  onBeforeRender = function ({ cookies, urlParsed }) {
+    const locationIds = new Set(store.get('location_ids', cookies) ?? [])
+
+    const locations = [...locationIds]
+      .map((id) => cities.find((city) => city.id === id))
+      .filter((city): city is typeof cities[0] => city != null)
+
+    const search = urlParsed.search?.location?.toLowerCase() ?? ''
+    const results = search
+      ? cities.filter(
+          ({ city, zip }) => city.toLowerCase().startsWith(search) || zip.startsWith(search),
+        )
+      : []
+
+    return {
+      pageContext: { data: { search, locations, locationIds, results } },
+    }
+  }
+}
+</script>
+
 <script setup lang="ts">
 import { watch } from 'vue'
+import { usePageData } from '../../composables/usePageData'
 import LocationList from './LocationList.vue'
-import type cities from 'zip-to-city/germany.json'
-import { useCookies } from '../../composables/useCookies'
-import { usePageContext } from '../../composables/usePageContext'
+import Search from '../../components/icons/Search.vue'
 
-const ctx = usePageContext()
-const { get, set } = useCookies()
-
-const {
-  results: initialResults,
-  locationIds: initialLocationIds,
-  locations: initialLocations,
-} = defineProps<{ results: typeof cities; locationIds: Set<string>; locations: typeof cities }>()
-
-let search = $ref(ctx.urlParsed.search?.location ?? '')
-let results = $ref(initialResults || [])
-let locationIds = $ref(initialLocationIds || new Set(JSON.parse((await get('locations')) || '[]')))
-let locations = $ref(initialLocations || [])
+let { search, results, locationIds, locations } = $(usePageData<Data>())
 
 watch($$(search), (search, _, onCleanup) => {
   let abortHandler = new AbortController()
@@ -40,7 +64,7 @@ watch(
     void fetch(`/cities?include=${[...ids].join(',')}`, { signal: abortHandler.signal })
       .then((response) => response.json())
       .then((cityResults: typeof cities) => (locations = cityResults))
-      .then(() => set('locations', JSON.stringify([...ids])))
+      .then(() => store.set('location_ids', [...ids]))
       .then(() => (search = ''))
 
     onCleanup(() => abortHandler.abort())
@@ -52,19 +76,7 @@ watch(
 <template>
   <form class="search-form" @submit.prevent>
     <div class="input-wrapper">
-      <svg
-        width="18"
-        height="18"
-        viewBox="0 0 18 18"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M12.5 11H11.71L11.43 10.73C12.41 9.59 13 8.11 13 6.5C13 2.91 10.09 0 6.5 0C2.91 0 0 2.91 0 6.5C0 10.09 2.91 13 6.5 13C8.11 13 9.59 12.41 10.73 11.43L11 11.71V12.5L16 17.49L17.49 16L12.5 11ZM6.5 11C4.01 11 2 8.99 2 6.5C2 4.01 4.01 2 6.5 2C8.99 2 11 4.01 11 6.5C11 8.99 8.99 11 6.5 11Z"
-          fill="white"
-        />
-      </svg>
-
+      <Search />
       <input
         id="location-input"
         v-model="search"

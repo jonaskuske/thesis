@@ -1,14 +1,14 @@
 // `usePageContext` allows us to access `pageContext` in any Vue component.
 // See https://vite-plugin-ssr.com/pageContext-anywhere
 
-import { inject } from 'vue'
+import { inject, isReactive, reactive, toRefs, type ToRefs } from 'vue'
 import type { App, InjectionKey } from 'vue'
 import type { PageContextShared } from '../utils/types'
 
-const key: InjectionKey<PageContextShared> = Symbol()
+const key: InjectionKey<ToRefs<PageContextShared>> = Symbol()
 
-export function usePageContext(): PageContextShared
-export function usePageContext<Context>(): Context
+export function usePageContext(): ToRefs<PageContextShared>
+export function usePageContext<Context>(): ToRefs<Context>
 
 export function usePageContext() {
   const pageContext = inject(key)
@@ -17,5 +17,5 @@ export function usePageContext() {
 }
 
 export function setPageContext(app: App, pageContext: PageContextShared) {
-  app.provide(key, pageContext)
+  app.provide(key, toRefs(isReactive(pageContext) ? pageContext : reactive(pageContext)))
 }

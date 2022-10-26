@@ -1,5 +1,7 @@
 <script lang="ts" setup>
-defineProps<{ is404: boolean }>()
+import { usePageContext } from '../composables/usePageContext'
+
+const { is404 } = usePageContext()
 </script>
 
 <template>

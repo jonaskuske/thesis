@@ -7,23 +7,22 @@ import compress from '@fastify/compress'
 import cookie from '@fastify/cookie'
 import formbody from '@fastify/formbody'
 import helmet from '@fastify/helmet'
+import { isDev, isProd } from '../utils'
 import appRoutes from './app'
 import citiesRoutes from './cities'
 import locationsRoutes from './locations'
 
 // @ts-expect-error
 const root = fileURLToPath(new URL('..', import.meta.url))
-const isProd = process.env.NODE_ENV === 'production'
-const isDev = process.env.NODE_ENV !== 'production'
 
 startServer().catch((err) => console.log('Failed to start server:', err))
 
 async function startServer() {
-  const app = fastify({ logger: isDev })
+  const app = fastify({ logger: false })
 
   await app.register(compress)
 
-  await app.register(cookie)
+  await app.register(cookie, { parseOptions: {} })
 
   await app.register(formbody)
 
@@ -66,9 +65,9 @@ async function startServer() {
     await app.use(devServer.middlewares)
   }
 
-  await app.register(appRoutes, { isDev, isProd })
-  await app.register(citiesRoutes, { isDev, isProd })
-  await app.register(locationsRoutes, { isDev, isProd })
+  await app.register(appRoutes)
+  await app.register(citiesRoutes)
+  await app.register(locationsRoutes)
 
   const port = Number(process.env.PORT ?? 3000)
   await app.listen({ port, host: '0.0.0.0' })

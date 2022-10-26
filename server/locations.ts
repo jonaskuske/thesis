@@ -1,4 +1,5 @@
 import type { FastifyPluginAsync } from 'fastify'
+import { get } from '../utils/cookies'
 
 const locationsBodySchema = {
   type: 'object',
@@ -6,12 +7,12 @@ const locationsBodySchema = {
   required: ['id'],
 }
 
-const routes: FastifyPluginAsync<{ isDev: boolean; isProd: boolean }> = async (fastify) => {
+const routes: FastifyPluginAsync = async (fastify) => {
   fastify.post<{ Body: { id: string } }>(
     '/locations',
     { schema: { body: locationsBodySchema } },
     async (request, reply) => {
-      const cookies = JSON.parse(request.cookies.locations || '[]') as string[]
+      const cookies = get('location_ids', request.cookies) ?? []
 
       const ids = new Set(cookies)
       ids.add(request.body.id)

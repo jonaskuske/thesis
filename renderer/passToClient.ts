@@ -3,6 +3,7 @@ export const passToClient = [
   'enableServiceWorker',
   'enableHydration',
   'pageProps',
+  'data',
   'routeParams',
   'urlPathname',
   'urlParsed',

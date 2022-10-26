@@ -11,7 +11,7 @@ const citiesQuerystringSchema = {
   },
 }
 
-const routes: FastifyPluginAsync<{ isDev: boolean; isProd: boolean }> = async (fastify) => {
+const routes: FastifyPluginAsync = async (fastify) => {
   fastify.addSchema({
     $id: 'city',
     type: 'object',
