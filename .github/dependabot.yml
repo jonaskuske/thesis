@@ -13,12 +13,3 @@ updates:
       timezone: 'Europe/Berlin'
     allow:
       - dependency-type: 'production'
-  - package-ecosystem: 'npm' # See documentation for possible values
-    directory: '/' # Location of package manifests
-    schedule:
-      interval: 'weekly'
-      day: 'monday'
-      time: '09:00'
-      timezone: 'Europe/Berlin'
-    allow:
-      - dependency-type: 'development'
