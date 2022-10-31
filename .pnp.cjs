@@ -34,7 +34,7 @@ const RAW_RUNTIME_STATE =
           ["@fastify/middie", "npm:8.0.0"],\
           ["@fastify/static", "npm:6.5.0"],\
           ["@types/connect", "npm:3.4.35"],\
-          ["@types/node", "npm:16.18.1"],\
+          ["@types/node", "npm:16.18.3"],\
           ["@typescript-eslint/eslint-plugin", "virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:5.41.0"],\
           ["@typescript-eslint/parser", "virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:5.41.0"],\
           ["@vitejs/plugin-vue", "virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:3.2.0"],\
@@ -495,10 +495,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@types/node", [\
-      ["npm:16.18.1", {\
-        "packageLocation": "./.yarn/cache/@types-node-npm-16.18.1-93e432915a-256e609b9d.zip/node_modules/@types/node/",\
+      ["npm:16.18.3", {\
+        "packageLocation": "./.yarn/cache/@types-node-npm-16.18.3-a539bbae75-af50539b26.zip/node_modules/@types/node/",\
         "packageDependencies": [\
-          ["@types/node", "npm:16.18.1"]\
+          ["@types/node", "npm:16.18.3"]\
         ],\
         "linkType": "HARD"\
       }],\
@@ -978,7 +978,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/__virtual__/@vue-tsconfig-virtual-084478b2ba/0/cache/@vue-tsconfig-npm-0.1.3-07ae9b676e-d086593aea.zip/node_modules/@vue/tsconfig/",\
         "packageDependencies": [\
           ["@vue/tsconfig", "virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:0.1.3"],\
-          ["@types/node", "npm:16.18.1"]\
+          ["@types/node", "npm:16.18.3"]\
         ],\
         "packagePeers": [\
           "@types/node"\
@@ -5003,7 +5003,7 @@ const RAW_RUNTIME_STATE =
           ["@fastify/middie", "npm:8.0.0"],\
           ["@fastify/static", "npm:6.5.0"],\
           ["@types/connect", "npm:3.4.35"],\
-          ["@types/node", "npm:16.18.1"],\
+          ["@types/node", "npm:16.18.3"],\
           ["@typescript-eslint/eslint-plugin", "virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:5.41.0"],\
           ["@typescript-eslint/parser", "virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:5.41.0"],\
           ["@vitejs/plugin-vue", "virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:3.2.0"],\
