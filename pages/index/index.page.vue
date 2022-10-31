@@ -21,7 +21,7 @@ if (isServer) {
       .map((id) => cities.find((city) => city.id === id))
       .filter((city): city is typeof cities[0] => city != null)
 
-    const search = urlParsed.search?.location?.toLowerCase() ?? ''
+    const search = (urlParsed.search?.location?.toLowerCase() ?? '').trim()
     const results = search
       ? cities.filter(
           ({ city, zip }) => city.toLowerCase().startsWith(search) || zip.startsWith(search),
@@ -79,7 +79,7 @@ watch(
       <Search />
       <input
         id="location-input"
-        v-model="search"
+        v-model.trim="search"
         placeholder=" "
         class="input"
         type="search"
