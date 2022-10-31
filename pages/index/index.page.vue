@@ -95,7 +95,7 @@ watch(
     class="list"
     @location="search = $event.postcode"
   />
-  <template v-else>
+  <template v-else-if="results.length">
     <form
       v-for="{ city, zip, id } in results"
       :key="id"
@@ -108,6 +108,9 @@ watch(
       <input type="hidden" name="id" :value="id" />
       <button type="submit" @click="locationIds.add(id)">Hinzufügen</button>
     </form>
+  </template>
+  <template v-else>
+    <p>Keine Ergebnisse für „{{ search }}“.</p>
   </template>
 </template>
 

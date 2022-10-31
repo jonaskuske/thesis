@@ -18,7 +18,7 @@ const routes: FastifyPluginAsync = async (fastify) => {
       ids.add(request.body.id)
 
       await reply
-        .cookie('locations', JSON.stringify([...ids]))
+        .cookie('location_ids', JSON.stringify([...ids]))
         .redirect(303, '/')
         .send()
     },

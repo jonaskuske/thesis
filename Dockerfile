@@ -1,9 +1,20 @@
 FROM node:16.17.1-alpine as build
 WORKDIR /usr/src/app
+ARG DISABLE_JS=false
+RUN apk add bash
+SHELL [ "/bin/bash", "-c" ]
 COPY ./.yarn ./.yarn
 COPY package.json yarn.lock .yarnrc.yml .pnp.cjs .pnp.loader.mjs ./
 RUN yarn install --immutable --immutable-cache
 COPY . .
+RUN \
+  if [[ "$DISABLE_JS" = "true" ]]; then\
+  shopt -s globstar;\
+  for page in ./{pages,renderer}/**/*.page.*; do\
+    dest="$(echo "$page" | sed -e 's/\.page\.\([^.]\+\)$/\.page\.server\.\1/')";\
+    [ "$page" != "$dest" ] && mv "$page" "$dest";\
+  done;\
+  fi
 RUN yarn build
 
 FROM node:16.17.1-alpine
