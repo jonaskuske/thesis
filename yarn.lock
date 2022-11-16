@@ -4576,7 +4576,7 @@ __metadata:
     lint-staged: "npm:^13.0.3"
     prettier: "npm:~2.7.1"
     typescript: "npm:^4.8.4"
-    vite: "npm:^3.2.3"
+    vite: "npm:^3.2.4"
     vite-plugin-ssr: "npm:^0.4.48"
     vue: "npm:^3.2.45"
     vue-tsc: "npm:^1.0.9"
@@ -4794,9 +4794,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^3.2.3":
-  version: 3.2.3
-  resolution: "vite@npm:3.2.3"
+"vite@npm:^3.2.4":
+  version: 3.2.4
+  resolution: "vite@npm:3.2.4"
   dependencies:
     esbuild: "npm:^0.15.9"
     fsevents: "npm:~2.3.2"
@@ -4828,7 +4828,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: ddd857ae9900e65cb7853466f22d008b9814e6ac57390b61a82dffcac2503bda954271357faeabfb7c258a1ac08345e050b2c6dc6197b11d21def3a95399f076
+  checksum: 7d3d67837a0400cb9c79c7ce0ffe26eb65d5668437b47e3a34c231c5ffb96e02d2d592867b0c1f863d9b8bf5ff6f3ea3b602e086ca6f48687ee00105f1b5516e
   languageName: node
   linkType: hard
 
