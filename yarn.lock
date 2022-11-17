@@ -2448,9 +2448,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fastify@npm:^4.9.2":
-  version: 4.9.2
-  resolution: "fastify@npm:4.9.2"
+"fastify@npm:^4.10.0":
+  version: 4.10.0
+  resolution: "fastify@npm:4.10.0"
   dependencies:
     "@fastify/ajv-compiler": "npm:^3.3.1"
     "@fastify/error": "npm:^3.0.0"
@@ -2465,8 +2465,8 @@ __metadata:
     rfdc: "npm:^1.3.0"
     secure-json-parse: "npm:^2.5.0"
     semver: "npm:^7.3.7"
-    tiny-lru: "npm:^9.0.2"
-  checksum: c5a9b24469ef8b83b2a97a816433946064b08f286798ec5258e6d2eb3618063ffb9782a6ad0e2f16390cd4b44b59fdd44ccdfdfffb17f01d896eb2fe9ea50e01
+    tiny-lru: "npm:^10.0.0"
+  checksum: 0b5407e6e248e6391af4a52661fbd0cb27d689484390940bc81a6f694b4a35fceedac0fa2a5eb8aea505e1c6c8214edcb4b25b26fe9a9afd0092fd76c013a8c1
   languageName: node
   linkType: hard
 
@@ -4571,7 +4571,7 @@ __metadata:
     eslint: "npm:^8.27.0"
     eslint-config-prettier: "npm:^8.5.0"
     eslint-plugin-vue: "npm:^9.7.0"
-    fastify: "npm:^4.9.2"
+    fastify: "npm:^4.10.0"
     husky: "npm:^8.0.2"
     lint-staged: "npm:^13.0.3"
     prettier: "npm:~2.7.1"
@@ -4610,10 +4610,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tiny-lru@npm:^9.0.2":
-  version: 9.0.2
-  resolution: "tiny-lru@npm:9.0.2"
-  checksum: 02a5f7a72cce60981ba5196b484084d018e182f37b1fcc824bbf7461a6f0e2ff39ce7833f47a8966185a30b9919c8ab1e6505a6110a075fc55295f70450b3dd7
+"tiny-lru@npm:^10.0.0":
+  version: 10.0.1
+  resolution: "tiny-lru@npm:10.0.1"
+  checksum: e36c06f6258f4a8b612e86170c8a2ab7a3e62a60b39107bbefd180afc62a5189294f5f20b579217f82815daea7b683be77f1d76fec98158d64099b13d8914afc
   languageName: node
   linkType: hard
 
