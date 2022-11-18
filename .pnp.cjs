@@ -53,7 +53,7 @@ const RAW_RUNTIME_STATE =
           ["prettier", "npm:2.7.1"],\
           ["typescript", "patch:typescript@npm%3A4.8.4#optional!builtin<compat/typescript>::version=4.8.4&hash=701156"],\
           ["vite", "virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:3.2.3"],\
-          ["vite-plugin-ssr", "virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:0.4.48"],\
+          ["vite-plugin-ssr", "virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:0.4.50"],\
           ["vue", "npm:3.2.45"],\
           ["vue-tsc", "virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:1.0.9"],\
           ["zip-to-city", "npm:0.1.1"]\
@@ -107,6 +107,15 @@ const RAW_RUNTIME_STATE =
           ["@babel/helper-string-parser", "npm:7.18.10"],\
           ["@babel/helper-validator-identifier", "npm:7.18.6"],\
           ["to-fast-properties", "npm:2.0.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@brillout/import", [\
+      ["npm:0.1.3", {\
+        "packageLocation": "./.yarn/cache/@brillout-import-npm-0.1.3-d63027254e-710b8e50e9.zip/node_modules/@brillout/import/",\
+        "packageDependencies": [\
+          ["@brillout/import", "npm:0.1.3"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -5288,7 +5297,7 @@ const RAW_RUNTIME_STATE =
           ["prettier", "npm:2.7.1"],\
           ["typescript", "patch:typescript@npm%3A4.8.4#optional!builtin<compat/typescript>::version=4.8.4&hash=701156"],\
           ["vite", "virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:3.2.3"],\
-          ["vite-plugin-ssr", "virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:0.4.48"],\
+          ["vite-plugin-ssr", "virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:0.4.50"],\
           ["vue", "npm:3.2.45"],\
           ["vue-tsc", "virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:1.0.9"],\
           ["zip-to-city", "npm:0.1.1"]\
@@ -5572,17 +5581,18 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["vite-plugin-ssr", [\
-      ["npm:0.4.48", {\
-        "packageLocation": "./.yarn/cache/vite-plugin-ssr-npm-0.4.48-94f2e29bc6-33b7c8d5a9.zip/node_modules/vite-plugin-ssr/",\
+      ["npm:0.4.50", {\
+        "packageLocation": "./.yarn/cache/vite-plugin-ssr-npm-0.4.50-69c03a8c02-8d54eafc53.zip/node_modules/vite-plugin-ssr/",\
         "packageDependencies": [\
-          ["vite-plugin-ssr", "npm:0.4.48"]\
+          ["vite-plugin-ssr", "npm:0.4.50"]\
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:0.4.48", {\
-        "packageLocation": "./.yarn/__virtual__/vite-plugin-ssr-virtual-55df835192/0/cache/vite-plugin-ssr-npm-0.4.48-94f2e29bc6-33b7c8d5a9.zip/node_modules/vite-plugin-ssr/",\
+      ["virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:0.4.50", {\
+        "packageLocation": "./.yarn/__virtual__/vite-plugin-ssr-virtual-27f3a08bc1/0/cache/vite-plugin-ssr-npm-0.4.50-69c03a8c02-8d54eafc53.zip/node_modules/vite-plugin-ssr/",\
         "packageDependencies": [\
-          ["vite-plugin-ssr", "virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:0.4.48"],\
+          ["vite-plugin-ssr", "virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:0.4.50"],\
+          ["@brillout/import", "npm:0.1.3"],\
           ["@brillout/json-serializer", "npm:0.5.3"],\
           ["@brillout/vite-plugin-import-build", "npm:0.1.0"],\
           ["@types/react-streaming", null],\
