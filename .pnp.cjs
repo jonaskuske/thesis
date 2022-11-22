@@ -47,7 +47,7 @@ const RAW_RUNTIME_STATE =
           ["eslint", "npm:8.27.0"],\
           ["eslint-config-prettier", "virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:8.5.0"],\
           ["eslint-plugin-vue", "virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:9.7.0"],\
-          ["fastify", "npm:4.9.2"],\
+          ["fastify", "npm:4.10.2"],\
           ["husky", "npm:8.0.2"],\
           ["lint-staged", "npm:13.0.3"],\
           ["prettier", "npm:2.7.1"],\
@@ -1803,6 +1803,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["content-type", [\
+      ["npm:1.0.4", {\
+        "packageLocation": "./.yarn/cache/content-type-npm-1.0.4-3b1a5ca16b-20bda9bccf.zip/node_modules/content-type/",\
+        "packageDependencies": [\
+          ["content-type", "npm:1.0.4"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["cookie", [\
       ["npm:0.5.0", {\
         "packageLocation": "./.yarn/cache/cookie-npm-0.5.0-e2d58a161a-23bd6dd64f.zip/node_modules/cookie/",\
@@ -2878,15 +2887,16 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["fastify", [\
-      ["npm:4.9.2", {\
-        "packageLocation": "./.yarn/cache/fastify-npm-4.9.2-b0699ef254-c5a9b24469.zip/node_modules/fastify/",\
+      ["npm:4.10.2", {\
+        "packageLocation": "./.yarn/cache/fastify-npm-4.10.2-8dbf3b451b-7f701025ac.zip/node_modules/fastify/",\
         "packageDependencies": [\
-          ["fastify", "npm:4.9.2"],\
+          ["fastify", "npm:4.10.2"],\
           ["@fastify/ajv-compiler", "npm:3.3.1"],\
           ["@fastify/error", "npm:3.0.0"],\
           ["@fastify/fast-json-stringify-compiler", "npm:4.1.0"],\
           ["abstract-logging", "npm:2.0.1"],\
           ["avvio", "npm:8.2.0"],\
+          ["content-type", "npm:1.0.4"],\
           ["find-my-way", "npm:7.3.1"],\
           ["light-my-request", "npm:5.6.1"],\
           ["pino", "npm:8.6.1"],\
@@ -2895,7 +2905,7 @@ const RAW_RUNTIME_STATE =
           ["rfdc", "npm:1.3.0"],\
           ["secure-json-parse", "npm:2.5.0"],\
           ["semver", "npm:7.3.7"],\
-          ["tiny-lru", "npm:9.0.2"]\
+          ["tiny-lru", "npm:10.0.1"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -5282,7 +5292,7 @@ const RAW_RUNTIME_STATE =
           ["eslint", "npm:8.27.0"],\
           ["eslint-config-prettier", "virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:8.5.0"],\
           ["eslint-plugin-vue", "virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:9.7.0"],\
-          ["fastify", "npm:4.9.2"],\
+          ["fastify", "npm:4.10.2"],\
           ["husky", "npm:8.0.2"],\
           ["lint-staged", "npm:13.0.3"],\
           ["prettier", "npm:2.7.1"],\
@@ -5327,10 +5337,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["tiny-lru", [\
-      ["npm:9.0.2", {\
-        "packageLocation": "./.yarn/cache/tiny-lru-npm-9.0.2-c176628040-02a5f7a72c.zip/node_modules/tiny-lru/",\
+      ["npm:10.0.1", {\
+        "packageLocation": "./.yarn/cache/tiny-lru-npm-10.0.1-a2c23f17a4-e36c06f625.zip/node_modules/tiny-lru/",\
         "packageDependencies": [\
-          ["tiny-lru", "npm:9.0.2"]\
+          ["tiny-lru", "npm:10.0.1"]\
         ],\
         "linkType": "HARD"\
       }]\
