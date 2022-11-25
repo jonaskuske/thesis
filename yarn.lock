@@ -48,6 +48,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@brillout/import@npm:^0.2.1":
+  version: 0.2.1
+  resolution: "@brillout/import@npm:0.2.1"
+  checksum: 705638fb09da3ba9505b9f5e4e3c82d0019206ccdb251f9fc474f62dc815cb002ac40590504883312fbbe940fa720c2d863d66b7fa7efea0eea4886d26a2e886
+  languageName: node
+  linkType: hard
+
 "@brillout/json-serializer@npm:^0.5.3":
   version: 0.5.3
   resolution: "@brillout/json-serializer@npm:0.5.3"
@@ -4577,7 +4584,7 @@ __metadata:
     prettier: "npm:~2.7.1"
     typescript: "npm:^4.8.4"
     vite: "npm:^3.2.3"
-    vite-plugin-ssr: "npm:^0.4.48"
+    vite-plugin-ssr: "npm:^0.4.52"
     vue: "npm:^3.2.45"
     vue-tsc: "npm:^1.0.9"
     zip-to-city: "npm:^0.1.1"
@@ -4770,10 +4777,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite-plugin-ssr@npm:^0.4.48":
-  version: 0.4.48
-  resolution: "vite-plugin-ssr@npm:0.4.48"
+"vite-plugin-ssr@npm:^0.4.52":
+  version: 0.4.52
+  resolution: "vite-plugin-ssr@npm:0.4.52"
   dependencies:
+    "@brillout/import": "npm:^0.2.1"
     "@brillout/json-serializer": "npm:^0.5.3"
     "@brillout/vite-plugin-import-build": "npm:^0.1.0"
     cac: "npm:^6.7.12"
@@ -4790,7 +4798,7 @@ __metadata:
       optional: true
   bin:
     vite-plugin-ssr: node/bin/vite-plugin-ssr.js
-  checksum: 33b7c8d5a9d6adea9328b818ea1270701a24508418cce6327b1834c8e0628583cefec244abb788dcab24bcd7e715e058261d0e30b5504b674027e5b5dce8780c
+  checksum: 49863da5e505f6558eb7ebecd72b1769a47f2289108cbb43aaa0a9cc8b77255e7ad61ae4acd4663d041e1575bf45239421f9af9ddf062f6d104faf54f4866409
   languageName: node
   linkType: hard
 
