@@ -1,4 +1,4 @@
-FROM node:16.17.1-alpine as build
+FROM node:18.12.1-alpine as build
 WORKDIR /usr/src/app
 ARG DISABLE_JS=false
 RUN apk add bash
@@ -17,7 +17,7 @@ RUN \
   fi
 RUN yarn build
 
-FROM node:16.17.1-alpine
+FROM node:18.12.1-alpine
 WORKDIR /usr/src/app
 ENV NODE_ENV production
 ENV PORT 80
