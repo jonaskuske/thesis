@@ -32,7 +32,7 @@ const RAW_RUNTIME_STATE =
           ["@fastify/formbody", "npm:7.3.0"],\
           ["@fastify/helmet", "npm:10.1.0"],\
           ["@fastify/middie", "npm:8.0.0"],\
-          ["@fastify/static", "npm:6.5.1"],\
+          ["@fastify/static", "npm:6.6.0"],\
           ["@types/connect", "npm:3.4.35"],\
           ["@types/node", "npm:18.11.9"],\
           ["@typescript-eslint/eslint-plugin", "virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:5.44.0"],\
@@ -308,10 +308,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@fastify/static", [\
-      ["npm:6.5.1", {\
-        "packageLocation": "./.yarn/cache/@fastify-static-npm-6.5.1-7dca86698c-28b0c92c94.zip/node_modules/@fastify/static/",\
+      ["npm:6.6.0", {\
+        "packageLocation": "./.yarn/cache/@fastify-static-npm-6.6.0-f2c283b9b4-fcb1fde06c.zip/node_modules/@fastify/static/",\
         "packageDependencies": [\
-          ["@fastify/static", "npm:6.5.1"],\
+          ["@fastify/static", "npm:6.6.0"],\
           ["@fastify/accept-negotiator", "npm:1.0.0"],\
           ["content-disposition", "npm:0.5.4"],\
           ["fastify-plugin", "npm:4.2.1"],\
@@ -5023,7 +5023,7 @@ const RAW_RUNTIME_STATE =
           ["@fastify/formbody", "npm:7.3.0"],\
           ["@fastify/helmet", "npm:10.1.0"],\
           ["@fastify/middie", "npm:8.0.0"],\
-          ["@fastify/static", "npm:6.5.1"],\
+          ["@fastify/static", "npm:6.6.0"],\
           ["@types/connect", "npm:3.4.35"],\
           ["@types/node", "npm:18.11.9"],\
           ["@typescript-eslint/eslint-plugin", "virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:5.44.0"],\
