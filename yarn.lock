@@ -187,13 +187,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fastify/formbody@npm:^7.3.0":
-  version: 7.3.0
-  resolution: "@fastify/formbody@npm:7.3.0"
+"@fastify/formbody@npm:^7.4.0":
+  version: 7.4.0
+  resolution: "@fastify/formbody@npm:7.4.0"
   dependencies:
     fast-querystring: "npm:^1.0.0"
     fastify-plugin: "npm:^4.0.0"
-  checksum: 59aee2bbc4fbf10333cc1bcb61d75038804441c6245b7f1d5a6b3381d428c5601afd2cbde26faaf142e4e87d2914d21abc3a7e93c10a451b5920cacf521c08bd
+  checksum: 2df9e02374a7e3e8f8bdf136b4f9641dafeaecb8760b487573d66b96cfccfbefb9e8150116c3c93d63c26dc389d558e696795555f06de1a5e6a3a7226671e3d0
   languageName: node
   linkType: hard
 
@@ -4183,7 +4183,7 @@ __metadata:
     "@esbuild-kit/cjs-loader": "npm:^2.4.1"
     "@fastify/compress": "npm:^6.2.0"
     "@fastify/cookie": "npm:^8.3.0"
-    "@fastify/formbody": "npm:^7.3.0"
+    "@fastify/formbody": "npm:^7.4.0"
     "@fastify/helmet": "npm:^10.1.0"
     "@fastify/middie": "npm:^8.0.0"
     "@fastify/static": "npm:^6.10.0"
