@@ -31,7 +31,7 @@ const RAW_RUNTIME_STATE =
           ["@fastify/cookie", "npm:8.3.0"],\
           ["@fastify/formbody", "npm:7.3.0"],\
           ["@fastify/helmet", "npm:10.1.0"],\
-          ["@fastify/middie", "npm:8.0.0"],\
+          ["@fastify/middie", "npm:8.1.0"],\
           ["@fastify/static", "npm:6.10.0"],\
           ["@types/connect", "npm:3.4.35"],\
           ["@types/node", "npm:18.11.9"],\
@@ -296,11 +296,11 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@fastify/middie", [\
-      ["npm:8.0.0", {\
-        "packageLocation": "./.yarn/cache/@fastify-middie-npm-8.0.0-2be0691ce0-9874199768.zip/node_modules/@fastify/middie/",\
+      ["npm:8.1.0", {\
+        "packageLocation": "./.yarn/cache/@fastify-middie-npm-8.1.0-1b2cf61b7d-039c0079e9.zip/node_modules/@fastify/middie/",\
         "packageDependencies": [\
-          ["@fastify/middie", "npm:8.0.0"],\
-          ["fastify-plugin", "npm:3.0.1"],\
+          ["@fastify/middie", "npm:8.1.0"],\
+          ["fastify-plugin", "npm:4.2.1"],\
           ["path-to-regexp", "npm:6.2.1"],\
           ["reusify", "npm:1.0.4"]\
         ],\
@@ -2623,13 +2623,6 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["fastify-plugin", [\
-      ["npm:3.0.1", {\
-        "packageLocation": "./.yarn/cache/fastify-plugin-npm-3.0.1-30a545741d-804e7b5228.zip/node_modules/fastify-plugin/",\
-        "packageDependencies": [\
-          ["fastify-plugin", "npm:3.0.1"]\
-        ],\
-        "linkType": "HARD"\
-      }],\
       ["npm:4.2.1", {\
         "packageLocation": "./.yarn/cache/fastify-plugin-npm-4.2.1-4237abb051-6fb27bc0fe.zip/node_modules/fastify-plugin/",\
         "packageDependencies": [\
@@ -4931,7 +4924,7 @@ const RAW_RUNTIME_STATE =
           ["@fastify/cookie", "npm:8.3.0"],\
           ["@fastify/formbody", "npm:7.3.0"],\
           ["@fastify/helmet", "npm:10.1.0"],\
-          ["@fastify/middie", "npm:8.0.0"],\
+          ["@fastify/middie", "npm:8.1.0"],\
           ["@fastify/static", "npm:6.10.0"],\
           ["@types/connect", "npm:3.4.35"],\
           ["@types/node", "npm:18.11.9"],\

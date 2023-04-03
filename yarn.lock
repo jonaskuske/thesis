@@ -207,14 +207,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fastify/middie@npm:^8.0.0":
-  version: 8.0.0
-  resolution: "@fastify/middie@npm:8.0.0"
+"@fastify/middie@npm:^8.1.0":
+  version: 8.1.0
+  resolution: "@fastify/middie@npm:8.1.0"
   dependencies:
-    fastify-plugin: "npm:^3.0.0"
+    fastify-plugin: "npm:^4.0.0"
     path-to-regexp: "npm:^6.1.0"
     reusify: "npm:^1.0.4"
-  checksum: 987419976861041a772087813d1e62d974037ef409b70ed79043733aa51e6e3316a7460503e55e8efd221fa51e20574dec9568696ab15bfbc4104341cbd5c63c
+  checksum: 039c0079e9848bd9005af799b3e790093cbd025de4c705fc14d606c220a836ebf4c0d320e08a58a8dc0bc77f16d9473609ad29e0f74056abe00693112a366e38
   languageName: node
   linkType: hard
 
@@ -2111,13 +2111,6 @@ __metadata:
   version: 2.1.0
   resolution: "fast-uri@npm:2.1.0"
   checksum: b85cfe57851d0b300310d5b4cfc8cc74d9bb5e0cb62e2e72bccef9c63b21b06a7a5f324b1719223f1fd66dccd900ad78a3251773e3ed2ad619c7c77f84dd1626
-  languageName: node
-  linkType: hard
-
-"fastify-plugin@npm:^3.0.0":
-  version: 3.0.1
-  resolution: "fastify-plugin@npm:3.0.1"
-  checksum: 804e7b52287599449950d4ddaa778ea47e507fe00df631659131540ba194d6612485d0b4731cd65fda37796d6f143374c0a643579d5bce31d766b2eb0ee5a144
   languageName: node
   linkType: hard
 
@@ -4185,7 +4178,7 @@ __metadata:
     "@fastify/cookie": "npm:^8.3.0"
     "@fastify/formbody": "npm:^7.3.0"
     "@fastify/helmet": "npm:^10.1.0"
-    "@fastify/middie": "npm:^8.0.0"
+    "@fastify/middie": "npm:^8.1.0"
     "@fastify/static": "npm:^6.10.0"
     "@types/connect": "npm:^3.4.35"
     "@types/node": "npm:^18.11.9"
