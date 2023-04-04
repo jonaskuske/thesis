@@ -24,7 +24,7 @@
     "@fastify/helmet": "^10.1.0",
     "@fastify/middie": "^8.1.0",
     "@fastify/static": "^6.10.0",
-    "@vue/server-renderer": "^3.2.45",
+    "@vue/server-renderer": "^3.2.47",
     "@vue/tsconfig": "^0.1.3",
     "cookie-store": "^4.0.0-next.2",
     "fastify": "^4.10.2",
