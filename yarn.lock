@@ -69,13 +69,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@esbuild-kit/cjs-loader@npm:^2.4.1":
-  version: 2.4.1
-  resolution: "@esbuild-kit/cjs-loader@npm:2.4.1"
+"@esbuild-kit/cjs-loader@npm:^2.4.2":
+  version: 2.4.2
+  resolution: "@esbuild-kit/cjs-loader@npm:2.4.2"
   dependencies:
     "@esbuild-kit/core-utils": "npm:^3.0.0"
-    get-tsconfig: "npm:^4.2.0"
-  checksum: 81b2d9ce8a041e41ae3d5b87c4cad2abe786971ba60331879d1d174d0640010e02e9b400f8237d3f9c072244b68c60d0b9b74f52b8a20b2ed07ad274eeaa1a4d
+    get-tsconfig: "npm:^4.4.0"
+  checksum: bab73f796e882c18a35a1959df2f373913aeccbb62d8f30a62af567cf3a151d19fad311b0c2510812869f11ad462e3f528b1c3c97e3116077010d4340120aec3
   languageName: node
   linkType: hard
 
@@ -2351,10 +2351,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"get-tsconfig@npm:^4.2.0":
-  version: 4.2.0
-  resolution: "get-tsconfig@npm:4.2.0"
-  checksum: 9bdb940c9a30bbc87818e2c1c46fdf39708b913388e71fe0d30a3e8f6b4146d871d6fc9d6834220de84ece85f45872f41a1a8207f709bbfa7f9dcb38909a1a99
+"get-tsconfig@npm:^4.4.0":
+  version: 4.5.0
+  resolution: "get-tsconfig@npm:4.5.0"
+  checksum: 55326d2fdfcf0f07096e948928ada42560d0bfc6b215232393da09738301ea19200c0e94f0214d223a3264f0ec72fbbb38a3769502076f2c34edd01f006ed6d9
   languageName: node
   linkType: hard
 
@@ -4231,7 +4231,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "thesis@workspace:."
   dependencies:
-    "@esbuild-kit/cjs-loader": "npm:^2.4.1"
+    "@esbuild-kit/cjs-loader": "npm:^2.4.2"
     "@fastify/compress": "npm:^6.2.1"
     "@fastify/cookie": "npm:^8.3.0"
     "@fastify/formbody": "npm:^7.4.0"

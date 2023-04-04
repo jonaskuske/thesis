@@ -17,7 +17,7 @@
     "postinstall": "husky install || true"
   },
   "dependencies": {
-    "@esbuild-kit/cjs-loader": "^2.4.1",
+    "@esbuild-kit/cjs-loader": "^2.4.2",
     "@fastify/compress": "^6.2.1",
     "@fastify/cookie": "^8.3.0",
     "@fastify/formbody": "^7.4.0",
