@@ -47,7 +47,7 @@ const RAW_RUNTIME_STATE =
           ["eslint", "npm:8.28.0"],\
           ["eslint-config-prettier", "virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:8.5.0"],\
           ["eslint-plugin-vue", "virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:9.8.0"],\
-          ["fastify", "npm:4.10.2"],\
+          ["fastify", "npm:4.15.0"],\
           ["husky", "npm:8.0.2"],\
           ["lint-staged", "npm:13.0.4"],\
           ["prettier", "npm:2.8.0"],\
@@ -206,12 +206,12 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@fastify/ajv-compiler", [\
-      ["npm:3.3.1", {\
-        "packageLocation": "./.yarn/cache/@fastify-ajv-compiler-npm-3.3.1-2ffc2c24a5-ef70d63fc2.zip/node_modules/@fastify/ajv-compiler/",\
+      ["npm:3.5.0", {\
+        "packageLocation": "./.yarn/cache/@fastify-ajv-compiler-npm-3.5.0-d1a90dc51f-b2969c93b1.zip/node_modules/@fastify/ajv-compiler/",\
         "packageDependencies": [\
-          ["@fastify/ajv-compiler", "npm:3.3.1"],\
+          ["@fastify/ajv-compiler", "npm:3.5.0"],\
           ["ajv", "npm:8.11.0"],\
-          ["ajv-formats", "virtual:2ffc2c24a5996ccc26158080dbd7f59924dac9c9eb8a062b64a2e3965f5134eb3266f9fa0f5bf6fee1e64a4951b120c4ba784f0fec69f6a67af6d3c41d408363#npm:2.1.1"],\
+          ["ajv-formats", "virtual:d1a90dc51fd4f27c180a2a806ba9ab5e42abb6f7420ba1e8ab979625b7462658b5a2ecaaf9566f9537491e28e0df48947655c2ecc4489537931b03e5f7e9da96#npm:2.1.1"],\
           ["fast-uri", "npm:2.1.0"]\
         ],\
         "linkType": "HARD"\
@@ -264,10 +264,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@fastify/fast-json-stringify-compiler", [\
-      ["npm:4.1.0", {\
-        "packageLocation": "./.yarn/cache/@fastify-fast-json-stringify-compiler-npm-4.1.0-76d41b2e6e-994b771ecb.zip/node_modules/@fastify/fast-json-stringify-compiler/",\
+      ["npm:4.2.0", {\
+        "packageLocation": "./.yarn/cache/@fastify-fast-json-stringify-compiler-npm-4.2.0-abe50f6e2d-5dbc27b7dc.zip/node_modules/@fastify/fast-json-stringify-compiler/",\
         "packageDependencies": [\
-          ["@fastify/fast-json-stringify-compiler", "npm:4.1.0"],\
+          ["@fastify/fast-json-stringify-compiler", "npm:4.2.0"],\
           ["fast-json-stringify", "npm:5.1.0"]\
         ],\
         "linkType": "HARD"\
@@ -1317,10 +1317,10 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:2ffc2c24a5996ccc26158080dbd7f59924dac9c9eb8a062b64a2e3965f5134eb3266f9fa0f5bf6fee1e64a4951b120c4ba784f0fec69f6a67af6d3c41d408363#npm:2.1.1", {\
-        "packageLocation": "./.yarn/__virtual__/ajv-formats-virtual-277d5d658d/0/cache/ajv-formats-npm-2.1.1-3cec02eae9-e5f81767fe.zip/node_modules/ajv-formats/",\
+      ["virtual:d1a90dc51fd4f27c180a2a806ba9ab5e42abb6f7420ba1e8ab979625b7462658b5a2ecaaf9566f9537491e28e0df48947655c2ecc4489537931b03e5f7e9da96#npm:2.1.1", {\
+        "packageLocation": "./.yarn/__virtual__/ajv-formats-virtual-2ebf2e0c5a/0/cache/ajv-formats-npm-2.1.1-3cec02eae9-e5f81767fe.zip/node_modules/ajv-formats/",\
         "packageDependencies": [\
-          ["ajv-formats", "virtual:2ffc2c24a5996ccc26158080dbd7f59924dac9c9eb8a062b64a2e3965f5134eb3266f9fa0f5bf6fee1e64a4951b120c4ba784f0fec69f6a67af6d3c41d408363#npm:2.1.1"],\
+          ["ajv-formats", "virtual:d1a90dc51fd4f27c180a2a806ba9ab5e42abb6f7420ba1e8ab979625b7462658b5a2ecaaf9566f9537491e28e0df48947655c2ecc4489537931b03e5f7e9da96#npm:2.1.1"],\
           ["@types/ajv", null],\
           ["ajv", "npm:8.11.0"]\
         ],\
@@ -1795,15 +1795,6 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["content-disposition", "npm:0.5.4"],\
           ["safe-buffer", "npm:5.2.1"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["content-type", [\
-      ["npm:1.0.4", {\
-        "packageLocation": "./.yarn/cache/content-type-npm-1.0.4-3b1a5ca16b-20bda9bccf.zip/node_modules/content-type/",\
-        "packageDependencies": [\
-          ["content-type", "npm:1.0.4"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -2564,6 +2555,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["fast-content-type-parse", [\
+      ["npm:1.0.0", {\
+        "packageLocation": "./.yarn/cache/fast-content-type-parse-npm-1.0.0-08ad8e1d9f-7a7a4e2953.zip/node_modules/fast-content-type-parse/",\
+        "packageDependencies": [\
+          ["fast-content-type-parse", "npm:1.0.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["fast-decode-uri-component", [\
       ["npm:1.0.1", {\
         "packageLocation": "./.yarn/cache/fast-decode-uri-component-npm-1.0.1-578ba9fecf-47a0e7876b.zip/node_modules/fast-decode-uri-component/",\
@@ -2612,7 +2612,7 @@ const RAW_RUNTIME_STATE =
           ["fast-json-stringify", "npm:5.1.0"],\
           ["@fastify/deepmerge", "npm:1.1.0"],\
           ["ajv", "npm:8.11.0"],\
-          ["ajv-formats", "virtual:2ffc2c24a5996ccc26158080dbd7f59924dac9c9eb8a062b64a2e3965f5134eb3266f9fa0f5bf6fee1e64a4951b120c4ba784f0fec69f6a67af6d3c41d408363#npm:2.1.1"],\
+          ["ajv-formats", "virtual:d1a90dc51fd4f27c180a2a806ba9ab5e42abb6f7420ba1e8ab979625b7462658b5a2ecaaf9566f9537491e28e0df48947655c2ecc4489537931b03e5f7e9da96#npm:2.1.1"],\
           ["fast-uri", "npm:2.1.0"],\
           ["rfdc", "npm:1.3.0"]\
         ],\
@@ -2657,17 +2657,17 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["fastify", [\
-      ["npm:4.10.2", {\
-        "packageLocation": "./.yarn/cache/fastify-npm-4.10.2-8dbf3b451b-7f701025ac.zip/node_modules/fastify/",\
+      ["npm:4.15.0", {\
+        "packageLocation": "./.yarn/cache/fastify-npm-4.15.0-170ae28581-41c9ac8fae.zip/node_modules/fastify/",\
         "packageDependencies": [\
-          ["fastify", "npm:4.10.2"],\
-          ["@fastify/ajv-compiler", "npm:3.3.1"],\
+          ["fastify", "npm:4.15.0"],\
+          ["@fastify/ajv-compiler", "npm:3.5.0"],\
           ["@fastify/error", "npm:3.0.0"],\
-          ["@fastify/fast-json-stringify-compiler", "npm:4.1.0"],\
+          ["@fastify/fast-json-stringify-compiler", "npm:4.2.0"],\
           ["abstract-logging", "npm:2.0.1"],\
           ["avvio", "npm:8.2.0"],\
-          ["content-type", "npm:1.0.4"],\
-          ["find-my-way", "npm:7.3.1"],\
+          ["fast-content-type-parse", "npm:1.0.0"],\
+          ["find-my-way", "npm:7.6.0"],\
           ["light-my-request", "npm:5.6.1"],\
           ["pino", "npm:8.6.1"],\
           ["process-warning", "npm:2.0.0"],\
@@ -2720,10 +2720,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["find-my-way", [\
-      ["npm:7.3.1", {\
-        "packageLocation": "./.yarn/cache/find-my-way-npm-7.3.1-fbb8a4e46d-81a972d69c.zip/node_modules/find-my-way/",\
+      ["npm:7.6.0", {\
+        "packageLocation": "./.yarn/cache/find-my-way-npm-7.6.0-7e37169aa6-c1d018d0f7.zip/node_modules/find-my-way/",\
         "packageDependencies": [\
-          ["find-my-way", "npm:7.3.1"],\
+          ["find-my-way", "npm:7.6.0"],\
           ["fast-deep-equal", "npm:3.1.3"],\
           ["fast-querystring", "npm:1.0.0"],\
           ["safe-regex2", "npm:2.0.0"]\
@@ -5005,7 +5005,7 @@ const RAW_RUNTIME_STATE =
           ["eslint", "npm:8.28.0"],\
           ["eslint-config-prettier", "virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:8.5.0"],\
           ["eslint-plugin-vue", "virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:9.8.0"],\
-          ["fastify", "npm:4.10.2"],\
+          ["fastify", "npm:4.15.0"],\
           ["husky", "npm:8.0.2"],\
           ["lint-staged", "npm:13.0.4"],\
           ["prettier", "npm:2.8.0"],\
