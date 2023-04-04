@@ -127,14 +127,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fastify/ajv-compiler@npm:^3.3.1":
-  version: 3.3.1
-  resolution: "@fastify/ajv-compiler@npm:3.3.1"
+"@fastify/ajv-compiler@npm:^3.5.0":
+  version: 3.5.0
+  resolution: "@fastify/ajv-compiler@npm:3.5.0"
   dependencies:
     ajv: "npm:^8.11.0"
     ajv-formats: "npm:^2.1.1"
     fast-uri: "npm:^2.0.0"
-  checksum: ef70d63fc29430c39ec85b8441823db0a69e77b0dbdef7a0613d12a0a7e639928a6fc3bf7c2474409869a1811d57c20df14217ac6b2077bf39ee469e91de1939
+  checksum: b2969c93b1583b3cb3e16d1d204c335ef4523e94ceda54a442d95be3574171922ec7784aa386f895a0fd0081f95741b33c2eddd29fd1a130044b21b70d31dd2d
   languageName: node
   linkType: hard
 
@@ -178,12 +178,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fastify/fast-json-stringify-compiler@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "@fastify/fast-json-stringify-compiler@npm:4.1.0"
+"@fastify/fast-json-stringify-compiler@npm:^4.2.0":
+  version: 4.2.0
+  resolution: "@fastify/fast-json-stringify-compiler@npm:4.2.0"
   dependencies:
     fast-json-stringify: "npm:^5.0.0"
-  checksum: 994b771ecbd84b9bda2c5302e6863f3c52b450adea00ad96a592d450ba69c35c9b190739ca3f05d8bad68703ae27c3f0581fd0ba3c85d64ef6d881ef0c306ae0
+  checksum: 5dbc27b7dcf856428b3734f9839aa62b894bdd0fb11c03d5a9b19e7caaf12f7c2cb514823eb625d0f837e6e463d0f6a9f5c8e50b031ccada61f02eba9e076745
   languageName: node
   linkType: hard
 
@@ -1366,13 +1366,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"content-type@npm:^1.0.4":
-  version: 1.0.4
-  resolution: "content-type@npm:1.0.4"
-  checksum: 20bda9bccfb0086d4e4b35cc5c6073b693d4a8ff0a0da0b68cf283c34a649a5d07068fd240c1ed503a7696dbbf4c875cecb708ea219db1880fbfa40e8fb02620
-  languageName: node
-  linkType: hard
-
 "cookie-store@npm:^4.0.0-next.2":
   version: 4.0.0-next.2
   resolution: "cookie-store@npm:4.0.0-next.2"
@@ -2037,6 +2030,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fast-content-type-parse@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "fast-content-type-parse@npm:1.0.0"
+  checksum: 7a7a4e2953f9cff5b74647f43d18fc3b8a1ad7112ee2511c7a669b1f964aacbe1206dd1797cc501e30982dee4bbd67c13d3111a3d535a73437e1a14631de864d
+  languageName: node
+  linkType: hard
+
 "fast-decode-uri-component@npm:^1.0.1":
   version: 1.0.1
   resolution: "fast-decode-uri-component@npm:1.0.1"
@@ -2121,17 +2121,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fastify@npm:^4.10.2":
-  version: 4.10.2
-  resolution: "fastify@npm:4.10.2"
+"fastify@npm:^4.15.0":
+  version: 4.15.0
+  resolution: "fastify@npm:4.15.0"
   dependencies:
-    "@fastify/ajv-compiler": "npm:^3.3.1"
+    "@fastify/ajv-compiler": "npm:^3.5.0"
     "@fastify/error": "npm:^3.0.0"
-    "@fastify/fast-json-stringify-compiler": "npm:^4.1.0"
+    "@fastify/fast-json-stringify-compiler": "npm:^4.2.0"
     abstract-logging: "npm:^2.0.1"
     avvio: "npm:^8.2.0"
-    content-type: "npm:^1.0.4"
-    find-my-way: "npm:^7.3.0"
+    fast-content-type-parse: "npm:^1.0.0"
+    find-my-way: "npm:^7.6.0"
     light-my-request: "npm:^5.6.1"
     pino: "npm:^8.5.0"
     process-warning: "npm:^2.0.0"
@@ -2140,7 +2140,7 @@ __metadata:
     secure-json-parse: "npm:^2.5.0"
     semver: "npm:^7.3.7"
     tiny-lru: "npm:^10.0.0"
-  checksum: 7f701025ac612de7a790024addbecb290547f1147efcfa0e0a1a43bf766ba1a490eb18b03f697660aea3a7777707f1b016e757e34dbba5023db850c497ccafd9
+  checksum: 41c9ac8fae83c1ac594473b30c6a100056ee487a62fece1b65e1913b82a0a955adf5629b6afd48bdc6afa97419ae8d06e7047eaccde4036684126918948c44f2
   languageName: node
   linkType: hard
 
@@ -2171,14 +2171,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"find-my-way@npm:^7.3.0":
-  version: 7.3.1
-  resolution: "find-my-way@npm:7.3.1"
+"find-my-way@npm:^7.6.0":
+  version: 7.6.0
+  resolution: "find-my-way@npm:7.6.0"
   dependencies:
     fast-deep-equal: "npm:^3.1.3"
     fast-querystring: "npm:^1.0.0"
     safe-regex2: "npm:^2.0.0"
-  checksum: 81a972d69c319a57815597992827f3415ac1d22e0a930310da7400d4cd62337f153b5107a74df06f9340a255c3e4e55478757b16ea0fcc7996b7bfa51f4747a6
+  checksum: c1d018d0f75cbaebe3876a64a1a1bf867a1507ed8411acf1acf63835710effc616759300ec3f25a496cd693a850cbec1cf31484d2a2884effcb2ccd8ccba7060
   languageName: node
   linkType: hard
 
@@ -4194,7 +4194,7 @@ __metadata:
     eslint: "npm:^8.28.0"
     eslint-config-prettier: "npm:^8.5.0"
     eslint-plugin-vue: "npm:^9.8.0"
-    fastify: "npm:^4.10.2"
+    fastify: "npm:^4.15.0"
     husky: "npm:^8.0.2"
     lint-staged: "npm:^13.0.4"
     prettier: "npm:~2.8.0"
