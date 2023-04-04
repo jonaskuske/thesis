@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@esbuild-kit/cjs-loader": "^2.4.1",
-    "@fastify/compress": "^6.2.0",
+    "@fastify/compress": "^6.2.1",
     "@fastify/cookie": "^8.3.0",
     "@fastify/formbody": "^7.4.0",
     "@fastify/helmet": "^10.1.0",

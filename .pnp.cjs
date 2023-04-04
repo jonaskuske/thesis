@@ -27,7 +27,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./",\
         "packageDependencies": [\
           ["@esbuild-kit/cjs-loader", "npm:2.4.1"],\
-          ["@fastify/compress", "npm:6.2.0"],\
+          ["@fastify/compress", "npm:6.2.1"],\
           ["@fastify/cookie", "npm:8.3.0"],\
           ["@fastify/formbody", "npm:7.4.0"],\
           ["@fastify/helmet", "npm:10.1.0"],\
@@ -218,15 +218,15 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@fastify/compress", [\
-      ["npm:6.2.0", {\
-        "packageLocation": "./.yarn/cache/@fastify-compress-npm-6.2.0-76bc05e7e7-567533f87d.zip/node_modules/@fastify/compress/",\
+      ["npm:6.2.1", {\
+        "packageLocation": "./.yarn/cache/@fastify-compress-npm-6.2.1-9080007686-6e940c7f22.zip/node_modules/@fastify/compress/",\
         "packageDependencies": [\
-          ["@fastify/compress", "npm:6.2.0"],\
+          ["@fastify/compress", "npm:6.2.1"],\
           ["@fastify/accept-negotiator", "npm:1.0.0"],\
           ["fastify-plugin", "npm:4.2.1"],\
           ["into-stream", "npm:6.0.0"],\
           ["mime-db", "npm:1.52.0"],\
-          ["minipass", "npm:3.3.5"],\
+          ["minipass", "npm:4.2.5"],\
           ["peek-stream", "npm:1.1.3"],\
           ["pump", "npm:3.0.0"],\
           ["pumpify", "npm:2.0.1"]\
@@ -3630,6 +3630,13 @@ const RAW_RUNTIME_STATE =
           ["yallist", "npm:4.0.0"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:4.2.5", {\
+        "packageLocation": "./.yarn/cache/minipass-npm-4.2.5-25860eb433-9663cd3730.zip/node_modules/minipass/",\
+        "packageDependencies": [\
+          ["minipass", "npm:4.2.5"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["minipass-collect", [\
@@ -4920,7 +4927,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["thesis", "workspace:."],\
           ["@esbuild-kit/cjs-loader", "npm:2.4.1"],\
-          ["@fastify/compress", "npm:6.2.0"],\
+          ["@fastify/compress", "npm:6.2.1"],\
           ["@fastify/cookie", "npm:8.3.0"],\
           ["@fastify/formbody", "npm:7.4.0"],\
           ["@fastify/helmet", "npm:10.1.0"],\
