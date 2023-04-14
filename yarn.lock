@@ -231,9 +231,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fastify/static@npm:^6.10.0":
-  version: 6.10.0
-  resolution: "@fastify/static@npm:6.10.0"
+"@fastify/static@npm:^6.10.1":
+  version: 6.10.1
+  resolution: "@fastify/static@npm:6.10.1"
   dependencies:
     "@fastify/accept-negotiator": "npm:^1.0.0"
     "@fastify/send": "npm:^2.0.0"
@@ -242,7 +242,7 @@ __metadata:
     glob: "npm:^8.0.1"
     p-limit: "npm:^3.1.0"
     readable-stream: "npm:^4.0.0"
-  checksum: 244f6ac70fc0f72482cf797157870105749a37e9f6f05bb110e076cd2128260c6533aa758be3434eda5f670f8c1abe4c917e36426577c5a2b09a8133d0b3caa8
+  checksum: 46d84688b732260d15798a3c962e4144b76940e196f3f2a5fd2b6a6d19fbf4ba1dbc3a0dd320527a25cbe5f754bbd926bf28b98bce7732ce49d075e1fad8c519
   languageName: node
   linkType: hard
 
@@ -4237,7 +4237,7 @@ __metadata:
     "@fastify/formbody": "npm:^7.4.0"
     "@fastify/helmet": "npm:^10.1.0"
     "@fastify/middie": "npm:^8.1.0"
-    "@fastify/static": "npm:^6.10.0"
+    "@fastify/static": "npm:^6.10.1"
     "@types/connect": "npm:^3.4.35"
     "@types/node": "npm:^18.11.9"
     "@typescript-eslint/eslint-plugin": "npm:^5.44.0"
