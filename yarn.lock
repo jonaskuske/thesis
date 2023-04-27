@@ -2201,9 +2201,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fastify@npm:^4.16.2":
-  version: 4.16.2
-  resolution: "fastify@npm:4.16.2"
+"fastify@npm:^4.16.3":
+  version: 4.16.3
+  resolution: "fastify@npm:4.16.3"
   dependencies:
     "@fastify/ajv-compiler": "npm:^3.5.0"
     "@fastify/error": "npm:^3.0.0"
@@ -2211,6 +2211,7 @@ __metadata:
     abstract-logging: "npm:^2.0.1"
     avvio: "npm:^8.2.0"
     fast-content-type-parse: "npm:^1.0.0"
+    fast-json-stringify: "npm:^5.7.0"
     find-my-way: "npm:^7.6.0"
     light-my-request: "npm:^5.6.1"
     pino: "npm:^8.5.0"
@@ -2220,7 +2221,7 @@ __metadata:
     secure-json-parse: "npm:^2.5.0"
     semver: "npm:^7.3.7"
     tiny-lru: "npm:^11.0.1"
-  checksum: e2962cf9d475dc5c4e62ca6861f93ad2724c3bcbcfbbdb450d8c49950f10b14f1ff622d8f91792efc788492e68cea415a01fd9b6b896baf65b7c1e9c578c6f5a
+  checksum: bba04f252aeee80916d89b2e6041bcfbbd730fe344e4b41a0558d911a720348738c55d18b384b98417df0d2247a58d5aa8129639743321ba02cf80fce7379db0
   languageName: node
   linkType: hard
 
@@ -4281,7 +4282,7 @@ __metadata:
     eslint: "npm:^8.28.0"
     eslint-config-prettier: "npm:^8.5.0"
     eslint-plugin-vue: "npm:^9.8.0"
-    fastify: "npm:^4.16.2"
+    fastify: "npm:^4.16.3"
     husky: "npm:^8.0.2"
     lint-staged: "npm:^13.0.4"
     prettier: "npm:~2.8.0"
