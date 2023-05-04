@@ -31,7 +31,7 @@ const RAW_RUNTIME_STATE =
           ["@fastify/cookie", "npm:8.3.0"],\
           ["@fastify/formbody", "npm:7.4.0"],\
           ["@fastify/helmet", "npm:10.1.0"],\
-          ["@fastify/middie", "npm:8.1.0"],\
+          ["@fastify/middie", "npm:8.2.0"],\
           ["@fastify/static", "npm:6.10.1"],\
           ["@types/connect", "npm:3.4.35"],\
           ["@types/node", "npm:18.11.9"],\
@@ -296,10 +296,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@fastify/middie", [\
-      ["npm:8.1.0", {\
-        "packageLocation": "./.yarn/cache/@fastify-middie-npm-8.1.0-1b2cf61b7d-039c0079e9.zip/node_modules/@fastify/middie/",\
+      ["npm:8.2.0", {\
+        "packageLocation": "./.yarn/cache/@fastify-middie-npm-8.2.0-dc3258ef09-53dda5f1b0.zip/node_modules/@fastify/middie/",\
         "packageDependencies": [\
-          ["@fastify/middie", "npm:8.1.0"],\
+          ["@fastify/middie", "npm:8.2.0"],\
           ["fastify-plugin", "npm:4.2.1"],\
           ["path-to-regexp", "npm:6.2.1"],\
           ["reusify", "npm:1.0.4"]\
@@ -5006,7 +5006,7 @@ const RAW_RUNTIME_STATE =
           ["@fastify/cookie", "npm:8.3.0"],\
           ["@fastify/formbody", "npm:7.4.0"],\
           ["@fastify/helmet", "npm:10.1.0"],\
-          ["@fastify/middie", "npm:8.1.0"],\
+          ["@fastify/middie", "npm:8.2.0"],\
           ["@fastify/static", "npm:6.10.1"],\
           ["@types/connect", "npm:3.4.35"],\
           ["@types/node", "npm:18.11.9"],\
