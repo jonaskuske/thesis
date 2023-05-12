@@ -812,15 +812,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vue/tsconfig@npm:^0.1.3":
-  version: 0.1.3
-  resolution: "@vue/tsconfig@npm:0.1.3"
-  peerDependencies:
-    "@types/node": "*"
-  peerDependenciesMeta:
-    "@types/node":
-      optional: true
-  checksum: d086593aea25e7872f28227dec3102d232d47099d16933d483b69ec746ac4dc254b6bd610deeab059d0b8b2d72a0738ee77e4c60f6e8244aedb2e99d633c38d4
+"@vue/tsconfig@npm:^0.4.0":
+  version: 0.4.0
+  resolution: "@vue/tsconfig@npm:0.4.0"
+  checksum: c3586794ab552a2d943f27420c6a889afdb894a02a1d7a2a65c32948edb275ee7656d7a8d65a2e983e19abff035ecdf5f9693620b9e6c5226e00a83228b9531e
   languageName: node
   linkType: hard
 
@@ -4275,7 +4270,7 @@ __metadata:
     "@vitejs/plugin-vue": "npm:^3.2.0"
     "@vue/compiler-sfc": "npm:^3.2.45"
     "@vue/server-renderer": "npm:^3.2.47"
-    "@vue/tsconfig": "npm:^0.1.3"
+    "@vue/tsconfig": "npm:^0.4.0"
     "@yarnpkg/sdks": "npm:^3.0.0-rc.31"
     cookie-store: "npm:^4.0.0-next.2"
     esbuild: "npm:^0.15.16"

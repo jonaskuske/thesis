@@ -40,7 +40,7 @@ const RAW_RUNTIME_STATE =
           ["@vitejs/plugin-vue", "virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:3.2.0"],\
           ["@vue/compiler-sfc", "npm:3.2.45"],\
           ["@vue/server-renderer", "virtual:487db916e160a571ff50687ed972004ec0078aa76b7fedf7bdabfd607dfed3ba7b2d1f51e99387f885501b4dbb11471c0ce20d647adb7ae38656bbc259642ae8#npm:3.2.47"],\
-          ["@vue/tsconfig", "virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:0.1.3"],\
+          ["@vue/tsconfig", "npm:0.4.0"],\
           ["@yarnpkg/sdks", "npm:3.0.0-rc.31"],\
           ["cookie-store", "npm:4.0.0-next.2"],\
           ["esbuild", "npm:0.15.16"],\
@@ -1066,21 +1066,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@vue/tsconfig", [\
-      ["npm:0.1.3", {\
-        "packageLocation": "./.yarn/cache/@vue-tsconfig-npm-0.1.3-07ae9b676e-d086593aea.zip/node_modules/@vue/tsconfig/",\
+      ["npm:0.4.0", {\
+        "packageLocation": "./.yarn/cache/@vue-tsconfig-npm-0.4.0-221979dfdc-c3586794ab.zip/node_modules/@vue/tsconfig/",\
         "packageDependencies": [\
-          ["@vue/tsconfig", "npm:0.1.3"]\
-        ],\
-        "linkType": "SOFT"\
-      }],\
-      ["virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:0.1.3", {\
-        "packageLocation": "./.yarn/__virtual__/@vue-tsconfig-virtual-084478b2ba/0/cache/@vue-tsconfig-npm-0.1.3-07ae9b676e-d086593aea.zip/node_modules/@vue/tsconfig/",\
-        "packageDependencies": [\
-          ["@vue/tsconfig", "virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:0.1.3"],\
-          ["@types/node", "npm:18.11.9"]\
-        ],\
-        "packagePeers": [\
-          "@types/node"\
+          ["@vue/tsconfig", "npm:0.4.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -5015,7 +5004,7 @@ const RAW_RUNTIME_STATE =
           ["@vitejs/plugin-vue", "virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:3.2.0"],\
           ["@vue/compiler-sfc", "npm:3.2.45"],\
           ["@vue/server-renderer", "virtual:487db916e160a571ff50687ed972004ec0078aa76b7fedf7bdabfd607dfed3ba7b2d1f51e99387f885501b4dbb11471c0ce20d647adb7ae38656bbc259642ae8#npm:3.2.47"],\
-          ["@vue/tsconfig", "virtual:327c4cab502f936d5d47ea3dc83a576e31445b044fd11a2bb8f323a480ba5ce4eec2efeb6f6cdaca1a5c8ae21e0310aca5afce9c737f2d220f7f7249ac38f685#npm:0.1.3"],\
+          ["@vue/tsconfig", "npm:0.4.0"],\
           ["@yarnpkg/sdks", "npm:3.0.0-rc.31"],\
           ["cookie-store", "npm:4.0.0-next.2"],\
           ["esbuild", "npm:0.15.16"],\
