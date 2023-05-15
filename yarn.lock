@@ -178,6 +178,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fastify/error@npm:^3.2.0":
+  version: 3.2.0
+  resolution: "@fastify/error@npm:3.2.0"
+  checksum: 87d7a1f7268f23095af3e2674bd7e2d1c3bee5964b290bcd34496c32f20a9ca4ed94876b4281f3a34775320723164667bbec5a321148f85b5df5e0c413880ca7
+  languageName: node
+  linkType: hard
+
 "@fastify/fast-json-stringify-compiler@npm:^4.3.0":
   version: 4.3.0
   resolution: "@fastify/fast-json-stringify-compiler@npm:4.3.0"
@@ -207,14 +214,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fastify/middie@npm:^8.1.0":
-  version: 8.1.0
-  resolution: "@fastify/middie@npm:8.1.0"
+"@fastify/middie@npm:^8.3.0":
+  version: 8.3.0
+  resolution: "@fastify/middie@npm:8.3.0"
   dependencies:
+    "@fastify/error": "npm:^3.2.0"
     fastify-plugin: "npm:^4.0.0"
     path-to-regexp: "npm:^6.1.0"
     reusify: "npm:^1.0.4"
-  checksum: 039c0079e9848bd9005af799b3e790093cbd025de4c705fc14d606c220a836ebf4c0d320e08a58a8dc0bc77f16d9473609ad29e0f74056abe00693112a366e38
+  checksum: a4e9da230f0f8c07aaa6e8102010baf43e1a4205a0df7fed511797fdaf22e5d32bd098cb1557ec37f01f1f98fb44edbbd3025c2722c968a6273e7dc48882d4f2
   languageName: node
   linkType: hard
 
@@ -4266,7 +4274,7 @@ __metadata:
     "@fastify/cookie": "npm:^8.3.0"
     "@fastify/formbody": "npm:^7.4.0"
     "@fastify/helmet": "npm:^10.1.0"
-    "@fastify/middie": "npm:^8.1.0"
+    "@fastify/middie": "npm:^8.3.0"
     "@fastify/static": "npm:^6.10.1"
     "@types/connect": "npm:^3.4.35"
     "@types/node": "npm:^18.11.9"
