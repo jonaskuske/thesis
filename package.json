@@ -29,7 +29,7 @@
     "cookie-store": "^4.0.0-next.2",
     "fastify": "^4.17.0",
     "vite": "^3.2.4",
-    "vite-plugin-ssr": "^0.4.54",
+    "vite-plugin-ssr": "^0.4.133",
     "vue": "^3.2.47",
     "zip-to-city": "^0.1.1"
   },
