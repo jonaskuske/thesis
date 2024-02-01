@@ -11,6 +11,8 @@ import { isDev, isProd } from '../utils'
 import appRoutes from './app'
 import citiesRoutes from './cities'
 import locationsRoutes from './locations'
+import loginRoutes from './login'
+import logoutRoutes from './logout'
 
 const root = fileURLToPath(new URL('..', import.meta.url))
 
@@ -67,6 +69,8 @@ async function startServer() {
   await app.register(appRoutes)
   await app.register(citiesRoutes)
   await app.register(locationsRoutes)
+  await app.register(loginRoutes)
+  await app.register(logoutRoutes)
 
   const port = Number(process.env.PORT ?? 3000)
   await app.listen({ port, host: '0.0.0.0' })

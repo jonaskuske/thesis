@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import EmptyGraphic from '../../components/EmptyGraphic.vue'
 import Link from '../../components/Link.vue'
+import { useLocationPermission } from '../../composables/useGeolocationPermission'
 
 const { locations = [] } = defineProps<{ locations?: { id: string; city: string }[] }>()
 
@@ -9,19 +10,24 @@ const emit = defineEmits<{
   (e: 'location', address: Record<string, string>): void // eslint-disable-line
 }>()
 
+const { state } = useLocationPermission()
+
 let loading = ref(false)
 
 const emitLocation = () => {
   loading.value = true
-  navigator.geolocation.getCurrentPosition(({ coords: { latitude: lat, longitude: lon } }) => {
-    void fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`)
-      .then((response) => response.json())
-      .then(({ address }) => {
-        emit('location', address)
-        loading.value = false
-      })
-  })
+  navigator.geolocation.getCurrentPosition(
+    ({ coords: { latitude: lat, longitude: lon } }) => {
+      void fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`)
+        .then((response) => response.json())
+        .then(({ address }) => emit('location', address))
+        .finally(() => (loading.value = false))
+    },
+    () => (loading.value = false),
+  )
 }
+
+const buttonDisabled = computed(() => loading.value || state.value === 'denied')
 </script>
 
 <template>
@@ -33,9 +39,17 @@ const emitLocation = () => {
       Um Progonosen zur Sichtung der ISS zu bekommen, kannst du Orte über die Suche hinzufügen oder
       deinen aktuellen Standort verwenden.
     </p>
-    <button :aria-disabled="loading" :disabled="loading" type="button" @click="emitLocation">
-      Aktuellen Standort verwenden
+    <button
+      :aria-disabled="buttonDisabled"
+      :disabled="buttonDisabled"
+      type="button"
+      @click="emitLocation"
+    >
+      {{ loading ? 'Standort wird abgerufen...' : 'Aktuellen Standort verwenden' }}
     </button>
+    <p v-if="state === 'denied'" style="font-size: 12px">
+      Standortzugriff in den Systemeinstellungen blockiert.
+    </p>
   </div>
   <div v-else>
     <div v-for="location in locations" :key="location.id" class="city">
@@ -111,11 +125,11 @@ button[type='button'] {
   align-self: center;
   user-select: none;
 }
-button:disabled {
-  background-color: hsl(240, 8%, 53%);
-  color: #ffffffaa;
-}
 button:active {
   background: #5d00b9;
+}
+button:disabled {
+  background: hsl(240, 8%, 53%);
+  color: #ffffffaa;
 }
 </style>

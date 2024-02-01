@@ -2,14 +2,9 @@ import cities from 'zip-to-city/germany.json'
 import * as store from '../../utils/cookies'
 import type { PageContextServer } from 'vike/types'
 
-export type Data = {
-  search: string
-  results: typeof cities
-  locationIds: Set<string>
-  locations: typeof cities
-}
+export type Data = Awaited<ReturnType<typeof data>>
 
-export async function data({ cookies, urlParsed }: PageContextServer): Promise<Data> {
+export async function data({ cookies, urlParsed }: PageContextServer) {
   const locationIds = new Set(store.get('location_ids', cookies) ?? [])
 
   const locations = [...locationIds]

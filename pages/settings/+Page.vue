@@ -1,11 +1,6 @@
 <script lang="ts" setup>
 import * as store from '../../utils/cookies'
 
-type Data = {
-  userId: string | null
-  geolocationEnabled: boolean
-  notificationsEnabled: boolean
-}
 import { watch, watchEffect, ref } from 'vue'
 import AtSign from '../../components/icons/AtSign.vue'
 import Avatar from '../../components/icons/Avatar.vue'
@@ -13,6 +8,7 @@ import Key from '../../components/icons/Key.vue'
 import { useNotificationPermission } from '../../composables/useNotificationPermission'
 import { useLocationPermission } from '../../composables/useGeolocationPermission'
 import { usePageData } from '../../composables/usePageData'
+import type { Data } from './+data'
 
 const data = usePageData<Data>()
 const userId = ref(data.value.userId)
@@ -55,7 +51,7 @@ watchEffect(() => {
 
 async function login() {
   const id = crypto.randomUUID()
-  await store.set('user_id', id)
+  await store.set('user_id', encodeURIComponent(JSON.stringify(id)))
   userId.value = id
 }
 
@@ -74,6 +70,7 @@ async function logout() {
       <h2><Key /> **************</h2>
       <div>
         <form action="/logout" method="post" @submit.prevent="logout">
+          <input type="hidden" name="r" value="/settings" />
           <button type="submit">Abmelden</button>
         </form>
         <form action="/change_pw" method="get">
@@ -83,10 +80,12 @@ async function logout() {
     </div>
     <div v-else key="c" class="not-logged-in">
       <p>Du bist nicht angemeldet.</p>
-      <form action="/login" @submit.prevent="login">
+      <form action="/login" method="post" @submit.prevent="login">
+        <input type="hidden" name="r" value="/settings" />
         <button type="submit">Anmelden</button>
       </form>
-      <form action="/signup" @submit.prevent="login">
+      <form action="/login" method="post" @submit.prevent="login">
+        <input type="hidden" name="r" value="/settings" />
         <button type="submit">Registrieren</button>
       </form>
     </div>
