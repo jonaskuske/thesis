@@ -6,13 +6,12 @@ import ArrowLeft from './icons/ArrowLeft.vue'
 import { usePageContext } from '../composables/usePageContext'
 import { useIsHome } from '../composables/useIsHome'
 import { useTitle } from '../composables/useTitle'
-import type { PageContextServer } from '../utils/types'
 
-const { contentOnly } = $(usePageContext<PageContextServer>())
+const { contentOnly } = usePageContext()
 
-const isHome = $(useIsHome())
+const isHome = useIsHome()
 
-const title = $(useTitle())
+const title = useTitle()
 </script>
 
 <template>

@@ -8,4 +8,4 @@ export const passToClient = [
   'urlPathname',
   'urlParsed',
   'headerTitle',
-] as const
+]

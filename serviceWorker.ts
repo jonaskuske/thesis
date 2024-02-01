@@ -1,13 +1,12 @@
 declare const self: ServiceWorkerGlobalScope & typeof globalThis
 
 const SHELL_URL = '/_shell'
-const MANIFEST_URL = '/manifest.json'
+const MANIFEST_URL = '/assets.json'
 
-// @ts-expect-error
 const PROD = import.meta.env.PROD
-// @ts-expect-error
+
 const DEV = import.meta.env.DEV
-// @ts-expect-error
+
 const BASE_URL = import.meta.env.BASE_URL
 
 function verifyResponseStatus(response: Response) {
@@ -94,7 +93,9 @@ self.addEventListener('fetch', (event) => {
 
         const [shellResponse, manifest] = await Promise.all([
           caches.match(SHELL_URL) as Promise<Response>,
-          caches.match(MANIFEST_URL).then<Record<string, any> | undefined>((res) => res?.json()),
+          caches
+            .match(MANIFEST_URL)
+            .then<Record<string, { css?: string[] }> | undefined>((res) => res?.json()),
         ])
 
         const shellSent = shellResponse
@@ -215,8 +216,9 @@ function devRemoveStylesheets() {
 
 class InsertCssTransform extends TransformStream<BufferSource, BufferSource> {
   constructor(url: URL, manifest?: Record<string, { css?: string[] }>) {
-    if (!manifest) super() // no manifest → no-op
-    else {
+    if (!manifest) {
+      super() // no manifest → no-op
+    } else {
       super({
         encoder: new TextEncoder(),
         decoder: new TextDecoder(),
@@ -227,34 +229,23 @@ class InsertCssTransform extends TransformStream<BufferSource, BufferSource> {
             return controller.enqueue(chunk)
           }
 
-          const path = `pages${url.pathname.match(/^(\/.+?)\/?$/)?.[1] ?? '/index'}`
-          const dirNameEntry = `${path}/index.page.vue`
-          const fileNameEntry = `${path}.page.vue`
+          const requestPath = url.pathname.match(/^(\/.+?)\/?$/)?.[1] ?? '/index'
+          const pageFiles = Object.keys(manifest).filter((file) => file.includes('client:/pages/'))
 
-          const pageFiles = Object.keys(manifest).filter((file) =>
-            /^pages\/.*\.page(?:(?:\.server)|(?:\.client))?\.vue$/.test(file),
-          )
-
-          let entryFile = ''
-
-          for (const pageFile of pageFiles) {
-            const pageFileRegex = new RegExp(
-              '^' + escapeRegExp(pageFile).replace(/@[^/.]+/g, '[^./]+') + '$',
+          const responseFile = pageFiles.find((file) => {
+            const filePath = file.replace(/.+client:\/pages/, '')
+            return new RegExp(`^${escapeRegExp(filePath).replace(/@[^/.]+/g, '[^./]+')}$`).test(
+              requestPath,
             )
+          })
 
-            if (pageFileRegex.test(dirNameEntry) || pageFileRegex.test(fileNameEntry)) {
-              entryFile = pageFile
-              break
-            }
-          }
-
-          const styleUrls = manifest[entryFile]?.css ?? []
-          const styleLinks = styleUrls.map(
-            (url) => `<link rel="stylesheet" href="${BASE_URL}${url}"></link>`,
-          )
+          const styleUrls = manifest[responseFile ?? '']?.css
+          const styleHtml = (styleUrls ?? [])
+            .map((url) => `<link rel="stylesheet" href="${BASE_URL}${url}"></link>`)
+            .join('')
 
           const chunkWithInsertedCss = this.encoder.encode(
-            decoded.replace(/<head[^>]*>/su, `$&${styleLinks.join('')}`),
+            decoded.replace(/<head[^>]*>/su, `$&${styleHtml}`),
           )
 
           controller.enqueue(chunkWithInsertedCss)

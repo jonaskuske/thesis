@@ -12,7 +12,6 @@ import appRoutes from './app'
 import citiesRoutes from './cities'
 import locationsRoutes from './locations'
 
-// @ts-expect-error
 const root = fileURLToPath(new URL('..', import.meta.url))
 
 startServer().catch((err) => console.log('Failed to start server:', err))

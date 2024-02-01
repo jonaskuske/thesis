@@ -1,13 +1,10 @@
 import { pipeToNodeWritable, type SSRContext } from '@vue/server-renderer'
-import { escapeInject, stampPipe } from 'vite-plugin-ssr'
+import { escapeInject, stampPipe } from 'vike/server'
+import type { OnRenderHtmlSync } from 'vike/types'
 import { createApp } from './createApp'
-import type { PageContextServer } from '../utils/types'
 import type internal from 'stream'
 
-export { render }
-export { passToClient } from './passToClient'
-
-function render(pageContext: PageContextServer) {
+const onRenderHtml: OnRenderHtmlSync = (pageContext): ReturnType<OnRenderHtmlSync> => {
   const appCtx: SSRContext = {}
   const app = createApp(pageContext)
 
@@ -17,9 +14,9 @@ function render(pageContext: PageContextServer) {
   stampPipe(pipeWrapper, 'node-stream')
 
   // See https://vite-plugin-ssr.com/head
-  const { documentProps } = pageContext.exports
-  const title = (documentProps && documentProps.title) || 'Thesis'
-  const desc = (documentProps && documentProps.description) || 'Prototype for the thesis'
+  const { documentProps } = pageContext.config
+  const title = documentProps?.title || 'Thesis'
+  const desc = documentProps?.description || 'Prototype for the thesis'
 
   const documentHtml = pageContext.contentOnly
     ? escapeInject`${pipeWrapper}</div></div>`
@@ -72,3 +69,5 @@ function render(pageContext: PageContextServer) {
     },
   }
 }
+
+export default onRenderHtml

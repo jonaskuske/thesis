@@ -1,37 +1,12 @@
-<script lang="ts">
-import { isServer } from '../../utils'
+<script lang="ts" setup>
 import * as store from '../../utils/cookies'
-import type { OnBeforeRender } from '../../utils/types'
-
-export const headerTitle = 'Einstellungen'
 
 type Data = {
   userId: string | null
   geolocationEnabled: boolean
   notificationsEnabled: boolean
 }
-
-export let onBeforeRender: OnBeforeRender<Data>
-
-if (isServer) {
-  onBeforeRender = function ({ cookies }) {
-    const userId = store.get('user_id', cookies)
-    const geolocationEnabled = store.get('geolocation_enabled', cookies) === true
-    const notificationsEnabled = store.get('notifications_enabled', cookies) === true
-
-    return {
-      pageContext: {
-        data: { userId, geolocationEnabled, notificationsEnabled },
-      },
-    }
-  }
-}
-
-export default {}
-</script>
-
-<script lang="ts" setup>
-import { watch, watchEffect } from 'vue'
+import { watch, watchEffect, ref } from 'vue'
 import AtSign from '../../components/icons/AtSign.vue'
 import Avatar from '../../components/icons/Avatar.vue'
 import Key from '../../components/icons/Key.vue'
@@ -39,51 +14,54 @@ import { useNotificationPermission } from '../../composables/useNotificationPerm
 import { useLocationPermission } from '../../composables/useGeolocationPermission'
 import { usePageData } from '../../composables/usePageData'
 
-let { userId, geolocationEnabled, notificationsEnabled } = $(usePageData<Data>())
+const data = usePageData<Data>()
+const userId = ref(data.value.userId)
+const geolocationEnabled = ref(data.value.geolocationEnabled)
+const notificationsEnabled = ref(data.value.notificationsEnabled)
 
 const geolocationPermission = useLocationPermission()
-const geolocationPermissionState = $(geolocationPermission.state)
+const geolocationPermissionState = geolocationPermission.state
 
-watch($$(geolocationEnabled), (enabled) => {
+watch(geolocationEnabled, (enabled) => {
   void store.set('geolocation_enabled', enabled)
 
-  if (enabled && geolocationPermissionState === 'prompt') {
+  if (enabled && geolocationPermissionState.value === 'prompt') {
     void geolocationPermission.request()
   }
 })
 
 watchEffect(() => {
-  if (geolocationPermissionState && geolocationPermissionState !== 'granted') {
-    geolocationEnabled = false
+  if (geolocationPermissionState && geolocationPermissionState.value !== 'granted') {
+    geolocationEnabled.value = false
   }
 })
 
 const notificationPermission = useNotificationPermission()
-const notificationPermissionState = $(notificationPermission.state)
+const notificationPermissionState = notificationPermission.state
 
-watch($$(notificationsEnabled), (enabled) => {
+watch(notificationsEnabled, (enabled) => {
   void store.set('notifications_enabled', enabled)
 
-  if (enabled && notificationPermissionState === 'prompt') {
+  if (enabled && notificationPermissionState.value === 'prompt') {
     void notificationPermission.request()
   }
 })
 
 watchEffect(() => {
-  if (notificationPermissionState && notificationPermissionState !== 'granted') {
-    notificationsEnabled = false
+  if (notificationPermissionState && notificationPermissionState.value !== 'granted') {
+    notificationsEnabled.value = false
   }
 })
 
 async function login() {
   const id = crypto.randomUUID()
   await store.set('user_id', id)
-  userId = id
+  userId.value = id
 }
 
 async function logout() {
   await store.remove('user_id')
-  userId = null
+  userId.value = null
 }
 </script>
 

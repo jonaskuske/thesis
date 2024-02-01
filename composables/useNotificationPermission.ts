@@ -1,11 +1,11 @@
-import { onMounted, triggerRef } from 'vue'
+import { ref, onMounted, triggerRef } from 'vue'
 
 export function useNotificationPermission() {
-  let state = $ref(null as PermissionState | null)
+  const state = ref(null as PermissionState | null)
 
   const updateState = (permission: NotificationPermission) => {
-    state = permission === 'default' ? 'prompt' : permission
-    triggerRef($$(state))
+    state.value = permission === 'default' ? 'prompt' : permission
+    triggerRef(state)
   }
 
   onMounted(() => updateState(Notification.permission))
@@ -18,5 +18,5 @@ export function useNotificationPermission() {
     })
   }
 
-  return { state: $$(state), request }
+  return { state, request }
 }

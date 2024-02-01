@@ -1,25 +1,5 @@
-<script lang="ts">
-import cities from 'zip-to-city/germany.json'
-import type { OnBeforeRender } from '../../utils/types'
-import { isServer } from '../../utils'
-
-export let onBeforeRender: OnBeforeRender
-
-if (isServer) {
-  onBeforeRender = function (pageContext) {
-    const id = pageContext.routeParams.locationId
-
-    return {
-      pageContext: {
-        headerTitle: cities.find((c) => c.id === id)?.city || '404',
-      },
-    }
-  }
-}
-</script>
-
 <script setup lang="ts">
-import NoFlyOverGraphic from '../../components/NoFlyOverGraphic.vue'
+import NoFlyOverGraphic from '../../../components/NoFlyOverGraphic.vue'
 </script>
 
 <template>

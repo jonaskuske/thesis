@@ -1,71 +1,42 @@
-<script lang="ts">
-import { isServer } from '../../utils'
-import type { OnBeforeRender } from '../../utils/types'
-import cities from 'zip-to-city/germany.json'
-import * as store from '../../utils/cookies'
-
-type Data = {
-  search: string
-  results: typeof cities
-  locationIds: Set<string>
-  locations: typeof cities
-}
-
-export let onBeforeRender: OnBeforeRender<Data>
-
-if (isServer) {
-  onBeforeRender = function ({ cookies, urlParsed }) {
-    const locationIds = new Set(store.get('location_ids', cookies) ?? [])
-
-    const locations = [...locationIds]
-      .map((id) => cities.find((city) => city.id === id))
-      .filter((city): city is typeof cities[0] => city != null)
-
-    const search = (urlParsed.search?.location?.toLowerCase() ?? '').trim()
-    const results = search
-      ? cities.filter(
-          ({ city, zip }) => city.toLowerCase().startsWith(search) || zip.startsWith(search),
-        )
-      : []
-
-    return {
-      pageContext: { data: { search, locations, locationIds, results } },
-    }
-  }
-}
-</script>
-
 <script setup lang="ts">
-import { watch } from 'vue'
+import { watch, ref } from 'vue'
 import { usePageData } from '../../composables/usePageData'
 import LocationList from './LocationList.vue'
 import Search from '../../components/icons/Search.vue'
+import type cities from 'zip-to-city/germany.json'
+import * as store from '../../utils/cookies'
+import type { Data } from './+data'
 
-let { search, results, locationIds, locations } = $(usePageData<Data>())
+const data = usePageData<Data>()
 
-watch($$(search), (search, _, onCleanup) => {
+const search = ref(data.value.search)
+const results = ref(data.value.results)
+const locations = ref(data.value.locations)
+const locationIds = ref(data.value.locationIds)
+
+watch(search, (search, _, onCleanup) => {
   let abortHandler = new AbortController()
 
-  if (!search.length) results = []
+  if (!search.length) results.value = []
   else {
     void fetch(`/cities?search=${search}`, { signal: abortHandler.signal })
       .then((response) => response.json())
-      .then((cityResults: typeof cities) => (results = cityResults))
+      .then((cityResults: typeof cities) => (results.value = cityResults))
   }
 
   onCleanup(() => abortHandler.abort())
 })
 
 watch(
-  $$(locationIds),
+  locationIds,
   (ids, _, onCleanup) => {
     const abortHandler = new AbortController()
 
     void fetch(`/cities?include=${[...ids].join(',')}`, { signal: abortHandler.signal })
       .then((response) => response.json())
-      .then((cityResults: typeof cities) => (locations = cityResults))
+      .then((cityResults: typeof cities) => (locations.value = cityResults))
       .then(() => store.set('location_ids', [...ids]))
-      .then(() => (search = ''))
+      .then(() => (search.value = ''))
 
     onCleanup(() => abortHandler.abort())
   },

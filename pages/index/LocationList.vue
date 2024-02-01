@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { onServerPrefetch } from 'vue'
+import { ref } from 'vue'
 import EmptyGraphic from '../../components/EmptyGraphic.vue'
-import { wait } from '../../utils'
 import Link from '../../components/Link.vue'
 
 const { locations = [] } = defineProps<{ locations?: { id: string; city: string }[] }>()
@@ -10,24 +9,19 @@ const emit = defineEmits<{
   (e: 'location', address: Record<string, string>): void // eslint-disable-line
 }>()
 
-let loading = $ref(false)
+let loading = ref(false)
 
 const emitLocation = () => {
-  loading = true
+  loading.value = true
   navigator.geolocation.getCurrentPosition(({ coords: { latitude: lat, longitude: lon } }) => {
     void fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`)
       .then((response) => response.json())
       .then(({ address }) => {
         emit('location', address)
-        loading = false
+        loading.value = false
       })
   })
 }
-
-onServerPrefetch(async () => {
-  // to simulate data loading
-  await wait(0)
-})
 </script>
 
 <template>

@@ -1,14 +1,13 @@
 import { PassThrough } from 'node:stream'
 import { createHash } from 'node:crypto'
 import type { FastifyPluginAsync } from 'fastify'
-import { renderPage } from 'vite-plugin-ssr'
-import type { PageContextInit } from '../utils/types'
+import { renderPage } from 'vike/server'
 import { isDev } from '../utils'
 
 const _HASH_PREFIX_ = 'v1'
 
 async function getShellHash() {
-  const shell = await renderPage<{}, PageContextInit>({
+  const shell = await renderPage({
     contentOnly: false,
     urlOriginal: '/_shell',
     enableServiceWorker: process.env.DISABLE_SW !== 'true',
@@ -37,7 +36,7 @@ const routes: FastifyPluginAsync = async (fastify) => {
 
     const preRenderTime = performance.now()
 
-    const pageContext = await renderPage<{}, PageContextInit>({
+    const pageContext = await renderPage({
       contentOnly,
       urlOriginal: request.url,
       enableServiceWorker: process.env.DISABLE_SW !== 'true',
@@ -61,7 +60,7 @@ const routes: FastifyPluginAsync = async (fastify) => {
 
     await reply
       .status(httpResponse.statusCode)
-      .type(httpResponse.contentType)
+      .headers(Object.fromEntries(httpResponse.headers))
       .header('x-shell-hash', hash)
       .header('vary', 'x-shell-hash,service-worker-navigation-preload')
       .header('server-timing', `render;dur=${renderTime};desc="Vue Render"`)

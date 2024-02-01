@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "run server",
     "prod": "run build && run server:prod",
-    "build": "vite build && run build:sw",
+    "build": "vite build && run build:sw && cp dist/assets.json dist/client",
     "build:sw": "esbuild ./serviceWorker.ts --define:import.meta.env.DEV=false --define:import.meta.env.PROD=true --define:import.meta.env.BASE_URL=\\\"/\\\" --bundle --platform=browser --target=es2022 --minify --sourcemap --outfile=dist/client/serviceWorker.ts",
     "server": "tsx ./server",
     "server:prod": "NODE_ENV=production tsx ./server",
@@ -26,9 +26,9 @@
     "@vue/tsconfig": "^0.5.1",
     "cookie-store": "^4.0.0-next.4",
     "fastify": "^4.26.0",
-    "tsx": "^4.7.0",
+    "tsx": "patch:tsx@npm%3A4.7.0#~/.yarn/patches/tsx-npm-4.7.0-86d7b66640.patch",
+    "vike": "^0.4.142",
     "vite": "^5.0.12",
-    "vite-plugin-ssr": "^0.4.142",
     "vue": "^3.4.15",
     "zip-to-city": "^0.1.1"
   },
@@ -89,15 +89,6 @@
         ".vue"
       ]
     },
-    "globals": {
-      "$": "readonly",
-      "$$": "readonly",
-      "$ref": "readonly",
-      "$computed": "readonly",
-      "$shallowRef": "readonly",
-      "$customRef": "readonly",
-      "$toRef": "readonly"
-    },
     "rules": {
       "vue/multi-word-component-names": "off",
       "vue/no-setup-props-destructure": "off",
@@ -105,7 +96,9 @@
       "@typescript-eslint/no-unused-vars": "error",
       "@typescript-eslint/consistent-type-imports": "error",
       "@typescript-eslint/no-unsafe-argument": "off",
+      "@typescript-eslint/no-namespace": "off",
       "@typescript-eslint/require-await": "off",
+      "@typescript-eslint/no-this-alias": "off",
       "vue/require-toggle-inside-transition": "off"
     }
   },
