@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { watch, ref } from 'vue'
 import { usePageData } from '../../composables/usePageData'
+import GeolocationButton from '../../components/GeolocationButton.vue'
 import LocationList from './LocationList.vue'
 import Search from '../../components/icons/Search.vue'
 import type cities from 'zip-to-city/germany.json'
@@ -42,53 +43,77 @@ watch(
   },
   { deep: true },
 )
+
+const searchIsFocused = ref(false)
 </script>
 
 <template>
-  <form class="search-form" @submit.prevent>
-    <div class="input-wrapper">
-      <Search />
-      <input
-        id="location-input"
-        v-model.trim="search"
-        placeholder=" "
-        class="input"
-        type="search"
-        name="location"
+  <TransitionGroup>
+    <form key="search" class="search-form" @submit.prevent>
+      <div class="input-wrapper">
+        <Search />
+        <input
+          id="location-input"
+          v-model.trim="search"
+          placeholder=" "
+          class="input"
+          type="search"
+          name="location"
+          @focus="searchIsFocused = true"
+          @blur="searchIsFocused = false"
+        />
+        <label for="location-input" class="label">Ort hinzufügen</label>
+      </div>
+      <button type="submit" class="sr-only">Suchen</button>
+      <GeolocationButton
+        v-show="search.length || (locations.length && searchIsFocused)"
+        class="button-location"
+        @location="search = $event.postcode"
       />
-      <label for="location-input" class="label">Ort hinzufügen</label>
-    </div>
-    <button type="submit" class="sr-only">Suchen</button>
-  </form>
-  <LocationList
-    v-if="!search"
-    :locations="locations"
-    class="list"
-    @location="search = $event.postcode"
-  />
-  <template v-else-if="results.length">
-    <form
-      v-for="{ city, zip, id } in results"
-      :key="id"
-      method="post"
-      action="/locations"
-      class="city"
-      @submit.prevent
-    >
-      <p class="result-name">{{ zip }} {{ city }}</p>
-      <input type="hidden" name="id" :value="id" />
-      <button type="submit" @click="locationIds.add(id)">Hinzufügen</button>
     </form>
-  </template>
-  <template v-else>
-    <p>Keine Ergebnisse für „{{ search }}“.</p>
-  </template>
+    <LocationList
+      v-if="!search"
+      key="locations"
+      :locations="locations"
+      class="list"
+      @location="search = $event.postcode"
+    />
+    <template v-else-if="results.length">
+      <form
+        v-for="{ city, zip, id } in results"
+        :key="id"
+        method="post"
+        action="/locations"
+        class="city"
+        @submit.prevent
+      >
+        <p class="result-name">{{ zip }} {{ city }}</p>
+        <input type="hidden" name="id" :value="id" />
+        <button type="submit" @click="locationIds.add(id)">Hinzufügen</button>
+      </form>
+    </template>
+    <template v-else>
+      <p key="no-results">Keine Ergebnisse für „{{ search }}“.</p>
+    </template>
+  </TransitionGroup>
 </template>
 
 <style scoped>
+.v-move {
+  transition: transform 200ms ease;
+}
+
 h1,
 .search-form {
   width: 100%;
+}
+.search-form {
+  display: flex;
+  flex-direction: column;
+}
+.button-location {
+  align-self: center;
+  margin-top: 12px;
 }
 
 .input-wrapper {

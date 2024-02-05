@@ -1,33 +1,13 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
 import EmptyGraphic from '../../components/EmptyGraphic.vue'
 import Link from '../../components/Link.vue'
-import { useLocationPermission } from '../../composables/useGeolocationPermission'
+import GeolocationButton from '../../components/GeolocationButton.vue'
 
 const { locations = [] } = defineProps<{ locations?: { id: string; city: string }[] }>()
 
 const emit = defineEmits<{
   (e: 'location', address: Record<string, string>): void // eslint-disable-line
 }>()
-
-const { state } = useLocationPermission()
-
-let loading = ref(false)
-
-const emitLocation = () => {
-  loading.value = true
-  navigator.geolocation.getCurrentPosition(
-    ({ coords: { latitude: lat, longitude: lon } }) => {
-      void fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`)
-        .then((response) => response.json())
-        .then(({ address }) => emit('location', address))
-        .finally(() => (loading.value = false))
-    },
-    () => (loading.value = false),
-  )
-}
-
-const buttonDisabled = computed(() => loading.value || state.value === 'denied')
 </script>
 
 <template>
@@ -39,17 +19,7 @@ const buttonDisabled = computed(() => loading.value || state.value === 'denied')
       Um Progonosen zur Sichtung der ISS zu bekommen, kannst du Orte über die Suche hinzufügen oder
       deinen aktuellen Standort verwenden.
     </p>
-    <button
-      :aria-disabled="buttonDisabled"
-      :disabled="buttonDisabled"
-      type="button"
-      @click="emitLocation"
-    >
-      {{ loading ? 'Standort wird abgerufen...' : 'Aktuellen Standort verwenden' }}
-    </button>
-    <p v-if="state === 'denied'" style="font-size: 12px">
-      Standortzugriff in den Systemeinstellungen blockiert.
-    </p>
+    <GeolocationButton class="geo-button" @location="emit('location', $event)" />
   </div>
   <div v-else>
     <div v-for="location in locations" :key="location.id" class="city">
@@ -116,20 +86,7 @@ p {
 .empty-img {
   margin-bottom: 16px;
 }
-button[type='button'] {
-  padding: 8px 16px;
-  background: #4d009c;
-  color: inherit;
-  box-shadow: 1px 2px 0px 2px #00000040;
-  border-radius: 8px;
+.geo-button {
   align-self: center;
-  user-select: none;
-}
-button:active {
-  background: #5d00b9;
-}
-button:disabled {
-  background: hsl(240, 8%, 53%);
-  color: #ffffffaa;
 }
 </style>
