@@ -12,4 +12,10 @@ markPageShellEnd()
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.content {
+  display: flex;
+  flex-direction: column;
+  padding: 24px 16px 24px;
+}
+</style>

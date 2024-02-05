@@ -6,6 +6,7 @@ import ArrowLeft from './icons/ArrowLeft.vue'
 import { usePageContext } from '../composables/usePageContext'
 import { useIsHome } from '../composables/useIsHome'
 import { useTitle } from '../composables/useTitle'
+import { vSticky } from '../directives/v-sticky'
 
 const { contentOnly } = usePageContext()
 
@@ -18,46 +19,93 @@ const title = useTitle()
   <Content v-if="contentOnly"><slot /></Content>
 
   <div v-else class="layout">
-    <header class="navigation">
-      <TransitionGroup>
-        <Link v-show="!isHome" key="back" class="back" href="/">
-          <span class="sr-only">Zurück</span>
-          <ArrowLeft width="32" />
-        </Link>
-        <h1 key="title" class="title">
-          <Transition mode="out-in">
-            <span :key="title">{{ title }}</span>
-          </Transition>
-        </h1>
-        <Link key="cog" class="settings" href="/settings">
-          <Cog width="30" />
-          <span class="sr-only">Einstellungen</span>
-        </Link>
-      </TransitionGroup>
+    <header v-sticky class="navigation">
+      <div class="navigation-outer">
+        <TransitionGroup tag="div" class="navigation-inner">
+          <Link v-show="!isHome" key="back" class="back" href="/">
+            <span class="sr-only">Zurück</span>
+            <ArrowLeft class="navigation-icon" />
+          </Link>
+          <h1 key="title" class="title">
+            <Transition mode="out-in">
+              <span :key="title">{{ title }}</span>
+            </Transition>
+          </h1>
+          <Link key="cog" class="settings" href="/settings">
+            <Cog class="navigation-icon" />
+            <span class="sr-only">Einstellungen</span>
+          </Link>
+        </TransitionGroup>
+      </div>
     </header>
+    <footer class="bottom-nav">
+      <nav>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/map">Karte</a></li>
+          <li><a href="/settings">Einstellungen</a></li>
+        </ul>
+      </nav>
+    </footer>
     <Content><slot /></Content>
   </div>
 </template>
 
 <style scoped>
-.content {
-  display: flex;
-  flex-direction: column;
-  padding: 0 16px 24px;
-}
-
 .layout {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   width: 100%;
   margin: 0 auto;
+  padding-bottom: 65px;
 }
 
 .navigation {
+  z-index: 1;
+  left: 0;
+
+  &.v-sticky .navigation-outer {
+    background: #06002c;
+    scale: 1 0.75;
+    font-size: 0.8em;
+
+    &::after {
+      opacity: 0.75;
+      transition: opacity 150ms 100ms ease-in;
+    }
+  }
+  &.v-sticky .navigation-inner {
+    scale: 1 1.33333;
+  }
+}
+.navigation-outer {
+  position: relative;
+  transform-origin: top;
+
+  &::after {
+    content: '';
+    position: absolute;
+    pointer-events: none;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 100ms ease-out;
+    box-shadow: 0 -2px 5px 0px #ffffff;
+  }
+}
+.navigation-inner {
+  padding: 20px;
   display: flex;
   align-items: center;
-  padding: 20px;
+}
+.navigation-outer,
+.navigation-inner {
+  transition:
+    scale 200ms ease-out,
+    font-size 200ms ease-out;
+}
+.navigation-icon {
+  width: 2em;
 }
 
 .back,
@@ -100,6 +148,30 @@ const title = useTitle()
 
 .settings {
   margin-left: auto;
+}
+
+.bottom-nav {
+  position: fixed;
+  background: #45017b;
+  box-shadow: 0 0 5px 1px rgb(255 255 255 / 0.3);
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 65px;
+  & nav {
+    height: 100%;
+  }
+  & ul {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    justify-content: space-around;
+    align-items: center;
+    list-style: none;
+    color: #fff;
+  }
 }
 </style>
 
