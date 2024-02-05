@@ -17,5 +17,6 @@ markPageShellEnd()
   display: flex;
   flex-direction: column;
   padding: 24px 16px 24px;
+  min-height: 110vh;
 }
 </style>

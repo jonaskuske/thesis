@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import Content from './Content.vue'
 import Link from './Link.vue'
-import Cog from './icons/Cog.vue'
 import ArrowLeft from './icons/ArrowLeft.vue'
 import { usePageContext } from '../composables/usePageContext'
 import { useIsHome } from '../composables/useIsHome'
@@ -31,10 +30,6 @@ const title = useTitle()
               <span :key="title">{{ title }}</span>
             </Transition>
           </h1>
-          <Link key="cog" class="settings" href="/settings">
-            <Cog class="navigation-icon" />
-            <span class="sr-only">Einstellungen</span>
-          </Link>
         </TransitionGroup>
       </div>
     </header>
@@ -67,8 +62,7 @@ const title = useTitle()
 
   &.v-sticky .navigation-outer {
     background: #06002c;
-    scale: 1 0.75;
-    font-size: 0.8em;
+    transform: scaleY(0.65);
 
     &::after {
       opacity: 0.75;
@@ -76,7 +70,7 @@ const title = useTitle()
     }
   }
   &.v-sticky .navigation-inner {
-    scale: 1 1.33333;
+    transform: scale(0.85, 1.3075);
   }
 }
 .navigation-outer {
@@ -97,12 +91,11 @@ const title = useTitle()
   padding: 20px;
   display: flex;
   align-items: center;
+  transform-origin: left;
 }
 .navigation-outer,
 .navigation-inner {
-  transition:
-    scale 200ms ease-out,
-    font-size 200ms ease-out;
+  transition: transform 200ms ease-out;
 }
 .navigation-icon {
   width: 2em;
