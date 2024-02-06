@@ -5,7 +5,7 @@ import GeolocationButton from '../../components/GeolocationButton.vue'
 import LocationList from './LocationList.vue'
 import Search from '../../components/icons/Search.vue'
 import type cities from 'zip-to-city/germany.json'
-import * as store from '../../utils/cookies'
+// import * as store from '../../utils/cookies'
 import type { Data } from './+data'
 
 const data = usePageData<Data>()
@@ -13,7 +13,7 @@ const data = usePageData<Data>()
 const search = ref(data.value.search)
 const results = ref(data.value.results)
 const locations = ref(data.value.locations)
-const locationIds = ref(data.value.locationIds)
+// const locationIds = ref(data.value.locationIds)
 
 watch(search, (search, _, onCleanup) => {
   let abortHandler = new AbortController()
@@ -28,21 +28,21 @@ watch(search, (search, _, onCleanup) => {
   onCleanup(() => abortHandler.abort())
 })
 
-watch(
-  locationIds,
-  (ids, _, onCleanup) => {
-    const abortHandler = new AbortController()
+// watch(
+//   locationIds,
+//   (ids, _, onCleanup) => {
+//     const abortHandler = new AbortController()
 
-    void fetch(`/cities?include=${[...ids].join(',')}`, { signal: abortHandler.signal })
-      .then((response) => response.json())
-      .then((cityResults: typeof cities) => (locations.value = cityResults))
-      .then(() => store.set('location_ids', [...ids]))
-      .then(() => (search.value = ''))
+//     void fetch(`/cities?include=${[...ids].join(',')}`, { signal: abortHandler.signal })
+//       .then((response) => response.json())
+//       .then((cityResults: typeof cities) => (locations.value = cityResults))
+//       .then(() => store.set('location_ids', [...ids]))
+//       .then(() => (search.value = ''))
 
-    onCleanup(() => abortHandler.abort())
-  },
-  { deep: true },
-)
+//     onCleanup(() => abortHandler.abort())
+//   },
+//   { deep: true },
+// )
 
 const searchIsFocused = ref(false)
 </script>
@@ -85,11 +85,10 @@ const searchIsFocused = ref(false)
         method="post"
         action="/locations"
         class="city"
-        @submit.prevent
       >
         <p class="result-name">{{ zip }} {{ city }}</p>
         <input type="hidden" name="id" :value="id" />
-        <button type="submit" @click="locationIds.add(id)">Hinzufügen</button>
+        <button type="submit">Hinzufügen</button>
       </form>
     </template>
     <template v-else>

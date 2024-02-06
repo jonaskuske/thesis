@@ -18,5 +18,12 @@ export async function data({ cookies, urlParsed }: PageContextServer) {
       )
     : []
 
-  return { search, locations, locationIds, results }
+  const locationsWithSightingDates = locations.map((location) => {
+    return {
+      ...location,
+      sightings: [new Date().toUTCString()],
+    }
+  })
+
+  return { search, locations: locationsWithSightingDates, locationIds, results }
 }
