@@ -21,10 +21,10 @@ const emit = defineEmits<{
       Um Progonosen zur Sichtung der ISS zu bekommen, kannst du Orte über die Suche hinzufügen oder
       deinen aktuellen Standort verwenden.
     </p>
-    <GeolocationButton class="geo-button" @location="emit('location', $event)" />
+    <GeolocationButton @location="emit('location', $event)" />
   </div>
   <ul v-else class="list">
-    <li v-for="location in locations" :key="location.id" class="city">
+    <li v-for="location in locations" :key="location.id" class="list-item">
       <LocationCard :location="location" />
     </li>
   </ul>
@@ -34,6 +34,7 @@ const emit = defineEmits<{
 .list {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 16px;
   width: 100%;
   margin: 0;
@@ -48,7 +49,7 @@ const emit = defineEmits<{
   max-width: 45ch;
   text-align: center;
 }
-.geo-button {
-  align-self: center;
+.list-item {
+  align-self: stretch;
 }
 </style>

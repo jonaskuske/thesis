@@ -1,3 +1,4 @@
+export type {}
 declare const self: ServiceWorkerGlobalScope & typeof globalThis
 
 const SHELL_URL = '/_shell'
