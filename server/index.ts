@@ -1,6 +1,5 @@
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import type { ServerResponse } from 'node:http'
 import { randomBytes } from 'node:crypto'
 import fastify from 'fastify'
 import compress from '@fastify/compress'
@@ -48,11 +47,13 @@ async function startServer() {
       wildcard: false,
       immutable: true,
       maxAge: isProd ? 1000 * 60 * 60 * 24 * 365 : 1000 * 60,
-      setHeaders(res: ServerResponse, path: string) {
+      setHeaders(res, path) {
         if (path.endsWith('.ts')) {
+          // eslint-disable-next-line @typescript-eslint/no-floating-promises
           res.setHeader('content-type', 'text/javascript;charset=utf-8')
         }
         if (/s(?:ervice)?-?(?:worker)?\.[jt]s/i.test(path)) {
+          // eslint-disable-next-line @typescript-eslint/no-floating-promises
           res.setHeader('cache-control', 'no-cache')
         }
       },
