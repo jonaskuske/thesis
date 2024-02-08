@@ -36,9 +36,9 @@ const title = useTitle()
     <footer class="bottom-nav">
       <nav>
         <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/map">Karte</a></li>
-          <li><a href="/settings">Einstellungen</a></li>
+          <li><Link href="/">Home</Link></li>
+          <li><Link href="/map">Karte</Link></li>
+          <li><Link href="/settings">Einstellungen</Link></li>
         </ul>
       </nav>
     </footer>
