@@ -44,6 +44,9 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     (async () => {
       initialShellHash = await cacheShell(false)
+      // TODO: more asset caching
+      const cache = await caches.open('cache')
+      await cache.add('/fonts/spacegrotesk/v13/V8mDoQDjQSkFtoMM3T6r8E7mPbF4Cw.woff2')
       await self.skipWaiting()
     })(),
   )
@@ -65,6 +68,16 @@ self.addEventListener('activate', (event) => {
 const responseCache = new Map<string, ReadableStream<BufferSource>>()
 
 self.addEventListener('fetch', (event) => {
+  if (
+    event.request.mode !== 'navigate' &&
+    event.request.method === 'GET' &&
+    event.request.url.includes('.woff2')
+  ) {
+    return event.respondWith(
+      caches.match(event.request).then((response) => response ?? fetch(event.request)),
+    )
+  }
+
   if (event.request.mode === 'navigate' && event.request.method === 'GET') {
     const url = new URL(event.request.url)
 
