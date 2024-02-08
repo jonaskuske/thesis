@@ -100,7 +100,11 @@ self.addEventListener('fetch', (event) => {
         if (cacheId && responseCache.has(cacheId)) {
           const cachedResponseStream = responseCache.get(cacheId)
 
-          if (cachedResponseStream && responseCache.delete(cacheId)) {
+          if (
+            cachedResponseStream &&
+            !cachedResponseStream.locked &&
+            responseCache.delete(cacheId)
+          ) {
             return cachedResponseStream.pipeTo(responseStream.writable).then(() => cacheShell())
           }
         }
