@@ -257,10 +257,25 @@ class InsertCssTransform extends TransformStream<BufferSource, BufferSource> {
             )
           })
 
-          const styleUrls = manifest[responseFile ?? '']?.css
-          const styleHtml = (styleUrls ?? [])
-            .map((url) => `<link rel="stylesheet" href="${BASE_URL}${url}"></link>`)
-            .join('')
+          const styleUrls = manifest[responseFile ?? '']?.css ?? []
+          const styleHtml = `
+          ${styleUrls
+            .map(
+              (url) => `<link data-async-style rel="preload" as="style" href="${BASE_URL}${url}"/>`,
+            )
+            .join('\n')}
+            <script>
+            const asyncStylesheets = document.querySelectorAll('[data-async-style]');
+            document.documentElement.dataset.cssLoaded = !asyncStylesheets.length;
+            let loadedCount = 0;
+            for (const link of asyncStylesheets) {
+              link.onload = () => {
+                link.rel = "stylesheet";
+                link.onload = null;
+                document.documentElement.dataset.cssLoaded = ++loadedCount === asyncStylesheets.length;
+              }
+            }
+            </script>`
 
           const chunkWithInsertedCss = this.encoder.encode(
             decoded.replace(/<head[^>]*>/su, `$&${styleHtml}`),

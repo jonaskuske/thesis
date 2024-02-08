@@ -56,6 +56,15 @@ const onRenderHtml: OnRenderHtmlSync = (pageContext): ReturnType<OnRenderHtmlSyn
           body{
             font-family: 'Space Grotesk', sans-serif;
           }
+          [data-css-loaded="false"] .layout::after,
+          .layout:has(.content:empty)::after {
+            content: "Lädt...";
+            display: block;
+            margin: auto;
+          }
+          [data-css-loaded="false"] .content {
+            display: none;
+          }
         </style>
       </head>
       <body>

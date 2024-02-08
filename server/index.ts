@@ -32,6 +32,8 @@ async function startServer() {
       directives: {
         scriptSrc: [
           "'self'",
+          // inline script for async style loading, inserted by service worker
+          "'sha256-3/uIJeHJ/p+H4+NczdkU7XjyfRDgTdak9Ze5eREQRMo='",
           // eslint-disable-next-line
           (_, res: any) => `nonce-${(res.cspNonce = randomBytes(16).toString('hex'))}`,
         ],
