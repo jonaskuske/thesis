@@ -1,3 +1,3 @@
-if (import.meta.env.DISABLE_SW !== 'true') {
+if (import.meta.env.PUBLIC_ENV__DISABLE_SW !== 'true') {
   import('./initServiceWorker')
 }

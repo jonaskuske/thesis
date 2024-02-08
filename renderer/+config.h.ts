@@ -8,7 +8,7 @@ export default {
   clientRouting: false,
   onHydrationEnd,
   meta: {
-    Page: { env: { client: process.env.DISABLE_JS !== 'true', server: true } },
+    Page: { env: { client: process.env.PUBLIC_ENV__DISABLE_SPA !== 'true', server: true } },
     headerTitle: { env: { client: true, server: true } },
     documentProps: { env: { client: true, server: true } },
   },
