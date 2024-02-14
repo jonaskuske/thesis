@@ -19,8 +19,9 @@ async function cacheShell(updateHash = true): Promise<string> {
   const [cache, shellResp, manifestResp] = await Promise.all([
     caches.open('cache'),
     fetch(SHELL_URL, { headers: { 'cache-control': 'no-cache' } }).then(verifyResponseStatus),
-    PROD &&
-      fetch(MANIFEST_URL, { headers: { 'cache-control': 'no-cache' } }).then(verifyResponseStatus),
+    PROD
+      ? fetch(MANIFEST_URL, { headers: { 'cache-control': 'no-cache' } }).then(verifyResponseStatus)
+      : undefined,
   ])
 
   const shellHash = shellResp.headers.get('x-shell-hash')
@@ -31,7 +32,19 @@ async function cacheShell(updateHash = true): Promise<string> {
     new Response(shellResp.body!.pipeThrough(new ShellTransform()), shellResp),
   )
 
-  if (PROD) await cache.put(MANIFEST_URL, manifestResp as Response)
+  if (PROD) {
+    await cache.put(MANIFEST_URL, manifestResp!.clone())
+    const cacheFiles = new Set<string>()
+    const manifest = (await manifestResp!.json()) as Record<
+      string,
+      { file: string; css?: string[] }
+    >
+    for (const entry of Object.values(manifest)) {
+      cacheFiles.add(entry.file)
+      if (Array.isArray(entry.css)) entry.css.forEach((f) => cacheFiles.add(f))
+    }
+    await cache.addAll(cacheFiles.values())
+  }
 
   if (updateHash) await self.registration?.navigationPreload?.setHeaderValue(shellHash)
 
@@ -68,11 +81,7 @@ self.addEventListener('activate', (event) => {
 const responseCache = new Map<string, ReadableStream<BufferSource>>()
 
 self.addEventListener('fetch', (event) => {
-  if (
-    event.request.mode !== 'navigate' &&
-    event.request.method === 'GET' &&
-    event.request.url.includes('.woff2')
-  ) {
+  if (event.request.mode !== 'navigate' && event.request.method === 'GET') {
     return event.respondWith(
       caches.match(event.request).then((response) => response ?? fetch(event.request)),
     )
