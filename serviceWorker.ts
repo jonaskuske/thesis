@@ -144,13 +144,23 @@ self.addEventListener('fetch', (event) => {
 
           serverResponse ??= await fetch(new Request(event.request, { headers }))
         } catch (err) {
-          serverResponse = new Response(
-            `<h2>Error:</h2><pre style="white-space:normal">${String(err)}</pre>`,
-            {
-              headers: { 'content-type': 'text/html', 'x-shell-hash': shellHash },
-              status: 500,
-            },
-          )
+          if ((err as DOMException).name === 'NetworkError') {
+            serverResponse = new Response(
+              `<h2>Offline</h2><p>Bitte stelle eine Internetverbindung her und versuche es erneut.</p>`,
+              {
+                headers: { 'content-type': 'text/html', 'x-shell-hash': shellHash },
+                status: 504,
+              },
+            )
+          } else {
+            serverResponse = new Response(
+              `<h2>Error</h2><pre style="white-space:normal">${String(err)}</pre>`,
+              {
+                headers: { 'content-type': 'text/html', 'x-shell-hash': shellHash },
+                status: 500,
+              },
+            )
+          }
         }
 
         const shellIsUpToDate = shellHash === serverResponse.headers.get('x-shell-hash')
