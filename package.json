@@ -93,7 +93,13 @@
       "vue/multi-word-component-names": "off",
       "vue/no-setup-props-destructure": "off",
       "no-unused-vars": "off",
-      "@typescript-eslint/no-unused-vars": "error",
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          "ignoreRestSiblings": true,
+          "argsIgnorePattern": "^_|ctx|err|res|rej|resolve|reject|resp|req|response|request|cb|callback"
+        }
+      ],
       "@typescript-eslint/consistent-type-imports": "error",
       "@typescript-eslint/no-unsafe-argument": "off",
       "@typescript-eslint/no-namespace": "off",
