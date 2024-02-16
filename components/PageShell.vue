@@ -6,12 +6,22 @@ import { usePageContext } from '../composables/usePageContext'
 import { useIsHome } from '../composables/useIsHome'
 import { useTitle } from '../composables/useTitle'
 import { vSticky } from '../directives/v-sticky'
+import { onMounted, ref } from 'vue'
+import { isServer } from '../utils/index'
 
-const { contentOnly } = usePageContext()
+const ctx = usePageContext()
+const contentOnly = isServer ? ctx.contentOnly : false
 
 const isHome = useIsHome()
 
 const title = useTitle()
+
+const editHref = ref<string>()
+onMounted(() => {
+  if (/^\/locations\/\d+$/.test(ctx.urlPathname)) {
+    editHref.value = `${ctx.urlPathname}/edit`
+  }
+})
 </script>
 
 <template>
@@ -30,6 +40,26 @@ const title = useTitle()
               <span :key="title">{{ title }}</span>
             </Transition>
           </h1>
+          <Link v-show="editHref" key="edit" :href="editHref" class="edit fill-current">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              version="1.1"
+              x="0px"
+              y="0px"
+              viewBox="0 0 100 100"
+              style="enable-background: new 0 0 100 100"
+              xml:space="preserve"
+            >
+              <path
+                d="M63.67,18.48c-0.78-0.78-2.05-0.78-2.83,0L23.68,55.64c-0.32,0.32-0.53,0.75-0.57,1.2l-1.7,16.04   c-0.06,0.6,0.15,1.2,0.57,1.62c0.38,0.38,0.89,0.59,1.41,0.59c0.07,0,0.14,0,0.21-0.01l16.04-1.7c0.46-0.05,0.88-0.25,1.2-0.58   l37.16-37.16c0.78-0.78,0.78-2.05,0-2.83L63.67,18.48z M38.53,69.48l-12.88,1.36l1.36-12.88l25.01-25.01l11.52,11.52L38.53,69.48z    M66.37,41.64L54.85,30.12l7.41-7.41l11.52,11.52L66.37,41.64z"
+              />
+              <path
+                d="M59.21,82.11c1.1,0,2-0.9,2-2s-0.9-2-2-2H25.59c-1.1,0-2,0.9-2,2s0.9,2,2,2H59.21z"
+              />
+            </svg>
+            <span class="sr-only">Bearbeiten</span>
+          </Link>
         </TransitionGroup>
       </div>
     </header>
@@ -47,6 +77,11 @@ const title = useTitle()
 </template>
 
 <style scoped>
+.edit {
+  margin-left: auto;
+  width: 40px;
+  margin-bottom: -6px;
+}
 .layout {
   display: flex;
   flex-direction: column;
@@ -101,8 +136,7 @@ const title = useTitle()
   width: 2em;
 }
 
-.back,
-.settings {
+.back {
   line-height: 0;
 }
 
@@ -137,10 +171,6 @@ const title = useTitle()
 }
 .title .v-enter-active {
   transition: opacity 400ms ease-out;
-}
-
-.settings {
-  margin-left: auto;
 }
 
 .bottom-nav {

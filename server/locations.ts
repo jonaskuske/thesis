@@ -7,6 +7,11 @@ const locationsBodySchema = {
   required: ['id'],
 }
 
+const locationDeleteParamsSchema = {
+  type: 'object',
+  properties: { locationId: { type: 'string' } },
+}
+
 const routes: FastifyPluginAsync = async (fastify) => {
   fastify.post<{ Body: { id: string } }>(
     '/locations',
@@ -18,7 +23,29 @@ const routes: FastifyPluginAsync = async (fastify) => {
       ids.add(request.body.id)
 
       await reply
-        .cookie('location_ids', JSON.stringify([...ids]))
+        .cookie('location_ids', encodeURIComponent(JSON.stringify([...ids])), {
+          path: '/',
+          sameSite: 'strict',
+        })
+        .redirect(303, '/')
+        .send()
+    },
+  )
+
+  fastify.post<{ Params: { locationId: string } }>(
+    '/locations/:locationId/delete',
+    { schema: { params: locationDeleteParamsSchema } },
+    async function (request, reply) {
+      const cookies = get('location_ids', request.cookies) ?? []
+
+      const ids = new Set(cookies)
+      ids.delete(request.params.locationId)
+
+      await reply
+        .cookie('location_ids', encodeURIComponent(JSON.stringify([...ids])), {
+          path: '/',
+          sameSite: 'strict',
+        })
         .redirect(303, '/')
         .send()
     },

@@ -43,7 +43,7 @@ async function cacheShell(updateHash = true): Promise<string> {
       cacheFiles.add(entry.file)
       if (Array.isArray(entry.css)) entry.css.forEach((f) => cacheFiles.add(f))
     }
-    await cache.addAll(cacheFiles.values())
+    await cache.addAll([...cacheFiles.values()])
   }
 
   if (updateHash) await self.registration?.navigationPreload?.setHeaderValue(shellHash)
@@ -83,7 +83,17 @@ const responseCache = new Map<string, ReadableStream<BufferSource>>()
 self.addEventListener('fetch', (event) => {
   if (event.request.mode !== 'navigate' && event.request.method === 'GET') {
     return event.respondWith(
-      caches.match(event.request).then((response) => response ?? fetch(event.request)),
+      caches.match(event.request).then(
+        (response) =>
+          response ??
+          fetch(event.request).catch(
+            (err) =>
+              new Response(`${err}`, {
+                status: 500,
+                headers: { 'content-type': 'text/plain' },
+              }),
+          ),
+      ),
     )
   }
 
