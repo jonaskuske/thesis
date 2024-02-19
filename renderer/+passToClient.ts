@@ -1,12 +1,8 @@
 // See https://vite-plugin-ssr.com/data-fetching
 export const passToClient = [
-  'enableServiceWorker',
   // 'contentOnly', mustn't be passed, client doesn't know about content-only
-  'enableHydration',
-  'pageProps',
-  'data',
-  'routeParams',
-  'urlPathname',
-  'urlParsed',
   'headerTitle',
+  ...(['SPA', 'SPA_SSR'].includes(process.env.PUBLIC_ENV__MODE!)
+    ? [] // provided by default in spa mode
+    : ['routeParams', 'urlPathname', 'urlParsed']),
 ]

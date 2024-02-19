@@ -1,4 +1,13 @@
-import { createSSRApp, defineComponent, h, markRaw, reactive, ref, type Ref } from 'vue'
+import {
+  createSSRApp,
+  createApp as createClientApp,
+  defineComponent,
+  h,
+  markRaw,
+  reactive,
+  ref,
+  type Ref,
+} from 'vue'
 import PageShell from '../components/PageShell.vue'
 import { setPageContext } from '../composables/usePageContext'
 import type { PageContext } from 'vike/types'
@@ -19,7 +28,10 @@ export function createApp(pageContext: PageContext) {
     },
   })
 
-  const app = createSSRApp(PageWithWrapper)
+  const app =
+    import.meta.env.PUBLIC_ENV__MODE === 'SPA'
+      ? createClientApp(PageWithWrapper)
+      : createSSRApp(PageWithWrapper)
 
   const pageContextReactive = reactive(pageContext)
 

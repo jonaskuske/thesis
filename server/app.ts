@@ -10,8 +10,6 @@ async function getShellHash() {
   const shell = await renderPage({
     contentOnly: false,
     urlOriginal: '/_shell',
-    enableServiceWorker: process.env.PUBLIC_ENV__DISABLE_SW !== 'true',
-    enableHydration: process.env.PUBLIC_ENV__DISABLE_SPA !== 'true',
     nonce: '',
     cookies: {},
   })
@@ -39,8 +37,6 @@ const routes: FastifyPluginAsync = async (fastify) => {
     const pageContext = await renderPage({
       contentOnly,
       urlOriginal: request.url,
-      enableServiceWorker: process.env.PUBLIC_ENV__DISABLE_SW !== 'true',
-      enableHydration: process.env.PUBLIC_ENV__DISABLE_SPA !== 'true',
       nonce: (reply.raw as any).cspNonce, // eslint-disable-line
       cookies: request.cookies,
     })

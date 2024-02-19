@@ -1,4 +1,4 @@
-if (import.meta.env.PUBLIC_ENV__DISABLE_SW !== 'true') {
+if (import.meta.env.PUBLIC_ENV__APP_SHELL === 'true') {
   import('./initServiceWorker')
 }
 

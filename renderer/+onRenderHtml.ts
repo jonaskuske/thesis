@@ -5,13 +5,14 @@ import { createApp } from './createApp'
 import type internal from 'stream'
 
 const onRenderHtml: OnRenderHtmlSync = (pageContext): ReturnType<OnRenderHtmlSync> => {
-  const appCtx: SSRContext = {}
-  const app = createApp(pageContext)
+  let pageView: ((w: internal.Writable) => void) | string = ''
 
-  const pipeWrapper = (writable: internal.Writable) => {
-    pipeToNodeWritable(app, appCtx, writable)
+  if (pageContext.Page) {
+    const appCtx: SSRContext = {}
+    const app = createApp(pageContext)
+    pageView = (writable: internal.Writable) => pipeToNodeWritable(app, appCtx, writable)
+    stampPipe(pageView, 'node-stream')
   }
-  stampPipe(pipeWrapper, 'node-stream')
 
   // See https://vite-plugin-ssr.com/head
   const { documentProps } = pageContext.config
@@ -19,7 +20,7 @@ const onRenderHtml: OnRenderHtmlSync = (pageContext): ReturnType<OnRenderHtmlSyn
   const desc = documentProps?.description || 'Prototype for the thesis'
 
   const documentHtml = pageContext.contentOnly
-    ? escapeInject`${pipeWrapper}</div></div>`
+    ? escapeInject`${pageView}</div></div>`
     : escapeInject`<!DOCTYPE html>
     <html lang="en">
       <head>
@@ -68,13 +69,12 @@ const onRenderHtml: OnRenderHtmlSync = (pageContext): ReturnType<OnRenderHtmlSyn
         </style>
       </head>
       <body>
-        <div id="app">${pipeWrapper}</div>`
+        <div id="app">${pageView}</div>`
 
   return {
     documentHtml,
     pageContext: {
       enableEagerStreaming: true,
-      // We can add some `pageContext` here, which is useful if we want to do page redirection https://vite-plugin-ssr.com/page-redirection
     },
   }
 }

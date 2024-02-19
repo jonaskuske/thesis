@@ -10,6 +10,10 @@ const key: InjectionKey<PageContext> = Symbol()
 export function usePageContext() {
   const pageContext = inject(key)
   if (!pageContext) throw new Error('setPageContext() not called in parent')
+  Object.defineProperty(pageContext, 'pageExports', {
+    value: null,
+    writable: true,
+  })
   return toRefs(pageContext)
 }
 

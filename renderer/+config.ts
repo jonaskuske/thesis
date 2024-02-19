@@ -1,14 +1,15 @@
 import type { Config } from 'vike/types'
-import { passToClient } from './passToClient'
-import { onHydrationEnd } from './onPageHooks'
 
 export default {
-  passToClient,
   hydrationCanBeAborted: true,
-  clientRouting: import.meta.env.PUBLIC_ENV__DISABLE_SPA !== 'true',
-  onHydrationEnd,
+  clientRouting: ['SPA', 'SPA_SSR'].includes(process.env.PUBLIC_ENV__MODE!),
   meta: {
-    Page: { env: { client: process.env.PUBLIC_ENV__DISABLE_SPA !== 'true', server: true } },
+    Page: {
+      env: {
+        client: process.env.PUBLIC_ENV__MODE !== 'MPA',
+        server: process.env.PUBLIC_ENV__MODE !== 'SPA',
+      },
+    },
     headerTitle: { env: { client: true, server: true } },
     documentProps: { env: { client: true, server: true } },
   },

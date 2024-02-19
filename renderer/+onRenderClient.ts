@@ -17,7 +17,7 @@ if (typeof URLPattern !== 'undefined') {
 
 let app: ReturnType<typeof createApp>
 const onRenderClient: OnRenderClientSync = (pageContext): ReturnType<OnRenderClientSync> => {
-  if (pageContext.enableHydration) {
+  if (import.meta.env.PUBLIC_ENV__MODE !== 'MPA') {
     if (!app) {
       app = createApp(pageContext)
       app.mount('#app')
