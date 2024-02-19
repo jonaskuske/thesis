@@ -8,9 +8,9 @@ export function useIsHome(): Ref<boolean> {
   const { enableHydration, urlPathname } = usePageContext()
   const isPageShell = useIsPageShell()
 
-  const isHome = computed(() => isHomePath(urlPathname))
+  const isHome = computed(() => isHomePath(urlPathname.value))
 
-  if (isPageShell && enableHydration) {
+  if (isPageShell && enableHydration.value && import.meta.env.PUBLIC_ENV__DISABLE_SW !== 'true') {
     const mounted = ref(false)
     onMounted(() => void nextTick(() => (mounted.value = true)))
 

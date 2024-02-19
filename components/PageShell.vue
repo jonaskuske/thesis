@@ -18,8 +18,8 @@ const title = useTitle()
 
 const editHref = ref<string>()
 onMounted(() => {
-  if (/^\/locations\/\d+$/.test(ctx.urlPathname)) {
-    editHref.value = `${ctx.urlPathname}/edit`
+  if (/^\/locations\/\d+$/.test(ctx.urlPathname.value)) {
+    editHref.value = `${ctx.urlPathname.value}/edit`
   }
 })
 </script>

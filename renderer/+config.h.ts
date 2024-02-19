@@ -5,7 +5,7 @@ import { onHydrationEnd } from './onPageHooks'
 export default {
   passToClient,
   hydrationCanBeAborted: true,
-  clientRouting: false,
+  clientRouting: import.meta.env.PUBLIC_ENV__DISABLE_SPA !== 'true',
   onHydrationEnd,
   meta: {
     Page: { env: { client: process.env.PUBLIC_ENV__DISABLE_SPA !== 'true', server: true } },

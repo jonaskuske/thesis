@@ -4,6 +4,6 @@ import { usePageContext } from './usePageContext'
 export function usePageData<Data>(): ComputedRef<Data> {
   const ctx = usePageContext()
 
-  const data = computed(() => ctx.data as Data)
+  const data = computed(() => ctx.data.value as Data)
   return data
 }

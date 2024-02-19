@@ -6,5 +6,7 @@ export function useTitle() {
   const isHome = useIsHome()
   const { headerTitle, config } = usePageContext()
 
-  return computed(() => (isHome.value ? 'ISS Tracker' : config?.headerTitle ?? headerTitle))
+  return computed(() =>
+    isHome.value ? 'ISS Tracker' : config?.value?.headerTitle ?? headerTitle?.value,
+  )
 }

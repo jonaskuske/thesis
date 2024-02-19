@@ -10,7 +10,7 @@ const { urlParsed } = usePageContext()
 const data = usePageData<Data>()
 
 const empty = computed(() => data.value.sightings.length === 0)
-const expandedDate = ref(Number(urlParsed.search.expand || data.value.sightings[0]?.date))
+const expandedDate = ref(Number(urlParsed.value.search.expand || data.value.sightings[0]?.date))
 </script>
 
 <template>
