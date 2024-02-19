@@ -26,10 +26,7 @@ async function cacheShell(updateHash = true): Promise<string> {
   const shellHash = shellResp.headers.get('x-shell-hash')
   if (!shellHash) throw Error('Shell response is missing the `x-shell-hash` header')
 
-  await cache.put(
-    SHELL_URL,
-    new Response(shellResp.body!.pipeThrough(new ShellTransform()), shellResp),
-  )
+  await cache.put(SHELL_URL, new Response(await transformShell(await shellResp.text()), shellResp))
 
   if (PROD) await cache.put(MANIFEST_URL, manifestResp as Response)
 
@@ -192,43 +189,41 @@ function escapeRegExp(string: string) {
   return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 }
 
-class ShellTransform extends TransformStream<BufferSource, BufferSource> {
-  constructor() {
-    super({
-      encoder: new TextEncoder(),
-      decoder: new TextDecoder(),
-      transform(chunk, controller) {
-        const decoded = this.decoder.decode(chunk, { stream: true })
+async function transformShell(shell: string): Promise<string> {
+  let stripped = shell.replace(/(<div[^>]*class="content"[^>]*>).*/su, '$1')
 
-        if (!/<div[^>]*class="content"[^>]*>/su.test(decoded)) {
-          return controller.enqueue(chunk)
-        }
+  const links = new Map(
+    [
+      ...shell.matchAll(
+        /<link(?=[^>]*rel="stylesheet"[^>]*)(?=[^>]*href="([^"+]+)"[^>]*)[^>]*>/gsu,
+      ),
+    ].map((match) => [match, fetch(match[1]).then((res) => res.text())]),
+  )
 
-        let stripped = decoded.replace(/(<div[^>]*class="content"[^>]*>).*/su, '$1')
-
-        if (DEV) {
-          const src = `data:application/javascript;utf-8,${encodeURIComponent(
-            `(${devRemoveStylesheets.toString()})()`,
-          )}`
-
-          stripped = stripped.replace('</head>', `<script src="${src}" async></script>$&`)
-        }
-
-        controller.enqueue(this.encoder.encode(stripped))
-
-        controller.terminate()
-      },
-    } as Transformer<BufferSource, BufferSource> & {
-      encoder: TextEncoder
-      decoder: TextDecoder
-    })
+  for (const [match, css] of links.entries()) {
+    stripped = stripped.replace(
+      match[0],
+      `<style data-link-href="${match[1]}">${await css}</style>`,
+    )
   }
+
+  if (DEV) {
+    const src = `data:application/javascript;utf-8,${encodeURIComponent(
+      `(${devRemoveStylesheets.toString()})()`,
+    )}`
+
+    stripped = stripped.replace('</head>', `<script src="${src}" async></script>$&`)
+  }
+
+  return stripped
 }
 
 /* eslint-disable */
 function devRemoveStylesheets() {
   // @ts-ignore
   document.querySelectorAll('link[rel="stylesheet"]').forEach((el) => el.remove())
+  // @ts-ignore
+  document.querySelectorAll('style[data-link-href]').forEach((el) => el.remove())
 }
 /* eslint-enable */
 
