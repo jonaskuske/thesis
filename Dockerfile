@@ -16,6 +16,7 @@ FROM node:20.11.0-alpine
 WORKDIR /usr/src/app
 ENV NODE_ENV production
 ENV PORT 80
+COPY .yarn/patches .yarn/patches
 COPY .yarn/releases .yarn/releases
 COPY package.json yarn.lock .yarnrc.yml ./
 RUN yarn workspaces focus --production
