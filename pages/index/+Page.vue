@@ -20,7 +20,7 @@ watch(search, (search, _, onCleanup) => {
 
   if (!search.length) results.value = []
   else {
-    void fetch(`/cities?search=${search}`, { signal: abortHandler.signal })
+    void fetch(`/cities?search=${search}&limit=20`, { signal: abortHandler.signal })
       .then((response) => response.json())
       .then((cityResults: typeof cities) => (results.value = cityResults))
   }
@@ -78,7 +78,7 @@ const searchIsFocused = ref(false)
       class="list"
       @location="search = $event.postcode"
     />
-    <template v-else-if="results.length">
+    <div v-else-if="results.length" class="results">
       <form
         v-for="{ city, zip, id } in results"
         :key="id"
@@ -90,7 +90,7 @@ const searchIsFocused = ref(false)
         <input type="hidden" name="id" :value="id" />
         <button type="submit">Hinzufügen</button>
       </form>
-    </template>
+    </div>
     <template v-else>
       <p key="no-results">Keine Ergebnisse für „{{ search }}“.</p>
     </template>
@@ -100,6 +100,10 @@ const searchIsFocused = ref(false)
 <style scoped>
 .v-move {
   transition: transform 200ms ease;
+}
+
+.results {
+  width: 100%;
 }
 
 h1,

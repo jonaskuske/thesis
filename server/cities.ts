@@ -1,12 +1,13 @@
 import type { FastifyPluginAsync } from 'fastify'
 import cities from 'zip-to-city/germany.json'
 
-type IQuerystring = { search?: string; include?: string[] }
+type IQuerystring = { search?: string; include?: string[]; limit?: number }
 
 const citiesQuerystringSchema = {
   type: 'object',
   properties: {
     search: { type: 'string' },
+    limit: { type: 'number', multipleOf: 1 },
     include: { type: 'array', uniqueItems: true, items: { type: 'string' } },
   },
 }
@@ -26,6 +27,8 @@ const routes: FastifyPluginAsync = async (fastify) => {
     '/cities',
     { schema: { querystring: citiesQuerystringSchema, response: { 200: { $ref: 'cities' } } } },
     async (request, reply) => {
+      if (request.query.limit === 0) return reply.send([])
+
       let cityList = cities
 
       if (request.query.include) {
@@ -38,6 +41,10 @@ const routes: FastifyPluginAsync = async (fastify) => {
         cityList = cityList.filter(
           ({ city, zip }) => city.toLowerCase().startsWith(search) || zip.startsWith(search),
         )
+      }
+
+      if (request.query.limit) {
+        cityList = cityList.slice(0, request.query.limit)
       }
 
       return reply.send(cityList)

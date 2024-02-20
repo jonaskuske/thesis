@@ -13,9 +13,9 @@ export async function data({ cookies, urlParsed }: PageContextServer) {
 
   const search = (urlParsed.search?.location?.toLowerCase() ?? '').trim()
   const results = search
-    ? cities.filter(
-        ({ city, zip }) => city.toLowerCase().startsWith(search) || zip.startsWith(search),
-      )
+    ? cities
+        .filter(({ city, zip }) => city.toLowerCase().startsWith(search) || zip.startsWith(search))
+        .slice(0, 20)
     : []
 
   const locationsWithSightingDates = locations.map((location) => {
