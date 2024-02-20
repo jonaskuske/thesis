@@ -24,7 +24,6 @@ COPY ./server ./server
 COPY ./utils ./utils
 COPY --from=build /usr/src/app/dist ./dist
 EXPOSE 80
-RUN chown -R node:node /root/.yarn/berry
 RUN chown -R node:node .
 USER node
 CMD [ "yarn", "server:prod" ]
