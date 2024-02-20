@@ -3,7 +3,7 @@ WORKDIR /usr/src/app
 RUN apk add bash
 SHELL [ "/bin/bash", "-c" ]
 COPY ./.yarn ./.yarn
-COPY package.json yarn.lock .yarnrc.yml .pnp.cjs .pnp.loader.mjs ./
+COPY package.json yarn.lock .yarnrc.yml ./
 RUN yarn install --immutable
 COPY . .
 ARG PUBLIC_ENV__APP_SHELL=${PUBLIC_ENV__APP_SHELL}
