@@ -1,68 +1,142 @@
 <script lang="ts" setup>
 import Content from './Content.vue'
 import Link from './Link.vue'
-import Cog from './icons/Cog.vue'
 import ArrowLeft from './icons/ArrowLeft.vue'
 import { usePageContext } from '../composables/usePageContext'
 import { useIsHome } from '../composables/useIsHome'
 import { useTitle } from '../composables/useTitle'
-import type { PageContextServer } from '../utils/types'
+import { vSticky } from '../directives/v-sticky'
+import { onMounted, ref } from 'vue'
+import { isServer } from '../utils/index'
 
-const { contentOnly } = $(usePageContext<PageContextServer>())
+const ctx = usePageContext()
+const contentOnly = isServer ? ctx.contentOnly : false
 
-const isHome = $(useIsHome())
+const isHome = useIsHome()
 
-const title = $(useTitle())
+const title = useTitle()
+
+const editHref = ref<string>()
+onMounted(() => {
+  if (/^\/locations\/\d+$/.test(ctx.urlPathname.value)) {
+    editHref.value = `${ctx.urlPathname.value}/edit`
+  }
+})
 </script>
 
 <template>
   <Content v-if="contentOnly"><slot /></Content>
 
   <div v-else class="layout">
-    <header class="navigation">
-      <TransitionGroup>
-        <Link v-show="!isHome" key="back" class="back" href="/">
-          <span class="sr-only">Zurück</span>
-          <ArrowLeft width="32" />
-        </Link>
-        <h1 key="title" class="title">
-          <Transition mode="out-in">
-            <span :key="title">{{ title }}</span>
-          </Transition>
-        </h1>
-        <Link key="cog" class="settings" href="/settings">
-          <Cog width="30" />
-          <span class="sr-only">Einstellungen</span>
-        </Link>
-      </TransitionGroup>
+    <header v-sticky class="navigation">
+      <div class="navigation-outer">
+        <TransitionGroup tag="div" class="navigation-inner">
+          <Link v-show="!isHome" key="back" class="back" href="/">
+            <span class="sr-only">Zurück</span>
+            <ArrowLeft class="navigation-icon" />
+          </Link>
+          <h1 key="title" class="title">
+            <Transition mode="out-in">
+              <span :key="title">{{ title }}</span>
+            </Transition>
+          </h1>
+          <Link v-show="editHref" key="edit" :href="editHref" class="edit fill-current">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              version="1.1"
+              x="0px"
+              y="0px"
+              viewBox="0 0 100 100"
+              style="enable-background: new 0 0 100 100"
+              xml:space="preserve"
+            >
+              <path
+                d="M63.67,18.48c-0.78-0.78-2.05-0.78-2.83,0L23.68,55.64c-0.32,0.32-0.53,0.75-0.57,1.2l-1.7,16.04   c-0.06,0.6,0.15,1.2,0.57,1.62c0.38,0.38,0.89,0.59,1.41,0.59c0.07,0,0.14,0,0.21-0.01l16.04-1.7c0.46-0.05,0.88-0.25,1.2-0.58   l37.16-37.16c0.78-0.78,0.78-2.05,0-2.83L63.67,18.48z M38.53,69.48l-12.88,1.36l1.36-12.88l25.01-25.01l11.52,11.52L38.53,69.48z    M66.37,41.64L54.85,30.12l7.41-7.41l11.52,11.52L66.37,41.64z"
+              />
+              <path
+                d="M59.21,82.11c1.1,0,2-0.9,2-2s-0.9-2-2-2H25.59c-1.1,0-2,0.9-2,2s0.9,2,2,2H59.21z"
+              />
+            </svg>
+            <span class="sr-only">Bearbeiten</span>
+          </Link>
+        </TransitionGroup>
+      </div>
     </header>
+    <footer class="bottom-nav">
+      <nav>
+        <ul>
+          <li><Link href="/">Home</Link></li>
+          <li><Link href="/map">Karte</Link></li>
+          <li><Link href="/settings">Einstellungen</Link></li>
+        </ul>
+      </nav>
+    </footer>
     <Content><slot /></Content>
   </div>
 </template>
 
 <style scoped>
-.content {
-  display: flex;
-  flex-direction: column;
-  padding: 0 16px 24px;
+.edit {
+  margin-left: auto;
+  width: 40px;
+  margin-bottom: -6px;
 }
-
 .layout {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   width: 100%;
   margin: 0 auto;
+  padding-bottom: 65px;
 }
 
 .navigation {
+  z-index: 1;
+  left: 0;
+
+  &.v-sticky .navigation-outer {
+    background: #06002c;
+    transform: scaleY(0.65);
+
+    &::after {
+      opacity: 0.75;
+      transition: opacity 150ms 100ms ease-in;
+    }
+  }
+  &.v-sticky .navigation-inner {
+    transform: scale(0.85, 1.3075);
+  }
+}
+.navigation-outer {
+  position: relative;
+  transform-origin: top;
+
+  &::after {
+    content: '';
+    position: absolute;
+    pointer-events: none;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 100ms ease-out;
+    box-shadow: 0 -2px 5px 0px #ffffff;
+  }
+}
+.navigation-inner {
+  padding: 20px;
   display: flex;
   align-items: center;
-  padding: 20px;
+  transform-origin: left;
+}
+.navigation-outer,
+.navigation-inner {
+  transition: transform 200ms ease-out;
+}
+.navigation-icon {
+  width: 2em;
 }
 
-.back,
-.settings {
+.back {
   line-height: 0;
 }
 
@@ -99,8 +173,29 @@ const title = $(useTitle())
   transition: opacity 400ms ease-out;
 }
 
-.settings {
-  margin-left: auto;
+.bottom-nav {
+  position: fixed;
+  background: #45017b;
+  box-shadow: 0 0 5px 1px rgb(255 255 255 / 0.3);
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 65px;
+  z-index: 1;
+  & nav {
+    height: 100%;
+  }
+  & ul {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    justify-content: space-around;
+    align-items: center;
+    list-style: none;
+    color: #fff;
+  }
 }
 </style>
 

@@ -7,7 +7,7 @@ const ctx = usePageContext()
 </script>
 
 <template>
-  <a :class="{ active: attrs.href === ctx.urlPathname }">
+  <a :class="{ active: attrs.href === ctx.urlPathname.value }">
     <slot />
   </a>
 </template>

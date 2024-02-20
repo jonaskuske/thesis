@@ -16,9 +16,7 @@ type Cookies = Record<string, string | undefined>
 
 const getCookieStore = async () => {
   return (
-    window.cookieStore ||
-    cookieStore ||
-    (cookieStore = await import('cookie-store').then((m) => m.cookieStore as CookieStore))
+    window.cookieStore || cookieStore || (cookieStore = (await import('cookie-store')).cookieStore)
   )
 }
 
@@ -29,7 +27,7 @@ export function get<Name extends Keys>(
   cookieStore?: Cookies,
 ): KeyValMap[Name] | null | Promise<KeyValMap[Name] | null> {
   if (isServer && !cookieStore) {
-    throw Error('Argument `pageContext` is required when called on the server.')
+    throw Error('Argument `cookieStore` is required when called on the server.')
   }
 
   if (isServer) {

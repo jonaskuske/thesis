@@ -1,13 +1,13 @@
+export type {}
 declare const self: ServiceWorkerGlobalScope & typeof globalThis
 
 const SHELL_URL = '/_shell'
-const MANIFEST_URL = '/manifest.json'
+const MANIFEST_URL = '/assets.json'
 
-// @ts-expect-error
 const PROD = import.meta.env.PROD
-// @ts-expect-error
+
 const DEV = import.meta.env.DEV
-// @ts-expect-error
+
 const BASE_URL = import.meta.env.BASE_URL
 
 function verifyResponseStatus(response: Response) {
@@ -19,8 +19,9 @@ async function cacheShell(updateHash = true): Promise<string> {
   const [cache, shellResp, manifestResp] = await Promise.all([
     caches.open('cache'),
     fetch(SHELL_URL, { headers: { 'cache-control': 'no-cache' } }).then(verifyResponseStatus),
-    PROD &&
-      fetch(MANIFEST_URL, { headers: { 'cache-control': 'no-cache' } }).then(verifyResponseStatus),
+    PROD
+      ? fetch(MANIFEST_URL, { headers: { 'cache-control': 'no-cache' } }).then(verifyResponseStatus)
+      : undefined,
   ])
 
   const shellHash = shellResp.headers.get('x-shell-hash')
@@ -31,7 +32,19 @@ async function cacheShell(updateHash = true): Promise<string> {
     new Response(shellResp.body!.pipeThrough(new ShellTransform()), shellResp),
   )
 
-  if (PROD) await cache.put(MANIFEST_URL, manifestResp as Response)
+  if (PROD) {
+    await cache.put(MANIFEST_URL, manifestResp!.clone())
+    const cacheFiles = new Set<string>()
+    const manifest = (await manifestResp!.json()) as Record<
+      string,
+      { file: string; css?: string[] }
+    >
+    for (const entry of Object.values(manifest)) {
+      cacheFiles.add(entry.file)
+      if (Array.isArray(entry.css)) entry.css.forEach((f) => cacheFiles.add(f))
+    }
+    await cache.addAll([...cacheFiles.values()])
+  }
 
   if (updateHash) await self.registration?.navigationPreload?.setHeaderValue(shellHash)
 
@@ -44,6 +57,9 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     (async () => {
       initialShellHash = await cacheShell(false)
+      // TODO: more asset caching
+      const cache = await caches.open('cache')
+      await cache.add('/fonts/spacegrotesk/v13/V8mDoQDjQSkFtoMM3T6r8E7mPbF4Cw.woff2')
       await self.skipWaiting()
     })(),
   )
@@ -65,6 +81,22 @@ self.addEventListener('activate', (event) => {
 const responseCache = new Map<string, ReadableStream<BufferSource>>()
 
 self.addEventListener('fetch', (event) => {
+  if (event.request.mode !== 'navigate' && event.request.method === 'GET') {
+    return event.respondWith(
+      caches.match(event.request).then(
+        (response) =>
+          response ??
+          fetch(event.request).catch(
+            (err) =>
+              new Response(`${err}`, {
+                status: 500,
+                headers: { 'content-type': 'text/plain' },
+              }),
+          ),
+      ),
+    )
+  }
+
   if (event.request.mode === 'navigate' && event.request.method === 'GET') {
     const url = new URL(event.request.url)
 
@@ -87,14 +119,20 @@ self.addEventListener('fetch', (event) => {
         if (cacheId && responseCache.has(cacheId)) {
           const cachedResponseStream = responseCache.get(cacheId)
 
-          if (cachedResponseStream && responseCache.delete(cacheId)) {
+          if (
+            cachedResponseStream &&
+            !cachedResponseStream.locked &&
+            responseCache.delete(cacheId)
+          ) {
             return cachedResponseStream.pipeTo(responseStream.writable).then(() => cacheShell())
           }
         }
 
         const [shellResponse, manifest] = await Promise.all([
           caches.match(SHELL_URL) as Promise<Response>,
-          caches.match(MANIFEST_URL).then<Record<string, any> | undefined>((res) => res?.json()),
+          caches
+            .match(MANIFEST_URL)
+            .then<Record<string, { css?: string[] }> | undefined>((res) => res?.json()),
         ])
 
         const shellSent = shellResponse
@@ -125,13 +163,23 @@ self.addEventListener('fetch', (event) => {
 
           serverResponse ??= await fetch(new Request(event.request, { headers }))
         } catch (err) {
-          serverResponse = new Response(
-            `<h2>Error:</h2><pre style="white-space:normal">${String(err)}</pre>`,
-            {
-              headers: { 'content-type': 'text/html', 'x-shell-hash': shellHash },
-              status: 500,
-            },
-          )
+          if ((err as DOMException).name === 'NetworkError') {
+            serverResponse = new Response(
+              `<h2>Offline</h2><p>Bitte stelle eine Internetverbindung her und versuche es erneut.</p>`,
+              {
+                headers: { 'content-type': 'text/html', 'x-shell-hash': shellHash },
+                status: 504,
+              },
+            )
+          } else {
+            serverResponse = new Response(
+              `<h2>Error</h2><pre style="white-space:normal">${String(err)}</pre>`,
+              {
+                headers: { 'content-type': 'text/html', 'x-shell-hash': shellHash },
+                status: 500,
+              },
+            )
+          }
         }
 
         const shellIsUpToDate = shellHash === serverResponse.headers.get('x-shell-hash')
@@ -215,8 +263,9 @@ function devRemoveStylesheets() {
 
 class InsertCssTransform extends TransformStream<BufferSource, BufferSource> {
   constructor(url: URL, manifest?: Record<string, { css?: string[] }>) {
-    if (!manifest) super() // no manifest → no-op
-    else {
+    if (!manifest) {
+      super() // no manifest → no-op
+    } else {
       super({
         encoder: new TextEncoder(),
         decoder: new TextDecoder(),
@@ -227,34 +276,38 @@ class InsertCssTransform extends TransformStream<BufferSource, BufferSource> {
             return controller.enqueue(chunk)
           }
 
-          const path = `pages${url.pathname.match(/^(\/.+?)\/?$/)?.[1] ?? '/index'}`
-          const dirNameEntry = `${path}/index.page.vue`
-          const fileNameEntry = `${path}.page.vue`
+          const requestPath = url.pathname.match(/^(\/.+?)\/?$/)?.[1] ?? '/index'
+          const pageFiles = Object.keys(manifest).filter((file) => file.includes('client:/pages/'))
 
-          const pageFiles = Object.keys(manifest).filter((file) =>
-            /^pages\/.*\.page(?:(?:\.server)|(?:\.client))?\.vue$/.test(file),
-          )
-
-          let entryFile = ''
-
-          for (const pageFile of pageFiles) {
-            const pageFileRegex = new RegExp(
-              '^' + escapeRegExp(pageFile).replace(/@[^/.]+/g, '[^./]+') + '$',
+          const responseFile = pageFiles.find((file) => {
+            const filePath = file.replace(/.+client:\/pages/, '')
+            return new RegExp(`^${escapeRegExp(filePath).replace(/@[^/.]+/g, '[^./]+')}$`).test(
+              requestPath,
             )
+          })
 
-            if (pageFileRegex.test(dirNameEntry) || pageFileRegex.test(fileNameEntry)) {
-              entryFile = pageFile
-              break
+          const styleUrls = manifest[responseFile ?? '']?.css ?? []
+          const styleHtml = `
+          ${styleUrls
+            .map(
+              (url) => `<link data-async-style rel="preload" as="style" href="${BASE_URL}${url}"/>`,
+            )
+            .join('\n')}
+            <script>
+            const asyncStylesheets = document.querySelectorAll('[data-async-style]');
+            document.documentElement.dataset.cssLoaded = !asyncStylesheets.length;
+            let loadedCount = 0;
+            for (const link of asyncStylesheets) {
+              link.onload = () => {
+                link.rel = "stylesheet";
+                link.onload = null;
+                document.documentElement.dataset.cssLoaded = ++loadedCount === asyncStylesheets.length;
+              }
             }
-          }
-
-          const styleUrls = manifest[entryFile]?.css ?? []
-          const styleLinks = styleUrls.map(
-            (url) => `<link rel="stylesheet" href="${BASE_URL}${url}"></link>`,
-          )
+            </script>`
 
           const chunkWithInsertedCss = this.encoder.encode(
-            decoded.replace(/<head[^>]*>/su, `$&${styleLinks.join('')}`),
+            decoded.replace(/<head[^>]*>/su, `$&${styleHtml}`),
           )
 
           controller.enqueue(chunkWithInsertedCss)

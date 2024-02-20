@@ -1,12 +1,12 @@
-import { onMounted, triggerRef } from 'vue'
+import { ref, onMounted } from 'vue'
 
 export function useLocationPermission() {
-  let state = $ref(null as PermissionState | null)
+  const state = ref(null as PermissionState | null)
 
   const updateState = () => {
     void navigator.permissions.query({ name: 'geolocation' }).then((status) => {
-      state = status.state
-      triggerRef($$(state))
+      status.addEventListener('change', () => (state.value = status.state))
+      state.value = status.state
     })
   }
 
@@ -15,11 +15,11 @@ export function useLocationPermission() {
   const request = (): Promise<boolean> => {
     return new Promise((resolve) => {
       navigator.geolocation.getCurrentPosition(
-        () => (updateState(), resolve(true)),
-        () => (updateState(), resolve(false)),
+        () => resolve(true),
+        () => resolve(false),
       )
     })
   }
 
-  return { state: $$(state), request }
+  return { state, request }
 }

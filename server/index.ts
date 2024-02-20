@@ -1,6 +1,5 @@
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import type { ServerResponse } from 'node:http'
 import { randomBytes } from 'node:crypto'
 import fastify from 'fastify'
 import compress from '@fastify/compress'
@@ -11,8 +10,9 @@ import { isDev, isProd } from '../utils'
 import appRoutes from './app'
 import citiesRoutes from './cities'
 import locationsRoutes from './locations'
+import loginRoutes from './login'
+import logoutRoutes from './logout'
 
-// @ts-expect-error
 const root = fileURLToPath(new URL('..', import.meta.url))
 
 startServer().catch((err) => console.log('Failed to start server:', err))
@@ -32,6 +32,8 @@ async function startServer() {
       directives: {
         scriptSrc: [
           "'self'",
+          // inline script for async style loading, inserted by service worker
+          "'sha256-3/uIJeHJ/p+H4+NczdkU7XjyfRDgTdak9Ze5eREQRMo='",
           // eslint-disable-next-line
           (_, res: any) => `nonce-${(res.cspNonce = randomBytes(16).toString('hex'))}`,
         ],
@@ -47,11 +49,13 @@ async function startServer() {
       wildcard: false,
       immutable: true,
       maxAge: isProd ? 1000 * 60 * 60 * 24 * 365 : 1000 * 60,
-      setHeaders(res: ServerResponse, path: string) {
+      setHeaders(res, path) {
         if (path.endsWith('.ts')) {
+          // eslint-disable-next-line @typescript-eslint/no-floating-promises
           res.setHeader('content-type', 'text/javascript;charset=utf-8')
         }
         if (/s(?:ervice)?-?(?:worker)?\.[jt]s/i.test(path)) {
+          // eslint-disable-next-line @typescript-eslint/no-floating-promises
           res.setHeader('cache-control', 'no-cache')
         }
       },
@@ -68,6 +72,8 @@ async function startServer() {
   await app.register(appRoutes)
   await app.register(citiesRoutes)
   await app.register(locationsRoutes)
+  await app.register(loginRoutes)
+  await app.register(logoutRoutes)
 
   const port = Number(process.env.PORT ?? 3000)
   await app.listen({ port, host: '0.0.0.0' })

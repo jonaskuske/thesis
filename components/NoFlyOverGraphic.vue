@@ -1,11 +1,5 @@
 <template>
-  <svg
-    width="300"
-    height="300"
-    viewBox="0 0 300 300"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g clip-path="url(#clip0_13_922)">
       <rect width="300" height="300" rx="150" fill="#7E77A4" />
       <path

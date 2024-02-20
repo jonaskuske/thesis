@@ -1,23 +1,18 @@
-FROM node:18.12.1-alpine as build
+FROM node:20.11.0-alpine as build
 WORKDIR /usr/src/app
-ARG DISABLE_JS=false
 RUN apk add bash
 SHELL [ "/bin/bash", "-c" ]
 COPY ./.yarn ./.yarn
 COPY package.json yarn.lock .yarnrc.yml .pnp.cjs .pnp.loader.mjs ./
-RUN yarn install --immutable --immutable-cache
+RUN yarn install --immutable
 COPY . .
-RUN \
-  if [[ "$DISABLE_JS" = "true" ]]; then\
-  shopt -s globstar;\
-  for page in ./{pages,renderer}/**/*.page.*; do\
-    dest="$(echo "$page" | sed -e 's/\.page\.\([^.]\+\)$/\.page\.server\.\1/')";\
-    [ "$page" != "$dest" ] && mv "$page" "$dest";\
-  done;\
-  fi
+ARG PUBLIC_ENV__APP_SHELL=${PUBLIC_ENV__APP_SHELL}
+ARG PUBLIC_ENV__MODE=${PUBLIC_ENV__MODE}
+ENV PUBLIC_ENV__APP_SHELL=${PUBLIC_ENV__APP_SHELL}
+ENV PUBLIC_ENV__MODE=${PUBLIC_ENV__MODE}
 RUN yarn build
 
-FROM node:18.12.1-alpine
+FROM node:20.11.0-alpine
 WORKDIR /usr/src/app
 ENV NODE_ENV production
 ENV PORT 80

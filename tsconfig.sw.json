@@ -3,9 +3,10 @@
   "include": ["**/serviceWorker.ts", "**/service-worker.ts", "**/serviceworker.ts", "**/sw.ts"],
   "compilerOptions": {
     "composite": true,
+    "noEmit": false,
     "lib": ["ES2022", "WebWorker"],
     "target": "ES2022",
-    "module": "Node16",
+    "module": "ES2022",
     "types": ["vite/client"]
   }
 }
