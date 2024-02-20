@@ -17,7 +17,7 @@ WORKDIR /usr/src/app
 ENV NODE_ENV production
 ENV PORT 80
 COPY .yarn/releases .yarn/releases
-COPY package.json yarn.lock .yarnrc.yml .pnp.cjs .pnp.loader.mjs ./
+COPY package.json yarn.lock .yarnrc.yml ./
 RUN yarn workspaces focus --production
 COPY ./server ./server
 COPY ./utils ./utils
