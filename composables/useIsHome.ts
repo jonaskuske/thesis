@@ -14,7 +14,9 @@ export function useIsHome(): Ref<boolean> {
   if (
     import.meta.env.PUBLIC_ENV__MODE !== 'MPA' &&
     import.meta.env.PUBLIC_ENV__APP_SHELL === 'true' &&
-    isPageShell
+    isPageShell &&
+    (urlPathname.value === '/_shell' ||
+      (typeof document !== 'undefined' && document.documentElement.dataset.appShell === 'true'))
   ) {
     const mounted = ref(false)
     onMounted(() => void nextTick(() => (mounted.value = true)))

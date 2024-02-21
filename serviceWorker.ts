@@ -6,8 +6,6 @@ const MANIFEST_URL = '/assets.json'
 
 const PROD = import.meta.env.PROD
 
-const DEV = import.meta.env.DEV
-
 const BASE_URL = import.meta.env.BASE_URL
 
 function verifyResponseStatus(response: Response) {
@@ -233,15 +231,7 @@ class ShellTransform extends TransformStream<BufferSource, BufferSource> {
           return controller.enqueue(chunk)
         }
 
-        let stripped = decoded.replace(/(<div[^>]*class="content"[^>]*>).*/su, '$1')
-
-        if (DEV) {
-          const src = `data:application/javascript;utf-8,${encodeURIComponent(
-            `(${devRemoveStylesheets.toString()})()`,
-          )}`
-
-          stripped = stripped.replace('</head>', `<script src="${src}" async></script>$&`)
-        }
+        const stripped = decoded.replace(/(<div[^>]*class="content"[^>]*>).*/su, '$1')
 
         controller.enqueue(this.encoder.encode(stripped))
 
@@ -253,13 +243,6 @@ class ShellTransform extends TransformStream<BufferSource, BufferSource> {
     })
   }
 }
-
-/* eslint-disable */
-function devRemoveStylesheets() {
-  // @ts-ignore
-  document.querySelectorAll('link[rel="stylesheet"]').forEach((el) => el.remove())
-}
-/* eslint-enable */
 
 class InsertCssTransform extends TransformStream<BufferSource, BufferSource> {
   constructor(url: URL, manifest?: Record<string, { css?: string[] }>) {

@@ -6,7 +6,7 @@ import { usePageContext } from '../composables/usePageContext'
 import { useIsHome } from '../composables/useIsHome'
 import { useTitle } from '../composables/useTitle'
 import { vSticky } from '../directives/v-sticky'
-import { onMounted, ref } from 'vue'
+import { computed } from 'vue'
 import { isServer } from '../utils/index'
 
 const ctx = usePageContext()
@@ -16,11 +16,10 @@ const isHome = useIsHome()
 
 const title = useTitle()
 
-const editHref = ref<string>()
-onMounted(() => {
-  if (/^\/locations\/\d+$/.test(ctx.urlPathname.value)) {
-    editHref.value = `${ctx.urlPathname.value}/edit`
-  }
+const editHref = computed(() => {
+  if (isHome.value) return false
+
+  return /^\/locations\/\d+$/.test(ctx.urlPathname.value) && `${ctx.urlPathname.value}/edit`
 })
 </script>
 

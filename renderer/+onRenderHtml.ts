@@ -19,10 +19,12 @@ const onRenderHtml: OnRenderHtmlSync = (pageContext): ReturnType<OnRenderHtmlSyn
   const title = documentProps?.title || 'Thesis'
   const desc = documentProps?.description || 'Prototype for the thesis'
 
+  const shellAttribute = pageContext.urlPathname === '/_shell' ? ' data-app-shell=true' : ''
+
   const documentHtml = pageContext.contentOnly
     ? escapeInject`${pageView}</div></div>`
     : escapeInject`<!DOCTYPE html>
-    <html lang="en">
+    <html lang="de"${shellAttribute}>
       <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
