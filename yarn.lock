@@ -4815,7 +4815,7 @@ __metadata:
     prettier: "npm:~3.2.5"
     tsx: "patch:tsx@npm%3A4.7.0#~/.yarn/patches/tsx-npm-4.7.0-86d7b66640.patch"
     typescript: "npm:^5.3.3"
-    vike: "npm:^0.4.162"
+    vike: "npm:^0.4.163"
     vite: "npm:^5.1.4"
     vue: "npm:^3.4.19"
     vue-tsc: "npm:^1.8.27"
@@ -5039,9 +5039,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vike@npm:^0.4.162":
-  version: 0.4.162
-  resolution: "vike@npm:0.4.162"
+"vike@npm:^0.4.163":
+  version: 0.4.163
+  resolution: "vike@npm:0.4.163"
   dependencies:
     "@brillout/import": "npm:^0.2.3"
     "@brillout/json-serializer": "npm:^0.5.8"
@@ -5063,7 +5063,7 @@ __metadata:
       optional: true
   bin:
     vike: node/cli/bin-entry.js
-  checksum: 10c0/670755efbf921a0a6390e0a493aebf5344d375a231319b1197815ce9c52e94ac851d79c1c56719fc1e70a3a93c81fde27e5b7e8a7197bfde80dbc8fe88fb83a7
+  checksum: 10c0/331383315463bf426fb6599a2d7f425ff0cc5bfc1b3519dc78c67a68313e0cbfc12a113f3bf0989aecd03f694cfe150430b6fbfeee428dd0763ba67014768b66
   languageName: node
   linkType: hard
 
