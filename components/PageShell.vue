@@ -2,6 +2,9 @@
 import Content from './Content.vue'
 import Link from './Link.vue'
 import ArrowLeft from './icons/ArrowLeft.vue'
+import Cog from './icons/Cog.vue'
+import Home from './icons/Home.vue'
+import Map from './icons/Map.vue'
 import { usePageContext } from '../composables/usePageContext'
 import { useIsHome } from '../composables/useIsHome'
 import { useTitle } from '../composables/useTitle'
@@ -65,9 +68,24 @@ const editHref = computed(() => {
     <footer class="bottom-nav">
       <nav>
         <ul>
-          <li><Link href="/">Home</Link></li>
-          <li><Link href="/map">Karte</Link></li>
-          <li><Link href="/settings">Einstellungen</Link></li>
+          <li>
+            <Link class="nav-link" data-title="Home" href="/">
+              <Home class="nav-icon" />
+              <span class="sr-only">Home</span>
+            </Link>
+          </li>
+          <li>
+            <Link class="nav-link" data-title="Karte" href="/map">
+              <Map class="nav-icon" />
+              <span class="sr-only">Karte</span>
+            </Link>
+          </li>
+          <li>
+            <Link class="nav-link" data-title="Einstellungen" href="/settings">
+              <Cog class="nav-icon" />
+              <span class="sr-only">Einstellungen</span>
+            </Link>
+          </li>
         </ul>
       </nav>
     </footer>
@@ -76,6 +94,41 @@ const editHref = computed(() => {
 </template>
 
 <style scoped>
+nav ul li {
+  flex-basis: 0;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+}
+.nav-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.nav-icon {
+  width: 1.5rem;
+  scale: 1.2;
+  translate: 0 0.5em;
+  transition:
+    scale 150ms ease,
+    transform 150ms ease;
+}
+.nav-link:hover .nav-icon,
+.nav-link.active .nav-icon {
+  scale: 0.9;
+  translate: 0 -2px;
+}
+.nav-link::after,
+.nav-link::after {
+  content: '' attr(data-title);
+  font-size: 0.8em;
+  opacity: 0;
+}
+.nav-link:hover::after,
+.nav-link.active::after {
+  opacity: 0.99;
+}
+
 .edit {
   margin-left: auto;
   width: 40px;

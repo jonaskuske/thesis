@@ -134,7 +134,7 @@ self.addEventListener('fetch', (event) => {
         ])
 
         const shellSent = shellResponse
-          .body!.pipeThrough(new InsertCssTransform(url, manifest))
+          .body!.pipeThrough(new AdjustShellForPageTransform(url, manifest))
           .pipeTo(responseStream.writable, { preventClose: true })
 
         const shellHash = shellResponse.headers.get('x-shell-hash')!
@@ -244,21 +244,28 @@ class ShellTransform extends TransformStream<BufferSource, BufferSource> {
   }
 }
 
-class InsertCssTransform extends TransformStream<BufferSource, BufferSource> {
+class AdjustShellForPageTransform extends TransformStream<BufferSource, BufferSource> {
   constructor(url: URL, manifest?: Record<string, { css?: string[] }>) {
-    if (!manifest) {
-      super() // no manifest → no-op
-    } else {
-      super({
-        encoder: new TextEncoder(),
-        decoder: new TextDecoder(),
-        transform(chunk, controller) {
-          const decoded = this.decoder.decode(chunk, { stream: true })
+    super({
+      encoder: new TextEncoder(),
+      decoder: new TextDecoder(),
+      transform(chunk, controller) {
+        let decoded = this.decoder.decode(chunk, { stream: true })
 
-          if (!/<head[^>]*>/su.test(decoded)) {
-            return controller.enqueue(chunk)
-          }
+        const shouldUpdateLinks = /class="nav-link"/.test(decoded)
+        const shouldInsertCss = manifest && /<head[^>]*>/su.test(decoded)
 
+        if (!shouldUpdateLinks && !shouldInsertCss) {
+          return controller.enqueue(chunk)
+        }
+
+        if (shouldUpdateLinks) {
+          decoded = decoded.replace(/class="nav-link"[^>]+href="([^"]+)"/g, (m, g1) => {
+            return g1 === url.pathname ? m.replace('class="nav-link', 'class="active nav-link') : m
+          })
+        }
+
+        if (shouldInsertCss) {
           const requestPath = url.pathname.match(/^(\/.+?)\/?$/)?.[1] ?? '/index'
           const pageFiles = Object.keys(manifest).filter((file) => file.includes('client:/pages/'))
 
@@ -289,14 +296,12 @@ class InsertCssTransform extends TransformStream<BufferSource, BufferSource> {
             }
             </script>`
 
-          const chunkWithInsertedCss = this.encoder.encode(
-            decoded.replace(/<head[^>]*>/su, `$&${styleHtml}`),
-          )
+          decoded = decoded.replace(/<head[^>]*>/su, `$&${styleHtml}`)
+        }
 
-          controller.enqueue(chunkWithInsertedCss)
-        },
-      } as Transformer<BufferSource, BufferSource> & { encoder: TextEncoder; decoder: TextDecoder })
-    }
+        controller.enqueue(this.encoder.encode(decoded))
+      },
+    } as Transformer<BufferSource, BufferSource> & { encoder: TextEncoder; decoder: TextDecoder })
   }
 }
 
