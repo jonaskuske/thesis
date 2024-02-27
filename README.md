@@ -62,6 +62,4 @@ In the early prototype consisting of just two simple pages, performance is stell
 
 Another interesting observation is that stream stitching caused a higher Total Blocking Time. It's still low in this test, but looking at other test runs under different conditions, it seems to increase with network delays and server response times, while it doesn't for the plain MPA. This requires further investigation.
 
----
-
 [^1]: Stream Stitching is used to insert the initial JSON data for client-side rendering into the HTML document, but this is merely an implementation detail caused by architectural constraints specific to this codebase: App Shell architecture for SPAs can be implemented without Stream Stitching. The data for initial rendering can be fetched via Ajax, as is already the case for navigations happening after the initial load. This makes modifications to the cached HTML document and thus Stream Stitching unnecessary.
