@@ -25,7 +25,7 @@ const onRenderHtml: OnRenderHtmlSync = (pageContext): ReturnType<OnRenderHtmlSyn
 
   if (pageContext.contentOnly) {
     documentHtml =
-      import.meta.env.PUBLIC_ENV__MODE !== 'SPA'
+      import.meta.env.PUBLIC_ENV__MODE === 'SPA'
         ? escapeInject`${pageView}`
         : escapeInject`${pageView}</div></div>`
   } else {
