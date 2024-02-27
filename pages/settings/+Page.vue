@@ -51,7 +51,7 @@ watchEffect(() => {
 
 async function login() {
   const id = crypto.randomUUID()
-  await store.set('user_id', encodeURIComponent(JSON.stringify(id)))
+  await store.set('user_id', id)
   userId.value = id
 }
 
