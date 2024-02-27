@@ -97,7 +97,7 @@
         "error",
         {
           "ignoreRestSiblings": true,
-          "argsIgnorePattern": "^_|ctx|err|res|rej|resolve|reject|resp|req|response|request|cb|callback"
+          "argsIgnorePattern": "^_|ctx|pageContext|err|res|rej|resolve|reject|resp|req|response|request|cb|callback"
         }
       ],
       "@typescript-eslint/consistent-type-imports": "error",

@@ -67,13 +67,38 @@ const onRenderHtml: OnRenderHtmlSync = (pageContext): ReturnType<OnRenderHtmlSyn
           }
           [data-css-loaded="false"] .layout::after,
           .layout:has(.content:empty)::after,
-          #app:empty::after {
+          #app:empty::after,
+          .page-transition .content::after {
             content: "Lädt...";
             display: block;
             margin: auto;
+            opacity: 1;
+            position: sticky;
+            bottom: 50vh;
+            left: 0;
+            width: 100%;
+            text-align: center;
           }
           [data-css-loaded="false"] .content {
             display: none;
+          }
+          .content > * {
+            transition: opacity 150ms ease;
+          }
+          .page-transition .content > * {
+            opacity: 0;
+          }
+          .page-transition .content::after {
+            opacity: 0;
+            animation: appear 150ms 300ms forwards;
+          }
+          @keyframes appear {
+            @from {
+              opacity: 0;
+            }
+            to {
+              opacity: 1;
+            }
           }
         </style>
       </head>
