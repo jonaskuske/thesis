@@ -1,5 +1,15 @@
 /// <reference types="vite/client" />
-/// <reference types="vue/macros-global" />
+
+export declare global {
+  interface ImportMetaEnv {
+    readonly PUBLIC_ENV__MODE: 'SPA' | 'SPA_SSR' | 'MPA' | 'MPA_JS'
+    readonly PUBLIC_ENV__APP_SHELL: 'true' | 'false'
+  }
+
+  declare interface ImportMeta {
+    readonly env: ImportMetaEnv
+  }
+}
 
 export declare global {
   interface Window {

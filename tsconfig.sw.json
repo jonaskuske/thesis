@@ -1,12 +1,18 @@
 {
   "extends": "@vue/tsconfig/tsconfig.json",
-  "include": ["**/serviceWorker.ts", "**/service-worker.ts", "**/serviceworker.ts", "**/sw.ts"],
+  "include": [
+    "**/serviceWorker.ts",
+    "**/service-worker.ts",
+    "**/serviceworker.ts",
+    "**/sw.ts",
+    "env.d.ts"
+  ],
   "compilerOptions": {
     "composite": true,
     "noEmit": false,
     "lib": ["ES2022", "WebWorker"],
     "target": "ES2022",
     "module": "ES2022",
-    "types": ["vite/client"]
+    "types": []
   }
 }

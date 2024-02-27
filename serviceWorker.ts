@@ -8,6 +8,8 @@ const PROD = import.meta.env.PROD
 
 const BASE_URL = import.meta.env.BASE_URL
 
+const MODE = import.meta.env.PUBLIC_ENV__MODE
+
 function verifyResponseStatus(response: Response) {
   if (!response.ok) throw response
   return response
@@ -41,7 +43,10 @@ async function cacheShell(updateHash = true): Promise<string> {
       cacheFiles.add(entry.file)
       if (Array.isArray(entry.css)) entry.css.forEach((f) => cacheFiles.add(f))
     }
-    await cache.addAll([...cacheFiles.values()])
+    await cache.addAll([
+      ...cacheFiles.values(),
+      '/fonts/spacegrotesk/v13/V8mDoQDjQSkFtoMM3T6r8E7mPbF4Cw.woff2',
+    ])
   }
 
   if (updateHash) await self.registration?.navigationPreload?.setHeaderValue(shellHash)
@@ -55,9 +60,6 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     (async () => {
       initialShellHash = await cacheShell(false)
-      // TODO: more asset caching
-      const cache = await caches.open('cache')
-      await cache.add('/fonts/spacegrotesk/v13/V8mDoQDjQSkFtoMM3T6r8E7mPbF4Cw.woff2')
       await self.skipWaiting()
     })(),
   )
@@ -130,7 +132,9 @@ self.addEventListener('fetch', (event) => {
           caches.match(SHELL_URL) as Promise<Response>,
           caches
             .match(MANIFEST_URL)
-            .then<Record<string, { css?: string[] }> | undefined>((res) => res?.json()),
+            .then<
+              Record<string, { css?: string[]; file: string }> | undefined
+            >((res) => res?.json()),
         ])
 
         const shellSent = shellResponse
@@ -227,11 +231,16 @@ class ShellTransform extends TransformStream<BufferSource, BufferSource> {
       transform(chunk, controller) {
         const decoded = this.decoder.decode(chunk, { stream: true })
 
-        if (!/<div[^>]*class="content"[^>]*>/su.test(decoded)) {
+        const regex =
+          MODE === 'SPA'
+            ? /(<div[^>]*id="app"[^>]*><\/div>).*/su
+            : /(<div[^>]*class="content"[^>]*>).*/su
+
+        if (!regex.test(decoded)) {
           return controller.enqueue(chunk)
         }
 
-        const stripped = decoded.replace(/(<div[^>]*class="content"[^>]*>).*/su, '$1')
+        const stripped = decoded.replace(regex, '$1')
 
         controller.enqueue(this.encoder.encode(stripped))
 
@@ -245,7 +254,7 @@ class ShellTransform extends TransformStream<BufferSource, BufferSource> {
 }
 
 class AdjustShellForPageTransform extends TransformStream<BufferSource, BufferSource> {
-  constructor(url: URL, manifest?: Record<string, { css?: string[] }>) {
+  constructor(url: URL, manifest?: Record<string, { css?: string[]; file: string }>) {
     super({
       encoder: new TextEncoder(),
       decoder: new TextDecoder(),
@@ -253,9 +262,9 @@ class AdjustShellForPageTransform extends TransformStream<BufferSource, BufferSo
         let decoded = this.decoder.decode(chunk, { stream: true })
 
         const shouldUpdateLinks = /class="nav-link"/.test(decoded)
-        const shouldInsertCss = manifest && /<head[^>]*>/su.test(decoded)
+        const shouldInsertFromManifest = manifest && /<head[^>]*>/su.test(decoded)
 
-        if (!shouldUpdateLinks && !shouldInsertCss) {
+        if (!shouldUpdateLinks && !shouldInsertFromManifest) {
           return controller.enqueue(chunk)
         }
 
@@ -265,7 +274,18 @@ class AdjustShellForPageTransform extends TransformStream<BufferSource, BufferSo
           })
         }
 
-        if (shouldInsertCss) {
+        if (shouldInsertFromManifest) {
+          const jsEntryFile = Object.values(manifest).find(({ file }) =>
+            /\/entry-client-routing\.[a-zA-Z0-9]+\.js$/.test(file),
+          )?.file
+
+          if (jsEntryFile) {
+            decoded = decoded.replace(
+              /<head[^>]*>/su,
+              `$&<link rel="modulepreload" href="${jsEntryFile}" as="script" type="text/javascript">`,
+            )
+          }
+
           const requestPath = url.pathname.match(/^(\/.+?)\/?$/)?.[1] ?? '/index'
           const pageFiles = Object.keys(manifest).filter((file) => file.includes('client:/pages/'))
 
@@ -319,8 +339,13 @@ class ContentTransform extends TransformStream<BufferSource, BufferSource> {
 
         this.bufferString += this.decoder.decode(chunk, { stream: true })
 
-        if (/<div[^>]*class="content"[^>]*>/su.test(this.bufferString)) {
-          const stripped = this.bufferString.replace(/.*<div[^>]*class="content"[^>]*>/su, '')
+        const regex =
+          MODE === 'SPA'
+            ? /.*(?=(?:<script id="vike_pageContext"))/su
+            : /.*<div[^>]*class="content"[^>]*>/su
+
+        if (regex.test(this.bufferString)) {
+          const stripped = this.bufferString.replace(regex, '')
 
           controller.enqueue(this.encoder.encode(stripped))
           this.shellStripped = true

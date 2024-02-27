@@ -21,9 +21,15 @@ const onRenderHtml: OnRenderHtmlSync = (pageContext): ReturnType<OnRenderHtmlSyn
 
   const shellAttribute = pageContext.urlPathname === '/_shell' ? ' data-app-shell=true' : ''
 
-  const documentHtml = pageContext.contentOnly
-    ? escapeInject`${pageView}</div></div>`
-    : escapeInject`<!DOCTYPE html>
+  let documentHtml: ReturnType<typeof escapeInject>
+
+  if (pageContext.contentOnly) {
+    documentHtml =
+      import.meta.env.PUBLIC_ENV__MODE !== 'SPA'
+        ? escapeInject`${pageView}`
+        : escapeInject`${pageView}</div></div>`
+  } else {
+    documentHtml = escapeInject`<!DOCTYPE html>
     <html lang="de"${shellAttribute}>
       <head>
         <meta charset="UTF-8" />
@@ -60,7 +66,8 @@ const onRenderHtml: OnRenderHtmlSync = (pageContext): ReturnType<OnRenderHtmlSyn
             font-family: 'Space Grotesk', sans-serif;
           }
           [data-css-loaded="false"] .layout::after,
-          .layout:has(.content:empty)::after {
+          .layout:has(.content:empty)::after,
+          #app:empty::after {
             content: "Lädt...";
             display: block;
             margin: auto;
@@ -72,6 +79,7 @@ const onRenderHtml: OnRenderHtmlSync = (pageContext): ReturnType<OnRenderHtmlSyn
       </head>
       <body>
         <div id="app">${pageView}</div>`
+  }
 
   return {
     documentHtml,
