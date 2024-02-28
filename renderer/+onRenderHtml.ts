@@ -72,7 +72,8 @@ const onRenderHtml: OnRenderHtmlSync = (pageContext): ReturnType<OnRenderHtmlSyn
             content: "Lädt...";
             display: block;
             margin: auto;
-            opacity: 1;
+            opacity: 0;
+            animation: appear 150ms 300ms forwards;
             position: sticky;
             bottom: 50vh;
             left: 0;
@@ -87,10 +88,6 @@ const onRenderHtml: OnRenderHtmlSync = (pageContext): ReturnType<OnRenderHtmlSyn
           }
           .page-transition .content > * {
             opacity: 0;
-          }
-          .page-transition .content::after {
-            opacity: 0;
-            animation: appear 150ms 300ms forwards;
           }
           @keyframes appear {
             @from {
