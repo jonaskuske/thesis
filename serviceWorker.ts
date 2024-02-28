@@ -17,7 +17,7 @@ const MODE = import.meta.env.PUBLIC_ENV__MODE
 if (PROD) {
   MANIFEST = ASSET_MANIFEST
   CACHE_NAME = crypto.subtle
-    .digest('sha1', new TextEncoder().encode(JSON.stringify(MANIFEST)))
+    .digest('SHA-1', new TextEncoder().encode(JSON.stringify(MANIFEST)))
     .then((data) => new TextDecoder().decode(data))
 }
 
@@ -96,7 +96,7 @@ self.addEventListener('fetch', (event) => {
           response ??
           fetch(event.request).catch(
             (err) =>
-              new Response(`${err}`, {
+              new Response(`<div class="content">${err}</div>`, {
                 status: 500,
                 headers: { 'content-type': 'text/plain' },
               }),
@@ -168,7 +168,7 @@ self.addEventListener('fetch', (event) => {
         } catch (err) {
           if ((err as DOMException).name === 'NetworkError') {
             serverResponse = new Response(
-              `<h2>Offline</h2><p>Bitte stelle eine Internetverbindung her und versuche es erneut.</p>`,
+              `<div class="content"><h2>Offline</h2><p>Bitte stelle eine Internetverbindung her und versuche es erneut.</p></div>`,
               {
                 headers: { 'content-type': 'text/html', 'x-shell-hash': shellHash },
                 status: 504,
@@ -176,7 +176,7 @@ self.addEventListener('fetch', (event) => {
             )
           } else {
             serverResponse = new Response(
-              `<h2>Error</h2><pre style="white-space:normal">${String(err)}</pre>`,
+              `<div class="content"><h2>Error</h2><pre style="white-space:normal">${String(err)}</pre></div>`,
               {
                 headers: { 'content-type': 'text/html', 'x-shell-hash': shellHash },
                 status: 500,
@@ -260,17 +260,63 @@ class AdjustShellForPageTransform extends TransformStream<BufferSource, BufferSo
       transform(chunk, controller) {
         let decoded = this.decoder.decode(chunk, { stream: true })
 
-        const shouldUpdateLinks = /class="nav-link"/.test(decoded)
+        const shouldUpdateNavLinks = /class="nav-link"/.test(decoded)
         const shouldInsertFromManifest = MANIFEST && /<head[^>]*>/su.test(decoded)
+        const shouldUpdateEditLink =
+          /^\/locations\/\d+$/.test(url.pathname) &&
+          /<a class="edit(?: [^"]*)?"[^>]*href="([^"]*)"/su.test(decoded)
+        const shouldUpdateBackLink =
+          url.pathname !== '/' && /<a class="back(?: [^"]*)?"[^>]*/su.test(decoded)
+        const shouldUpdateTitle = url.pathname !== '/' && /<h1/su.test(decoded)
 
-        if (!shouldUpdateLinks && !shouldInsertFromManifest) {
+        if (
+          !(
+            shouldUpdateNavLinks ||
+            shouldInsertFromManifest ||
+            shouldUpdateEditLink ||
+            shouldUpdateBackLink ||
+            shouldUpdateTitle
+          )
+        ) {
           return controller.enqueue(chunk)
         }
 
-        if (shouldUpdateLinks) {
+        if (shouldUpdateNavLinks) {
           decoded = decoded.replace(/class="nav-link"[^>]+href="([^"]+)"/g, (m, g1) => {
             return g1 === url.pathname ? m.replace('class="nav-link', 'class="active nav-link') : m
           })
+        }
+
+        if (shouldUpdateEditLink) {
+          const href = `${url.pathname}/edit`
+          decoded = decoded.replace(
+            /(<a[^>]+class="edit(?: [^"]*)?"[^>]+style="\s*)display\s*:\s*none\s*;?/su,
+            '$1',
+          )
+          decoded = decoded.replace(
+            /(<a[^>]+class="edit(?: [^"]*)?"[^>]+)href="[^"]*"/su,
+            `$1href="${href}"`,
+          )
+        }
+
+        if (shouldUpdateBackLink) {
+          const next = url.pathname.replace(/\/[^/]+$/, '')
+          const href = !next || next === '/locations' ? '/' : next
+          decoded = decoded.replace(
+            /(<a[^>]+class="back(?: [^"]*)?"[^>]+style="\s*)display\s*:\s*none\s*;?/su,
+            '$1',
+          )
+          decoded = decoded.replace(
+            /(<a[^>]+class="back(?: [^"]*)?"[^>]+)href="[^"]*"/su,
+            `$1href="${href}"`,
+          )
+        }
+
+        if (shouldUpdateTitle) {
+          decoded = decoded.replace(
+            /(<h1[^>]+class="title(?: [^"]*)?"[^>]*>\s*<span[^>]*>)[^<]*<\/span>/su,
+            '$1&nbsp;</span>',
+          )
         }
 
         if (shouldInsertFromManifest) {

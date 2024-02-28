@@ -11,6 +11,13 @@ export declare global {
   }
 }
 
+declare global {
+  class URLPattern {
+    constructor(options: Partial<Location>)
+    test(string: string): boolean
+  }
+}
+
 export declare global {
   interface Window {
     cookieStore: CookieStore

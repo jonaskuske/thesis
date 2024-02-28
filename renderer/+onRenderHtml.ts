@@ -66,14 +66,14 @@ const onRenderHtml: OnRenderHtmlSync = (pageContext): ReturnType<OnRenderHtmlSyn
             font-family: 'Space Grotesk', sans-serif;
           }
           [data-css-loaded="false"] .layout::after,
-          .layout:has(.content:empty)::after,
+          .layout:not(:has(.content))::after,
           #app:empty::after,
           .page-transition .content::after {
             content: "Lädt...";
             display: block;
             margin: auto;
             opacity: 0;
-            animation: appear 150ms 300ms forwards;
+            animation: appear 150ms 450ms ease-in forwards;
             position: sticky;
             bottom: 50vh;
             left: 0;

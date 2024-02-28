@@ -1,22 +1,13 @@
 if (import.meta.env.PUBLIC_ENV__APP_SHELL === 'true') {
   import('./initServiceWorker')
-}
 
-if (location.pathname !== '/') {
-  document.querySelector<HTMLAnchorElement>('.navigation .back')!.style.display = ''
-  document.querySelector<HTMLAnchorElement>('.navigation .title span')!.textContent =
-    document.querySelector<HTMLDivElement>('.content')!.dataset.title as string
-}
-
-if (/^\/locations\/\d+$/.test(location.pathname)) {
-  const editLink = document.querySelector<HTMLAnchorElement>('.navigation .edit')!
-  editLink.href = `${location.pathname}/edit`
-  editLink.style.display = ''
-}
-
-declare class URLPattern {
-  constructor(options: Partial<Location>)
-  test(string: string): boolean
+  if (location.pathname !== '/') {
+    const title = document.querySelector<HTMLDivElement>('.content')!.dataset.title as string
+    const titleEl = document.querySelector<HTMLAnchorElement>('.navigation .title span')!
+    void titleEl.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 150, easing: 'ease-in' })
+    document.title = title
+    document.querySelector<HTMLAnchorElement>('.navigation .title span')!.textContent = title
+  }
 }
 
 if (typeof URLPattern !== 'undefined') {

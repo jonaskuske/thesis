@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { markPageShellEnd } from '../composables/useIsPageShell'
 import { useTitle } from '../composables/useTitle'
 
-markPageShellEnd()
 const title = useTitle()
 </script>
 
@@ -14,7 +12,10 @@ const title = useTitle()
   </div>
 </template>
 
-<style scoped>
+<style>
+/* Don't scope because sometimes <div class="content"> is generated
+  directly by Service Worker (e.g. error pages),
+  which doesn't know the scope attributes */
 .content {
   display: flex;
   flex-direction: column;

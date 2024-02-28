@@ -1,8 +1,8 @@
 import { computed, type Ref } from 'vue'
 import { usePageContext } from './usePageContext'
 
-export function useIsHome(): Ref<boolean> {
+export function useIsShell(): Ref<boolean> {
   const ctx = usePageContext()
 
-  return computed(() => ctx.urlPathname.value === '/')
+  return computed(() => ctx.urlPathname.value === '/_shell')
 }

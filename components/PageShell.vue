@@ -7,22 +7,36 @@ import Home from './icons/Home.vue'
 import Map from './icons/Map.vue'
 import { usePageContext } from '../composables/usePageContext'
 import { useIsHome } from '../composables/useIsHome'
+import { useIsShell } from '../composables/useIsShell'
 import { useTitle } from '../composables/useTitle'
 import { vSticky } from '../directives/v-sticky'
-import { computed } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import { isServer } from '../utils/index'
 
 const ctx = usePageContext()
 const contentOnly = isServer ? ctx.contentOnly : false
 
 const isHome = useIsHome()
+const isShell = useIsShell()
 
 const title = useTitle()
 
-const editHref = computed(() => {
-  if (isHome.value) return false
+const showTitle = ref(
+  isHome.value ||
+    isShell.value ||
+    import.meta.env.PUBLIC_ENV__APP_SHELL !== 'true' ||
+    import.meta.env.PUBLIC_ENV__MODE === 'MPA',
+)
 
+onMounted(() => (showTitle.value = true))
+
+const editHref = computed(() => {
   return /^\/locations\/\d+$/.test(ctx.urlPathname.value) && `${ctx.urlPathname.value}/edit`
+})
+
+const backHref = computed(() => {
+  const next = ctx.urlPathname.value.replace(/\/[^/]+$/, '')
+  return !next || next === '/locations' ? '/' : next
 })
 </script>
 
@@ -33,13 +47,14 @@ const editHref = computed(() => {
     <header v-sticky class="navigation">
       <div class="navigation-outer">
         <TransitionGroup tag="div" class="navigation-inner">
-          <Link v-show="!isHome" key="back" class="back" href="/">
+          <Link v-show="!isHome && !isShell" key="back" class="back" :href="backHref">
             <span class="sr-only">Zurück</span>
             <ArrowLeft class="navigation-icon" />
           </Link>
           <h1 key="title" class="title">
             <Transition mode="out-in">
-              <span :key="title">{{ title }}</span>
+              <!-- eslint-disable-next-line vue/no-v-html -->
+              <span :key="title" v-html="showTitle ? title : '&nbsp;'" />
             </Transition>
           </h1>
           <Link v-show="editHref" key="edit" :href="editHref" class="edit fill-current">
