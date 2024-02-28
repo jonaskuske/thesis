@@ -97,7 +97,7 @@
         "error",
         {
           "ignoreRestSiblings": true,
-          "argsIgnorePattern": "^_|ctx|pageContext|err|res|rej|resolve|reject|resp|req|response|request|cb|callback"
+          "argsIgnorePattern": "^_|ctx|pageContext|err|res|rej|resolve|reject|resp|req|response|request|evt|event|cb|callback"
         }
       ],
       "@typescript-eslint/consistent-type-imports": "error",
@@ -105,7 +105,8 @@
       "@typescript-eslint/no-namespace": "off",
       "@typescript-eslint/require-await": "off",
       "@typescript-eslint/no-this-alias": "off",
-      "vue/require-toggle-inside-transition": "off"
+      "vue/require-toggle-inside-transition": "off",
+      "vue/no-lone-template": "off"
     }
   },
   "eslintIgnore": [

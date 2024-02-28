@@ -4,8 +4,8 @@ import { usePageData } from '../../composables/usePageData'
 import GeolocationButton from '../../components/GeolocationButton.vue'
 import LocationList from './LocationList.vue'
 import Search from '../../components/icons/Search.vue'
+import SearchResult from './SearchResult.vue'
 import type cities from 'zip-to-city/germany.json'
-// import * as store from '../../utils/cookies'
 import type { Data } from './+data'
 
 const data = usePageData<Data>()
@@ -13,7 +13,8 @@ const data = usePageData<Data>()
 const search = ref(data.value.search)
 const results = ref(data.value.results)
 const locations = ref(data.value.locations)
-// const locationIds = ref(data.value.locationIds)
+
+const isMPA = import.meta.env.PUBLIC_ENV__MODE === 'MPA'
 
 watch(search, (search, _, onCleanup) => {
   let abortHandler = new AbortController()
@@ -28,28 +29,19 @@ watch(search, (search, _, onCleanup) => {
   onCleanup(() => abortHandler.abort())
 })
 
-// watch(
-//   locationIds,
-//   (ids, _, onCleanup) => {
-//     const abortHandler = new AbortController()
-
-//     void fetch(`/cities?include=${[...ids].join(',')}`, { signal: abortHandler.signal })
-//       .then((response) => response.json())
-//       .then((cityResults: typeof cities) => (locations.value = cityResults))
-//       .then(() => store.set('location_ids', [...ids]))
-//       .then(() => (search.value = ''))
-
-//     onCleanup(() => abortHandler.abort())
-//   },
-//   { deep: true },
-// )
-
+const isLoading = ref(false)
 const searchIsFocused = ref(false)
+const handleBlur = () => setTimeout(() => (searchIsFocused.value = false), 100)
 </script>
 
 <template>
   <TransitionGroup>
-    <form key="search" class="search-form" @submit.prevent>
+    <form
+      key="search"
+      class="search-form"
+      :class="{ hasLocations: locations.length, isMPA: isMPA }"
+      @submit.prevent
+    >
       <div class="input-wrapper">
         <Search />
         <input
@@ -60,46 +52,48 @@ const searchIsFocused = ref(false)
           type="search"
           name="location"
           @focus="searchIsFocused = true"
-          @blur="searchIsFocused = false"
+          @blur="handleBlur"
         />
         <label for="location-input" class="label">Ort hinzufügen</label>
       </div>
       <button type="submit" class="sr-only">Suchen</button>
       <GeolocationButton
-        v-show="search.length || (locations.length && searchIsFocused)"
+        v-show="search.length || isLoading || (locations.length && searchIsFocused)"
         class="button-location"
         @location="search = $event.postcode"
+        @loading="isLoading = $event"
       />
     </form>
     <LocationList
-      v-if="!search"
+      v-show="!search"
       key="locations"
       :locations="locations"
       class="list"
       @location="search = $event.postcode"
     />
-    <div v-else-if="results.length" class="results">
-      <form
-        v-for="{ city, zip, id } in results"
-        :key="id"
-        method="post"
-        action="/locations"
-        class="city"
-      >
-        <p class="result-name">{{ zip }} {{ city }}</p>
-        <input type="hidden" name="id" :value="id" />
-        <button type="submit">Hinzufügen</button>
-      </form>
+    <div v-show="search && results.length" key="results" class="results">
+      <template id="result-template">
+        <SearchResult :city="{ zip: '_zip_', city: '_city_', id: '' }" />
+      </template>
+      <SearchResult v-for="city in results" :key="city.id" :city="city" />
     </div>
-    <template v-else>
-      <p key="no-results">Keine Ergebnisse für „{{ search }}“.</p>
-    </template>
+    <p v-show="search && !results.length" key="no-results" class="no-results">
+      Keine Ergebnisse für „{{ search }}“.
+    </p>
   </TransitionGroup>
 </template>
 
 <style scoped>
+.search-form.isMPA.hasLocations:focus-within .geolocation-button,
+.search-form.isMPA .geolocation-button[data-loading='true'] {
+  display: flex !important;
+}
 .v-move {
   transition: transform 200ms ease;
+}
+.v-enter-active,
+.v-leave-active {
+  transition: none;
 }
 
 .results {
@@ -143,9 +137,6 @@ h1,
 .input:not(:placeholder-shown) + label {
   opacity: 0;
 }
-.result-name {
-  font-weight: 700;
-}
 .search-form {
   margin-bottom: 48px;
 }
@@ -159,14 +150,5 @@ h1,
 }
 h2 + p {
   text-align: center;
-}
-.city {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  margin: 0;
-  padding: 0;
-  content-visibility: auto;
-  contain-intrinsic-size: 0 60px;
 }
 </style>

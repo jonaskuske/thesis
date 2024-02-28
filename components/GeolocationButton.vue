@@ -1,14 +1,17 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, watchEffect } from 'vue'
 import { useLocationPermission } from '../composables/useGeolocationPermission'
 
 const emit = defineEmits<{
-  (e: 'location', address: Record<string, string>): void // eslint-disable-line
+  (e: 'location', address: Record<string, string>): void
+  (e: 'loading', isLoading: boolean): void
 }>()
 
 const { state } = useLocationPermission()
 
 const isLoading = ref(false)
+watchEffect(() => emit('loading', isLoading.value))
+
 const isDisabled = computed(() => isLoading.value || state.value === 'denied')
 
 const getLocation = () => {
@@ -26,12 +29,14 @@ const getLocation = () => {
 </script>
 
 <template>
-  <div class="geolocation-button">
+  <geolocation-button class="geolocation-button" :data-loading="isLoading">
     <button :aria-disabled="isDisabled" :disabled="isDisabled" type="button" @click="getLocation">
       {{ isLoading ? 'Standort wird abgerufen...' : 'Aktuellen Standort verwenden' }}
     </button>
-    <p v-if="state === 'denied'">Standortzugriff in den Systemeinstellungen blockiert.</p>
-  </div>
+    <p v-show="state === 'denied'" class="blocked-msg">
+      Standortzugriff in den Systemeinstellungen blockiert.
+    </p>
+  </geolocation-button>
 </template>
 
 <style scoped>
