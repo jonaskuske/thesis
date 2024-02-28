@@ -1,25 +1,17 @@
 import { ref, onMounted } from 'vue'
+import { GeolocationPermission } from '../utils/GeolocationPermission'
+
+let geolocationPermission: GeolocationPermission
 
 export function useLocationPermission() {
   const state = ref(null as PermissionState | null)
 
-  const updateState = () => {
-    void navigator.permissions.query({ name: 'geolocation' }).then((status) => {
-      status.addEventListener('change', () => (state.value = status.state))
-      state.value = status.state
-    })
-  }
+  onMounted(() => {
+    if (!geolocationPermission) geolocationPermission = new GeolocationPermission()
+    const callback = () => (state.value = geolocationPermission.state)
+    geolocationPermission.addEventListener('change', callback)
+    return () => geolocationPermission.removeEventListener('change', callback)
+  })
 
-  onMounted(updateState)
-
-  const request = (): Promise<boolean> => {
-    return new Promise((resolve) => {
-      navigator.geolocation.getCurrentPosition(
-        () => resolve(true),
-        () => resolve(false),
-      )
-    })
-  }
-
-  return { state, request }
+  return { state, request: () => geolocationPermission.request() }
 }
