@@ -232,15 +232,13 @@ class ShellTransform extends TransformStream<BufferSource, BufferSource> {
         const decoded = this.decoder.decode(chunk, { stream: true })
 
         const regex =
-          MODE === 'SPA'
-            ? /(<div[^>]*id="app"[^>]*><\/div>).*/su
-            : /(<div[^>]*class="content"[^>]*>).*/su
+          MODE === 'SPA' ? /(<div[^>]*id="app"[^>]*>).*/su : /(.)<div[^>]*class="content"[^>]*>.*/su
 
         if (!regex.test(decoded)) {
           return controller.enqueue(chunk)
         }
 
-        const stripped = decoded.replace(regex, '$1')
+        const stripped = decoded.replace(regex, '$1</div>')
 
         controller.enqueue(this.encoder.encode(stripped))
 
@@ -342,7 +340,7 @@ class ContentTransform extends TransformStream<BufferSource, BufferSource> {
         const regex =
           MODE === 'SPA'
             ? /.*(?=(?:<script id="vike_pageContext"))/su
-            : /.*<div[^>]*class="content"[^>]*>/su
+            : /.*(?=(?:<div[^>]*class="content"[^>]*>))/su
 
         if (regex.test(this.bufferString)) {
           const stripped = this.bufferString.replace(regex, '')
