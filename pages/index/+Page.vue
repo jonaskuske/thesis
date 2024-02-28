@@ -72,10 +72,13 @@ const handleBlur = () => setTimeout(() => (searchIsFocused.value = false), 100)
       @location="search = $event.postcode"
     />
     <div v-show="search && results.length" key="results" class="results">
-      <template id="result-template">
-        <SearchResult :city="{ zip: '_zip_', city: '_city_', id: '' }" />
-      </template>
       <SearchResult v-for="city in results" :key="city.id" :city="city" />
+
+      <template v-if="isMPA">
+        <template id="result-template">
+          <SearchResult key="tpl" :city="{ zip: '_zip_', city: '_city_', id: '' }" />
+        </template>
+      </template>
     </div>
     <p v-show="search && !results.length" key="no-results" class="no-results">
       Keine Ergebnisse für „{{ search }}“.
