@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 2,
+  "dockerfileLines": [
+    "FROM nginx:1.25.4-alpine3.18",
+    "COPY public /usr/share/nginx/html/public",
+    "COPY version-selector.html /usr/share/nginx/html/index.html"
+  ]
+}
