@@ -1,8 +1,12 @@
 export type {}
 declare const self: ServiceWorkerGlobalScope & typeof globalThis
 
+let MANIFEST: typeof ASSET_MANIFEST | undefined
+declare const ASSET_MANIFEST: Record<string, { file: string; css?: string[] }>
+
+let CACHE_NAME = Promise.resolve('cache')
+
 const SHELL_URL = '/_shell'
-const MANIFEST_URL = '/assets.json'
 
 const PROD = import.meta.env.PROD
 
@@ -10,18 +14,22 @@ const BASE_URL = import.meta.env.BASE_URL
 
 const MODE = import.meta.env.PUBLIC_ENV__MODE
 
+if (PROD) {
+  MANIFEST = ASSET_MANIFEST
+  CACHE_NAME = crypto.subtle
+    .digest('sha1', new TextEncoder().encode(JSON.stringify(MANIFEST)))
+    .then((data) => new TextDecoder().decode(data))
+}
+
 function verifyResponseStatus(response: Response) {
   if (!response.ok) throw response
   return response
 }
 
 async function cacheShell(updateHash = true): Promise<string> {
-  const [cache, shellResp, manifestResp] = await Promise.all([
-    caches.open('cache'),
+  const [cache, shellResp] = await Promise.all([
+    caches.open(await CACHE_NAME),
     fetch(SHELL_URL, { headers: { 'cache-control': 'no-cache' } }).then(verifyResponseStatus),
-    PROD
-      ? fetch(MANIFEST_URL, { headers: { 'cache-control': 'no-cache' } }).then(verifyResponseStatus)
-      : undefined,
   ])
 
   const shellHash = shellResp.headers.get('x-shell-hash')
@@ -33,13 +41,8 @@ async function cacheShell(updateHash = true): Promise<string> {
   )
 
   if (PROD) {
-    await cache.put(MANIFEST_URL, manifestResp!.clone())
     const cacheFiles = new Set<string>()
-    const manifest = (await manifestResp!.json()) as Record<
-      string,
-      { file: string; css?: string[] }
-    >
-    for (const entry of Object.values(manifest)) {
+    for (const entry of Object.values(MANIFEST!)) {
       cacheFiles.add(entry.file)
       if (Array.isArray(entry.css)) entry.css.forEach((f) => cacheFiles.add(f))
     }
@@ -73,6 +76,11 @@ self.addEventListener('activate', (event) => {
         await self.registration.navigationPreload.enable()
         await self.registration.navigationPreload.setHeaderValue(initialShellHash)
       }
+      const allowList = new Set([await CACHE_NAME])
+      const cacheKeys = await caches.keys()
+      await Promise.all(
+        cacheKeys.filter((key) => !allowList.has(key)).map((key) => caches.delete(key)),
+      )
       await self.clients.claim()
     })(),
   )
@@ -128,17 +136,10 @@ self.addEventListener('fetch', (event) => {
           }
         }
 
-        const [shellResponse, manifest] = await Promise.all([
-          caches.match(SHELL_URL) as Promise<Response>,
-          caches
-            .match(MANIFEST_URL)
-            .then<
-              Record<string, { css?: string[]; file: string }> | undefined
-            >((res) => res?.json()),
-        ])
+        const shellResponse = await (caches.match(SHELL_URL) as Promise<Response>)
 
         const shellSent = shellResponse
-          .body!.pipeThrough(new AdjustShellForPageTransform(url, manifest))
+          .body!.pipeThrough(new AdjustShellForPageTransform(url))
           .pipeTo(responseStream.writable, { preventClose: true })
 
         const shellHash = shellResponse.headers.get('x-shell-hash')!
@@ -252,7 +253,7 @@ class ShellTransform extends TransformStream<BufferSource, BufferSource> {
 }
 
 class AdjustShellForPageTransform extends TransformStream<BufferSource, BufferSource> {
-  constructor(url: URL, manifest?: Record<string, { css?: string[]; file: string }>) {
+  constructor(url: URL) {
     super({
       encoder: new TextEncoder(),
       decoder: new TextDecoder(),
@@ -260,7 +261,7 @@ class AdjustShellForPageTransform extends TransformStream<BufferSource, BufferSo
         let decoded = this.decoder.decode(chunk, { stream: true })
 
         const shouldUpdateLinks = /class="nav-link"/.test(decoded)
-        const shouldInsertFromManifest = manifest && /<head[^>]*>/su.test(decoded)
+        const shouldInsertFromManifest = MANIFEST && /<head[^>]*>/su.test(decoded)
 
         if (!shouldUpdateLinks && !shouldInsertFromManifest) {
           return controller.enqueue(chunk)
@@ -273,7 +274,7 @@ class AdjustShellForPageTransform extends TransformStream<BufferSource, BufferSo
         }
 
         if (shouldInsertFromManifest) {
-          const jsEntryFile = Object.values(manifest).find(({ file }) =>
+          const jsEntryFile = Object.values(MANIFEST!).find(({ file }) =>
             /\/entry-client-routing\.[a-zA-Z0-9]+\.js$/.test(file),
           )?.file
 
@@ -285,7 +286,7 @@ class AdjustShellForPageTransform extends TransformStream<BufferSource, BufferSo
           }
 
           const requestPath = url.pathname.match(/^(\/.+?)\/?$/)?.[1] ?? '/index'
-          const pageFiles = Object.keys(manifest).filter((file) => file.includes('client:/pages/'))
+          const pageFiles = Object.keys(MANIFEST!).filter((file) => file.includes('client:/pages/'))
 
           const responseFile = pageFiles.find((file) => {
             const filePath = file.replace(/.+client:\/pages/, '')
@@ -294,7 +295,7 @@ class AdjustShellForPageTransform extends TransformStream<BufferSource, BufferSo
             )
           })
 
-          const styleUrls = manifest[responseFile ?? '']?.css ?? []
+          const styleUrls = MANIFEST![responseFile ?? '']?.css ?? []
           const styleHtml = `
           ${styleUrls
             .map(
