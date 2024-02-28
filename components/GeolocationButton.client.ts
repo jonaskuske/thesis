@@ -32,7 +32,7 @@ export class GeolocationButton extends HTMLElement {
 
   setLoadingState(state: boolean) {
     this.setAttribute('data-loading', String(state))
-    this.button!.setAttribute('aria-disabled', String((this.button!.disabled = state)))
+    this.button!.setAttribute('aria-disabled', String((this.button!.disabled = state || geolocationPermission.state === 'denied')))
     this.button!.textContent = state ? 'Standort wird abgerufen...' : this.buttonText
   }
 
