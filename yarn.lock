@@ -889,12 +889,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^20.11.22":
-  version: 20.11.22
-  resolution: "@types/node@npm:20.11.22"
+"@types/node@npm:^20.11.24":
+  version: 20.11.24
+  resolution: "@types/node@npm:20.11.24"
   dependencies:
     undici-types: "npm:~5.26.4"
-  checksum: 10c0/304a25607108cbc314417ba1cd0ca7061090cf9444c13f4a70c183164dc189d0e3f4cfda12619c85e5f0fc7a652e3b32501fd0e347b8425dbd5a66c3ec85c7a6
+  checksum: 10c0/5a62225eb4797b41e6953f9c08c4611d607b5422ddd153312fc81ed6ed37115228ae27e3e3caa1a3bf52d88310306a196ba1cfbd8b2ec918a20f64d80dfa22c9
   languageName: node
   linkType: hard
 
@@ -4796,7 +4796,7 @@ __metadata:
     "@fastify/middie": "npm:^8.3.0"
     "@fastify/static": "npm:^7.0.1"
     "@types/connect": "npm:^3.4.38"
-    "@types/node": "npm:^20.11.22"
+    "@types/node": "npm:^20.11.24"
     "@typescript-eslint/eslint-plugin": "npm:^7.1.0"
     "@typescript-eslint/parser": "npm:^7.1.0"
     "@vitejs/plugin-vue": "npm:^5.0.4"
@@ -4815,7 +4815,8 @@ __metadata:
     prettier: "npm:~3.2.5"
     tsx: "patch:tsx@npm%3A4.7.1#~/.yarn/patches/tsx-npm-4.7.1-2110587134.patch"
     typescript: "npm:^5.3.3"
-    vike: "npm:^0.4.163"
+    urlpattern-polyfill: "npm:^10.0.0"
+    vike: "npm:^0.4.164"
     vite: "npm:^5.1.4"
     vue: "npm:^3.4.21"
     vue-tsc: "npm:^1.8.27"
@@ -5032,6 +5033,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"urlpattern-polyfill@npm:^10.0.0":
+  version: 10.0.0
+  resolution: "urlpattern-polyfill@npm:10.0.0"
+  checksum: 10c0/43593f2a89bd54f2d5b5105ef4896ac5c5db66aef723759fbd15cd5eb1ea6cdae9d112e257eda9bbc3fb0cd90be6ac6e9689abe4ca69caa33114f42a27363531
+  languageName: node
+  linkType: hard
+
 "util-deprecate@npm:^1.0.1, util-deprecate@npm:^1.0.2, util-deprecate@npm:~1.0.1":
   version: 1.0.2
   resolution: "util-deprecate@npm:1.0.2"
@@ -5039,9 +5047,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vike@npm:^0.4.163":
-  version: 0.4.163
-  resolution: "vike@npm:0.4.163"
+"vike@npm:^0.4.164":
+  version: 0.4.164
+  resolution: "vike@npm:0.4.164"
   dependencies:
     "@brillout/import": "npm:^0.2.3"
     "@brillout/json-serializer": "npm:^0.5.8"
@@ -5063,7 +5071,7 @@ __metadata:
       optional: true
   bin:
     vike: node/cli/bin-entry.js
-  checksum: 10c0/331383315463bf426fb6599a2d7f425ff0cc5bfc1b3519dc78c67a68313e0cbfc12a113f3bf0989aecd03f694cfe150430b6fbfeee428dd0763ba67014768b66
+  checksum: 10c0/01978bae5286904e656d06bf2af9162f7f4bab623102516691a7ec2f84fa394e0ed607860e6db9fa2df3707a6a5cca399cc99b855512360fc80c1232fc5487ed
   languageName: node
   linkType: hard
 

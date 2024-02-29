@@ -5,7 +5,7 @@
     "**/service-worker.ts",
     "**/serviceworker.ts",
     "**/sw.ts",
-    "env.d.ts"
+    "global.d.ts"
   ],
   "compilerOptions": {
     "composite": true,
