@@ -1,3 +1,5 @@
+import { applyStickyObserver, type StickyObserverDirection } from '../utils/applyStickyObserver'
+
 if (import.meta.env.PUBLIC_ENV__APP_SHELL === 'true') {
   import('./initServiceWorker')
 
@@ -9,6 +11,10 @@ if (import.meta.env.PUBLIC_ENV__APP_SHELL === 'true') {
     document.querySelector<HTMLAnchorElement>('.navigation .title span')!.textContent = title
   }
 }
+
+document
+  .querySelectorAll<HTMLElement>('[v-sticky]')
+  .forEach((el) => applyStickyObserver(el, el.getAttribute('v-sticky') as StickyObserverDirection))
 
 if (typeof URLPattern !== 'undefined') {
   const { hostname, port, pathname, protocol } = location
