@@ -27,7 +27,7 @@
     "cookie-store": "^4.0.0-next.4",
     "fastify": "^4.26.1",
     "tsx": "patch:tsx@npm%3A4.7.1#~/.yarn/patches/tsx-npm-4.7.1-2110587134.patch",
-    "vike": "^0.4.163",
+    "vike": "^0.4.164",
     "vite": "^5.1.4",
     "vue": "^3.4.21",
     "zip-to-city": "^0.1.1"
