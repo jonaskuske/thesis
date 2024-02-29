@@ -1,7 +1,26 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
+import { navigate } from 'vike/client/router'
+import { usePageContext } from '../../../../composables/usePageContext'
+import * as cookies from '../../../../utils/cookies'
+
+const ctx = usePageContext()
 
 const notif = ref(false)
+
+const isLoading = ref(false)
+
+async function deleteLocation() {
+  isLoading.value = true
+
+  const locationIds = new Set((await cookies.get('location_ids')) ?? [])
+  locationIds.delete(ctx.routeParams!.value!.locationId)
+  await cookies.set('location_ids', [...locationIds])
+
+  isLoading.value = false
+
+  void navigate('/')
+}
 </script>
 
 <template>
@@ -12,8 +31,8 @@ const notif = ref(false)
   </div>
   <div class="remove">
     <h2>Aus der Liste entfernen</h2>
-    <form action="delete" method="post">
-      <button type="submit">Ort entfernen</button>
+    <form action="delete" method="post" @submit.prevent="deleteLocation">
+      <button type="submit" :disabled="isLoading">Ort entfernen</button>
     </form>
   </div>
 </template>
@@ -37,5 +56,12 @@ button {
   box-shadow: 1px 2px 0px 2px #00000040;
   border-radius: 8px;
   user-select: none;
+}
+button:active {
+  background: #5d00b9;
+}
+button:disabled {
+  background: hsl(240, 8%, 53%);
+  color: #ffffffaa;
 }
 </style>

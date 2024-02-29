@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { watch, ref } from 'vue'
+import { watch, ref, computed } from 'vue'
+import { reload } from 'vike/client/router'
 import { usePageData } from '../../composables/usePageData'
 import GeolocationButton from '../../components/GeolocationButton.vue'
 import LocationList from './LocationList.vue'
@@ -7,12 +8,14 @@ import Search from '../../components/icons/Search.vue'
 import SearchResult from './SearchResult.vue'
 import type cities from 'zip-to-city/germany.json'
 import type { Data } from './+data'
+import * as cookies from '../../utils/cookies'
 
 const data = usePageData<Data>()
 
 const search = ref(data.value.search)
 const results = ref(data.value.results)
-const locations = ref(data.value.locations)
+const locations = computed(() => data.value.locations)
+const locationIds = computed(() => data.value.locationIds)
 
 const isMPA = import.meta.env.PUBLIC_ENV__MODE === 'MPA'
 
@@ -32,6 +35,15 @@ watch(search, (search, _, onCleanup) => {
 const isLoading = ref(false)
 const searchIsFocused = ref(false)
 const handleBlur = () => setTimeout(() => (searchIsFocused.value = false), 100)
+
+async function addLocation(id: string) {
+  const nextLocationIds = new Set(locationIds.value)
+  nextLocationIds.add(id)
+  await cookies.set('location_ids', [...nextLocationIds])
+
+  await reload()
+  search.value = ''
+}
 </script>
 
 <template>
@@ -72,7 +84,12 @@ const handleBlur = () => setTimeout(() => (searchIsFocused.value = false), 100)
       @location="search = $event.postcode"
     />
     <div v-show="search && results.length" key="results" class="results">
-      <SearchResult v-for="city in results" :key="city.id" :city="city" />
+      <SearchResult
+        v-for="city in results"
+        :key="city.id"
+        :city="city"
+        @submit.prevent="addLocation(city.id)"
+      />
 
       <template v-if="isMPA">
         <template id="result-template">

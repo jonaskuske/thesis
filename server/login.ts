@@ -14,7 +14,7 @@ const routes: FastifyPluginAsync = async (fastify) => {
     { schema: { body: loginBodySchema } },
     async (request, reply) => {
       const userId = get('user_id', request.cookies) ?? randomUUID()
-      const encoded = encodeURIComponent(JSON.stringify(userId))
+      const encoded = JSON.stringify(userId)
 
       await reply
         .cookie('user_id', encoded)

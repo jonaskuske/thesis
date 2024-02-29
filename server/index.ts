@@ -22,7 +22,7 @@ async function startServer() {
 
   await app.register(compress)
 
-  await app.register(cookie, { parseOptions: {} })
+  await app.register(cookie, { parseOptions: { path: '/', sameSite: 'strict', maxAge: 31536000 } })
 
   await app.register(formbody)
 

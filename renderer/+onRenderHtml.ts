@@ -84,7 +84,7 @@ const onRenderHtml: OnRenderHtmlSync = (pageContext): ReturnType<OnRenderHtmlSyn
             display: none;
           }
           .content > * {
-            transition: opacity 150ms ease;
+            transition: opacity 350ms ease;
           }
           .page-transition .content > * {
             opacity: 0;

@@ -32,7 +32,7 @@ export function get<Name extends Keys>(
 
   if (isServer) {
     const cookieValue = cookieStore![name]
-    return cookieValue ? (JSON.parse(decodeURIComponent(cookieValue)) as KeyValMap[Name]) : null
+    return cookieValue ? (JSON.parse(cookieValue) as KeyValMap[Name]) : null
   } else {
     return getCookieStore()
       .then((store) => store.get(name))
@@ -47,7 +47,13 @@ export function set<T extends Keys>(name: T, val: KeyValMap[T]): Promise<void> {
     throw Error('Application must not set cookies on server.')
   } else {
     return getCookieStore().then((store) =>
-      store.set(name, encodeURIComponent(JSON.stringify(val))),
+      store.set({
+        name,
+        path: '/',
+        sameSite: 'strict',
+        expires: new Date().setFullYear(new Date().getFullYear() + 1),
+        value: encodeURIComponent(JSON.stringify(val)),
+      }),
     )
   }
 }

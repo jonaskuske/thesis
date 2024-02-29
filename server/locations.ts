@@ -23,10 +23,7 @@ const routes: FastifyPluginAsync = async (fastify) => {
       ids.add(request.body.id)
 
       await reply
-        .cookie('location_ids', encodeURIComponent(JSON.stringify([...ids])), {
-          path: '/',
-          sameSite: 'strict',
-        })
+        .cookie('location_ids', JSON.stringify([...ids]))
         .redirect(303, '/')
         .send()
     },
@@ -42,10 +39,7 @@ const routes: FastifyPluginAsync = async (fastify) => {
       ids.delete(request.params.locationId)
 
       await reply
-        .cookie('location_ids', encodeURIComponent(JSON.stringify([...ids])), {
-          path: '/',
-          sameSite: 'strict',
-        })
+        .cookie('location_ids', JSON.stringify([...ids]))
         .redirect(303, '/')
         .send()
     },
