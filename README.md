@@ -37,11 +37,11 @@ No matter which page is requested, the server always responds with the same plai
 
 Like a regular Single-Page Application, but required assets and the plain HTML document are served from the local cache once the Service Worker is installed. [^1]
 
-#### SPA with Server-Side Rendering (SSR) — [https://thesis-spa-ssr.joku.co](https://thesis-spa-ssr.joku.co)
+#### SPA with Server-Side Rendering (SSR) — [https://thesis-isomorphic.joku.co](https://thesis-isomorphic.joku.co)
 
 Upon first visit the server responds with the fully-rendered HTML document for the requested page. Once loaded in the browser, client-side JavaScript will take over in a process called hydration and handle all subsequent navigations and interactions.
 
-#### SPA with SSR and stream-stitched App Shell — [https://thesis-spa-ssr-shell.joku.co](https://thesis-spa-ssr-shell.joku.co)
+#### SPA with SSR and stream-stitched App Shell — [https://thesis-isomorphic-shell.joku.co](https://thesis-isomorphic-shell.joku.co)
 
 Initial load works the same way as the _MPA with stream-stitched App Shell_ variant: the server only responds with the HTML partial that contains the content, which is combined with the cached App Shell by the Service Worker. After load, JavaScript hydrates the page and handles all further navigations and interactions.
 
