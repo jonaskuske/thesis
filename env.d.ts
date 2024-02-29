@@ -2,7 +2,7 @@
 
 export declare global {
   interface ImportMetaEnv {
-    readonly PUBLIC_ENV__MODE: 'SPA' | 'SPA_SSR' | 'MPA' | 'MPA_JS'
+    readonly PUBLIC_ENV__MODE:  'MPA' | 'SPA' | 'ISOMORPHIC'
     readonly PUBLIC_ENV__APP_SHELL: 'true' | 'false'
   }
 

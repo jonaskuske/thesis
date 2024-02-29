@@ -2,7 +2,7 @@ import type { Config } from 'vike/types'
 
 export default {
   hydrationCanBeAborted: true,
-  clientRouting: ['SPA', 'SPA_SSR'].includes(process.env.PUBLIC_ENV__MODE!),
+  clientRouting: ['SPA', 'ISOMORPHIC'].includes(process.env.PUBLIC_ENV__MODE!),
   meta: {
     Page: {
       env: {
