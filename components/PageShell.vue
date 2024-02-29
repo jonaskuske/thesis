@@ -174,6 +174,10 @@ nav ul li {
   &.v-sticky .navigation-inner {
     transform: scale(0.85, 1.3075);
   }
+
+  &.v-sticky .edit {
+    translate: calc(100vw - 0.85 * 100vw);
+  }
 }
 .navigation-outer {
   position: relative;
@@ -199,15 +203,15 @@ nav ul li {
 .navigation-inner {
   transition: transform 200ms ease-out;
 }
+.edit {
+  transition: translate 200ms ease-out;
+}
 .navigation-icon {
   width: 2em;
 }
 
 .back {
   line-height: 0;
-}
-
-.back {
   margin-right: 6px;
   margin-left: -6px;
 }
@@ -215,15 +219,21 @@ nav ul li {
   transition: transform 1ms;
 }
 .back.v-enter-from,
-.back.v-leave-to {
+.back.v-leave-to,
+.edit.v-enter-from,
+.edit.v-leave-to {
   opacity: 0;
 }
-.back.v-enter-active {
+.back.v-enter-active,
+.edit.v-enter-active {
   transition: opacity 200ms 225ms ease-in;
 }
 .back.v-leave-active {
   position: absolute;
   visibility: hidden;
+}
+.edit.v-leave-active {
+  transition: opacity 200ms ease-in;
 }
 
 .title.v-move {
