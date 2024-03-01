@@ -48,7 +48,7 @@ const backHref = computed(() => {
       <div class="navigation-outer">
         <TransitionGroup tag="div" class="navigation-inner">
           <Link v-show="!isHome && !isShell" key="back" class="back" :href="backHref">
-            <span class="sr-only">Zurück</span>
+            <span class="sr-only">Back</span>
             <ArrowLeft class="navigation-icon" />
           </Link>
           <h1 key="title" class="title">
@@ -75,7 +75,7 @@ const backHref = computed(() => {
                 d="M59.21,82.11c1.1,0,2-0.9,2-2s-0.9-2-2-2H25.59c-1.1,0-2,0.9-2,2s0.9,2,2,2H59.21z"
               />
             </svg>
-            <span class="sr-only">Bearbeiten</span>
+            <span class="sr-only">Edit</span>
           </Link>
         </TransitionGroup>
       </div>
@@ -90,15 +90,15 @@ const backHref = computed(() => {
             </Link>
           </li>
           <li>
-            <Link class="nav-link" data-title="Karte" href="/map">
+            <Link class="nav-link" data-title="Map" href="/map">
               <Map class="nav-icon" />
-              <span class="sr-only">Karte</span>
+              <span class="sr-only">Map</span>
             </Link>
           </li>
           <li>
-            <Link class="nav-link" data-title="Einstellungen" href="/settings">
+            <Link class="nav-link" data-title="Settings" href="/settings">
               <Cog class="nav-icon" />
-              <span class="sr-only">Einstellungen</span>
+              <span class="sr-only">Settings</span>
             </Link>
           </li>
         </ul>

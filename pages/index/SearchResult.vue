@@ -17,7 +17,7 @@ const emit = defineEmits<{
   >
     <p class="result-name">{{ props.city.zip }} {{ props.city.city }}</p>
     <input type="hidden" name="id" :value="props.city.id" />
-    <button type="submit">Hinzufügen</button>
+    <button type="submit">Add location</button>
   </form>
 </template>
 

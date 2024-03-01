@@ -3,24 +3,26 @@ import { computed } from 'vue'
 import type { Data } from './+data'
 import Calendar from '../../../components/icons/Calendar.vue'
 import Clock from '../../../components/icons/Clock.vue'
+import { usePageContext } from '../../../composables/usePageContext'
 
+const ctx = usePageContext()
 const props = defineProps<{ sighting: Data['sightings'][0] }>()
 const date = computed(() => new Date(props.sighting.date))
 
-const dateString = computed(() => date.value.toLocaleDateString('de-DE'))
+const dateString = computed(() => date.value.toLocaleDateString(ctx.language.value))
 const timeString = computed(() =>
-  date.value.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' }),
+  date.value.toLocaleTimeString(ctx.language.value, { hour: '2-digit', minute: '2-digit' }),
 )
 </script>
 
 <template>
   <div class="next-sighting-card">
     <p class="date"><Calendar width="32" class="icon" />{{ dateString }}</p>
-    <p class="time"><Clock width="32" class="icon" />{{ timeString }} Uhr</p>
-    <p class="iss-position">Die ISS wird in einer Höhe von 74° in NNO vorbei fliegen.</p>
+    <p class="time"><Clock width="32" class="icon" />{{ timeString }}</p>
+    <p class="iss-position">The ISS will pass you at 74° NNE.</p>
     <p class="temperature">
-      Die Temperatur wird voraussichtlich {{ props.sighting.weather.temperature }}° betragen und der
-      Himmel wird klar sein.
+      Temperature is forecasted to be at {{ props.sighting.weather.temperature }}° and skies will be
+      clear.
     </p>
   </div>
 </template>

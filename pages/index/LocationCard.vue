@@ -4,6 +4,9 @@ import Link from '../../components/Link.vue'
 import Cloud from '../../components/icons/Cloud.vue'
 import Calendar from '../../components/icons/Calendar.vue'
 import Clock from '../../components/icons/Clock.vue'
+import { usePageContext } from '../../composables/usePageContext'
+
+const ctx = usePageContext()
 
 const { location } = defineProps<{
   location: { id: string; city: string; sightings: string[] }
@@ -13,8 +16,8 @@ const dates = computed(() =>
   location.sightings.map((dateString) => {
     const date = new Date(dateString)
     return {
-      date: date.toLocaleDateString('de-DE'),
-      time: date.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' }),
+      date: date.toLocaleDateString(ctx.language.value),
+      time: date.toLocaleTimeString(ctx.language.value, { hour: '2-digit', minute: '2-digit' }),
     }
   }),
 )

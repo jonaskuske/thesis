@@ -96,9 +96,9 @@ self.addEventListener('fetch', (event) => {
           response ??
           fetch(event.request).catch(
             (err) =>
-              new Response(`<div class="content">${err}</div>`, {
+              new Response(JSON.stringify({ err: String(err) }), {
                 status: 500,
-                headers: { 'content-type': 'text/plain' },
+                headers: { 'content-type': 'application/json' },
               }),
           ),
       ),
@@ -168,7 +168,7 @@ self.addEventListener('fetch', (event) => {
         } catch (err) {
           if ((err as DOMException).name === 'NetworkError') {
             serverResponse = new Response(
-              `<div class="content"><h2>Offline</h2><p>Bitte stelle eine Internetverbindung her und versuche es erneut.</p></div>`,
+              `<div class="content"><h2>Offline</h2><p>Please make sure you're connected to the internet and try again.</p></div>`,
               {
                 headers: { 'content-type': 'text/html', 'x-shell-hash': shellHash },
                 status: 504,
@@ -239,7 +239,7 @@ class ShellTransform extends TransformStream<BufferSource, BufferSource> {
           return controller.enqueue(chunk)
         }
 
-        const stripped = decoded.replace(regex, MODE === 'SPA' ? '$1</div>' : '')
+        const stripped = decoded.replace(regex, MODE === 'SPA' ? '$1' : '')
 
         controller.enqueue(this.encoder.encode(stripped))
 
@@ -390,9 +390,10 @@ class ContentTransform extends TransformStream<BufferSource, BufferSource> {
             : /.*(?=(?:<div[^>]*class="content"[^>]*>))/su
 
         if (regex.test(this.bufferString)) {
+          const prefix = MODE === 'SPA' ? '</div>' : ''
           const stripped = this.bufferString.replace(regex, '')
 
-          controller.enqueue(this.encoder.encode(stripped))
+          controller.enqueue(this.encoder.encode(prefix + stripped))
           this.shellStripped = true
         }
       },

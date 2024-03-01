@@ -17,6 +17,7 @@ declare global {
       nonce: string
       cookies: { [cookieName: string]: string | undefined }
       headerTitle?: string
+      language: string
     }
   }
 }

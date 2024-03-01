@@ -12,6 +12,7 @@ async function getShellHash() {
     urlOriginal: '/_shell',
     nonce: '',
     cookies: {},
+    language: 'de',
   })
 
   const body = (await shell.httpResponse?.getBody())!
@@ -39,6 +40,7 @@ const routes: FastifyPluginAsync = async (fastify) => {
       urlOriginal: request.url,
       nonce: (reply.raw as any).cspNonce, // eslint-disable-line
       cookies: request.cookies,
+      language: request.headers['accept-language']?.split(',')[0].split(';')[0] || 'de',
     })
 
     const renderTime = performance.now() - preRenderTime

@@ -17,7 +17,9 @@ const onRenderHtml: OnRenderHtmlSync = (pageContext): ReturnType<OnRenderHtmlSyn
   // See https://vite-plugin-ssr.com/head
   const { documentProps } = pageContext.config
   const title = documentProps?.title || 'Thesis'
-  const desc = documentProps?.description || 'Prototype for the thesis'
+  const desc =
+    documentProps?.description ||
+    'Demo application for thesis on stream-stitched app shell architecture'
 
   const shellAttribute = pageContext.urlPathname === '/_shell' ? ' data-app-shell=true' : ''
 
@@ -30,7 +32,7 @@ const onRenderHtml: OnRenderHtmlSync = (pageContext): ReturnType<OnRenderHtmlSyn
         : escapeInject`${pageView}</div></div>`
   } else {
     documentHtml = escapeInject`<!DOCTYPE html>
-    <html lang="de"${shellAttribute}>
+    <html lang="en"${shellAttribute}>
       <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -69,7 +71,7 @@ const onRenderHtml: OnRenderHtmlSync = (pageContext): ReturnType<OnRenderHtmlSyn
           .layout:not(:has(.content))::after,
           #app:empty::after,
           .page-transition .content::after {
-            content: "Lädt...";
+            content: "Loading...";
             display: block;
             margin: auto;
             opacity: 0;

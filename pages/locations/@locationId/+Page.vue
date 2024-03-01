@@ -16,18 +16,24 @@ const expandedDate = ref(Number(urlParsed.value.search.expand || data.value.sigh
 <template>
   <div v-if="empty" class="container">
     <NoFlyOverGraphic class="img-no-sightings" />
-    <h2>Keine Sichtungen prognostiziert</h2>
+    <h2>No upcoming sightings</h2>
     <p>
-      Leider sind für diesen Standort keine Sichtungen prognostiziert. Du kannst später noch mal
-      vorbei schauen oder einen anderen Ort auswählen.
+      Unfortunately there aren't any upcoming sightings for this location. You can try again later
+      or choose another location.
     </p>
   </div>
   <div v-else class="container">
-    <form v-for="sighting in data.sightings" :key="sighting.date" class="sighting" method="get">
+    <form
+      v-for="sighting in data.sightings"
+      :key="sighting.date"
+      class="sighting"
+      method="get"
+      @submit.prevent="expandedDate = sighting.date"
+    >
       <input type="hidden" name="expand" :value="sighting.date" />
       <ExpandedSightingCard v-if="expandedDate === sighting.date" :sighting="sighting" />
       <SightingCard v-else :sighting="sighting" />
-      <button type="submit"><span class="sr-only">Auswählen</span></button>
+      <button type="submit"><span class="sr-only">Expand</span></button>
     </form>
   </div>
 </template>

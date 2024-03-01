@@ -1,1 +1,1 @@
-export const headerTitle = 'Bearbeiten'
+export const headerTitle = 'Edit'

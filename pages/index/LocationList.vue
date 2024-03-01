@@ -16,10 +16,10 @@ const emit = defineEmits<{
   <div v-if="locations.length === 0" class="list">
     <EmptyGraphic width="302" height="300" class="empty-img" />
 
-    <h2>Keine Orte ausgewählt</h2>
+    <h2>No locations</h2>
     <p class="empty-text">
-      Um Progonosen zur Sichtung der ISS zu bekommen, kannst du Orte über die Suche hinzufügen oder
-      deinen aktuellen Standort verwenden.
+      To learn about upcoming ISS sightings, add a location via the search bar or use your current
+      location.
     </p>
     <GeolocationButton @location="emit('location', $event)" />
   </div>

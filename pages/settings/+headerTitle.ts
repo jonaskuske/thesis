@@ -1,1 +1,1 @@
-export const headerTitle = 'Einstellungen'
+export const headerTitle = 'Settings'

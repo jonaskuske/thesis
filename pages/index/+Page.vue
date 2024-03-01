@@ -66,9 +66,9 @@ async function addLocation(id: string) {
           @focus="searchIsFocused = true"
           @blur="handleBlur"
         />
-        <label for="location-input" class="label">Ort hinzufügen</label>
+        <label for="location-input" class="label">Add location</label>
       </div>
-      <button type="submit" class="sr-only">Suchen</button>
+      <button type="submit" class="sr-only">Search</button>
       <GeolocationButton
         v-show="search.length || isLoading || (locations.length && searchIsFocused)"
         class="button-location"
@@ -98,7 +98,7 @@ async function addLocation(id: string) {
       </template>
     </div>
     <p v-show="search && !results.length" key="no-results" class="no-results">
-      Keine Ergebnisse für „{{ search }}“.
+      No results for "{{ search }}".
     </p>
   </TransitionGroup>
 </template>

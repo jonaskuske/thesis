@@ -45,7 +45,7 @@ searchInput.addEventListener('input', () => {
     .then((response) => response.json())
     .then((cities: Cities) => {
       if (!cities.length) {
-        noResults.textContent = `„${searchInput.value}“`
+        noResults.textContent = noResults.textContent!.replace(/".*"/, `"${searchInput.value}"`)!
         show(noResults)
         hide(results)
       } else {

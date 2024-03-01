@@ -25,14 +25,14 @@ async function deleteLocation() {
 
 <template>
   <div class="notifications">
-    <h2>Benachrichtigungen</h2>
+    <h2>Notifications</h2>
     <input id="notification-toggle" v-model="notif" notif type="checkbox" name="notifications" />
-    <label for="notification-toggle">Benachrichtigungen aktivieren</label>
+    <label for="notification-toggle">Notify me about upcoming sightings</label>
   </div>
   <div class="remove">
-    <h2>Aus der Liste entfernen</h2>
+    <h2>Remove location from list</h2>
     <form action="delete" method="post" @submit.prevent="deleteLocation">
-      <button type="submit" :disabled="isLoading">Ort entfernen</button>
+      <button type="submit" :disabled="isLoading">Remove location</button>
     </form>
   </div>
 </template>

@@ -31,10 +31,10 @@ const getLocation = () => {
 <template>
   <geolocation-button class="geolocation-button" :data-loading="isLoading">
     <button :aria-disabled="isDisabled" :disabled="isDisabled" type="button" @click="getLocation">
-      {{ isLoading ? 'Standort wird abgerufen...' : 'Aktuellen Standort verwenden' }}
+      {{ isLoading ? 'Getting location...' : 'Use current location' }}
     </button>
     <p v-show="state === 'denied'" class="blocked-msg">
-      Standortzugriff in den Systemeinstellungen blockiert.
+      Location access is disabled in system settings.
     </p>
   </geolocation-button>
 </template>
