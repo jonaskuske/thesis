@@ -27,6 +27,7 @@ async function startServer() {
   await app.register(formbody)
 
   await app.register(helmet, {
+    referrerPolicy: { policy: 'origin-when-cross-origin' },
     contentSecurityPolicy: {
       reportOnly: isDev,
       directives: {

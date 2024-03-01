@@ -1,7 +1,7 @@
 // See https://vite-plugin-ssr.com/data-fetching
 export const passToClient = [
   // 'contentOnly', mustn't be passed, client doesn't know about content-only
-  'headerTitle',
+  'title',
   'routeParams',
   'language',
   ...(['SPA', 'ISOMORPHIC'].includes(process.env.PUBLIC_ENV__MODE!)

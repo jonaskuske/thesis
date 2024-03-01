@@ -6,7 +6,7 @@ const onBeforeRender: OnBeforeRenderSync = (pageContext): ReturnType<OnBeforeRen
 
   return {
     pageContext: {
-      headerTitle: cities.find((c) => c.id === id)?.city || '404',
+      title: cities.find((c) => c.id === id)?.city || '404',
     },
   }
 }

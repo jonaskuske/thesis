@@ -14,6 +14,8 @@ const BASE_URL = import.meta.env.BASE_URL
 
 const MODE = import.meta.env.PUBLIC_ENV__MODE
 
+const pathToTitleMap = new Map<string, string>()
+
 if (PROD) {
   MANIFEST = ASSET_MANIFEST
   CACHE_NAME = crypto.subtle
@@ -107,6 +109,7 @@ self.addEventListener('fetch', (event) => {
 
   if (event.request.mode === 'navigate' && event.request.method === 'GET') {
     const url = new URL(event.request.url)
+    const referrer = event.request.referrer
 
     const responseStream = new TransformStream()
 
@@ -139,7 +142,7 @@ self.addEventListener('fetch', (event) => {
         const shellResponse = await (caches.match(SHELL_URL) as Promise<Response>)
 
         const shellSent = shellResponse
-          .body!.pipeThrough(new AdjustShellForPageTransform(url))
+          .body!.pipeThrough(new AdjustShellForPageTransform(url, referrer))
           .pipeTo(responseStream.writable, { preventClose: true })
 
         const shellHash = shellResponse.headers.get('x-shell-hash')!
@@ -201,7 +204,7 @@ self.addEventListener('fetch', (event) => {
 
         await shellSent
         await serverResponse
-          .body!.pipeThrough(new ContentTransform())
+          .body!.pipeThrough(new ContentTransform(url))
           .pipeTo(responseStream.writable)
 
         if (!shellIsUpToDate) {
@@ -253,7 +256,7 @@ class ShellTransform extends TransformStream<BufferSource, BufferSource> {
 }
 
 class AdjustShellForPageTransform extends TransformStream<BufferSource, BufferSource> {
-  constructor(url: URL) {
+  constructor(url: URL, referrer: string) {
     super({
       encoder: new TextEncoder(),
       decoder: new TextDecoder(),
@@ -313,9 +316,16 @@ class AdjustShellForPageTransform extends TransformStream<BufferSource, BufferSo
         }
 
         if (shouldUpdateTitle) {
+          let title: string | false | undefined
+
+          if (MODE === 'MPA') {
+            const referrerPath = referrer && new URL(referrer).pathname
+            title = referrerPath !== '/' && pathToTitleMap.get(referrerPath)
+          }
+
           decoded = decoded.replace(
             /(<h1[^>]+class="title(?: [^"]*)?"[^>]*>\s*<span[^>]*>)[^<]*<\/span>/su,
-            '$1&nbsp;</span>',
+            `$1${title || '&nbsp;'}</span>`,
           )
         }
 
@@ -371,7 +381,7 @@ class AdjustShellForPageTransform extends TransformStream<BufferSource, BufferSo
 }
 
 class ContentTransform extends TransformStream<BufferSource, BufferSource> {
-  constructor() {
+  constructor(url: URL) {
     super({
       encoder: new TextEncoder(),
       decoder: new TextDecoder(),
@@ -383,6 +393,10 @@ class ContentTransform extends TransformStream<BufferSource, BufferSource> {
         }
 
         this.bufferString += this.decoder.decode(chunk, { stream: true })
+
+        if (MODE === 'MPA' && /data-title="([^"]+)"/.test(this.bufferString)) {
+          pathToTitleMap.set(url.pathname, this.bufferString.match(/data-title="([^"]+)"/)![1])
+        }
 
         const regex =
           MODE === 'SPA'

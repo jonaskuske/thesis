@@ -16,7 +16,7 @@ declare global {
       contentOnly: boolean
       nonce: string
       cookies: { [cookieName: string]: string | undefined }
-      headerTitle?: string
+      title?: string
       language: string
     }
   }

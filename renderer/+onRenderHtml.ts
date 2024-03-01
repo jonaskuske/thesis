@@ -14,12 +14,7 @@ const onRenderHtml: OnRenderHtmlSync = (pageContext): ReturnType<OnRenderHtmlSyn
     stampPipe(pageView, 'node-stream')
   }
 
-  // See https://vite-plugin-ssr.com/head
-  const { documentProps } = pageContext.config
-  const title = documentProps?.title || 'Thesis'
-  const desc =
-    documentProps?.description ||
-    'Demo application for thesis on stream-stitched app shell architecture'
+  const title = pageContext.title ?? pageContext.config.title ?? 'ISS Tracker'
 
   const shellAttribute = pageContext.urlPathname === '/_shell' ? ' data-app-shell=true' : ''
 
@@ -36,7 +31,7 @@ const onRenderHtml: OnRenderHtmlSync = (pageContext): ReturnType<OnRenderHtmlSyn
       <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="${desc}" />
+        <meta name="description" content="Demo application for thesis on stream-stitched app shell architecture" />
         <title>${title}</title>
         <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">

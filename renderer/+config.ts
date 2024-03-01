@@ -10,16 +10,14 @@ export default {
         server: process.env.PUBLIC_ENV__MODE !== 'SPA',
       },
     },
-    headerTitle: { env: { client: true, server: true } },
-    documentProps: { env: { client: true, server: true } },
+    title: { env: { client: true, server: true } },
   },
 } satisfies Config
 
 declare global {
   namespace Vike {
     interface Config {
-      documentProps?: Record<string, string>
-      headerTitle?: string
+      title?: string
     }
   }
 }
