@@ -13,3 +13,11 @@ updates:
       timezone: 'Europe/Berlin'
     allow:
       - dependency-type: 'production'
+    groups:
+      major:
+        update-types:
+          - major
+      minor:
+        update-types:
+          - minor
+          - patch
