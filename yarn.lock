@@ -4816,7 +4816,7 @@ __metadata:
     tsx: "patch:tsx@npm%3A4.7.1#~/.yarn/patches/tsx-npm-4.7.1-2110587134.patch"
     typescript: "npm:^5.3.3"
     urlpattern-polyfill: "npm:^10.0.0"
-    vike: "npm:^0.4.164"
+    vike: "npm:^0.4.165"
     vite: "npm:^5.1.4"
     vue: "npm:^3.4.21"
     vue-tsc: "npm:^1.8.27"
@@ -5047,9 +5047,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vike@npm:^0.4.164":
-  version: 0.4.164
-  resolution: "vike@npm:0.4.164"
+"vike@npm:^0.4.165":
+  version: 0.4.165
+  resolution: "vike@npm:0.4.165"
   dependencies:
     "@brillout/import": "npm:^0.2.3"
     "@brillout/json-serializer": "npm:^0.5.8"
@@ -5065,13 +5065,13 @@ __metadata:
     source-map-support: "npm:^0.5.0"
   peerDependencies:
     react-streaming: ">=0.3.5"
-    vite: ">=3.1.0"
+    vite: ">=4.4.0"
   peerDependenciesMeta:
     react-streaming:
       optional: true
   bin:
     vike: node/cli/bin-entry.js
-  checksum: 10c0/01978bae5286904e656d06bf2af9162f7f4bab623102516691a7ec2f84fa394e0ed607860e6db9fa2df3707a6a5cca399cc99b855512360fc80c1232fc5487ed
+  checksum: 10c0/9004248ddc6c6de464b876fc65b86c3c399d7554ac125f43f32e13fd928a1dcd0c7743f4e589699a0286c656322cee8f7b11c0b21c1654a34959fa5639a3840f
   languageName: node
   linkType: hard
 
