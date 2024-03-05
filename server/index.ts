@@ -5,7 +5,6 @@ import fastify from 'fastify'
 import compress from '@fastify/compress'
 import cookie from '@fastify/cookie'
 import formbody from '@fastify/formbody'
-import earlyHints from '@fastify/early-hints'
 import helmet from '@fastify/helmet'
 import { isDev, isProd } from '../utils'
 import appRoutes from './app'
@@ -26,10 +25,6 @@ async function startServer() {
   await app.register(cookie, { parseOptions: { path: '/', sameSite: 'strict', maxAge: 31536000 } })
 
   await app.register(formbody)
-
-  await app.register(earlyHints, {
-    warn: process.env.NODE_ENV === 'development',
-  })
 
   await app.register(helmet, {
     referrerPolicy: { policy: 'origin-when-cross-origin' },
