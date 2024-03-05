@@ -52,6 +52,15 @@ const routes: FastifyPluginAsync = async (fastify) => {
 
     const { httpResponse } = pageContext
 
+    await reply.writeEarlyHintsLinks([
+      {
+        rel: 'preload',
+        as: 'font',
+        href: `/fonts/spacegrotesk/v13/V8mDoQDjQSkFtoMM3T6r8E7mPbF4Cw.woff2`,
+      },
+      ...httpResponse.earlyHints.map((link) => 'link: ' + link.earlyHintLink),
+    ])
+
     const responseStream = new PassThrough()
 
     httpResponse.pipe(responseStream)
