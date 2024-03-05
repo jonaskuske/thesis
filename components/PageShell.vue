@@ -312,7 +312,6 @@ body,
   flex-grow: 1;
 }
 #app {
-  font-family: 'Space Grotesk', sans-serif;
   color: #fff;
   background: linear-gradient(177.54deg, #06002c 21.39%, #45017b 142.67%) no-repeat;
 }

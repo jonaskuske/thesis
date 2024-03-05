@@ -55,8 +55,6 @@ const dates = computed(() =>
 }
 
 .city-name {
-  font-family: 'Space Grotesk';
-  font-style: normal;
   font-weight: 700;
   font-size: 14px;
   line-height: 18px;
@@ -71,8 +69,6 @@ const dates = computed(() =>
   }
 }
 .city-weather {
-  font-family: 'Space Grotesk';
-  font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 18px;
@@ -88,7 +84,6 @@ const dates = computed(() =>
 
 .city-date,
 .city-time {
-  font-family: 'Space Grotesk';
   font-size: 24px;
   font-weight: 400;
   line-height: 31px;

@@ -32,7 +32,6 @@ const timeString = computed(() =>
 .date,
 .time {
   margin: 0;
-  font-family: 'Space Grotesk';
   font-size: 24px;
   font-weight: 400;
   line-height: 31px;

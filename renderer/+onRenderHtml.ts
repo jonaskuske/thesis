@@ -4,6 +4,8 @@ import type { OnRenderHtmlSync } from 'vike/types'
 import { createApp } from './createApp'
 import type internal from 'stream'
 
+const MODE = import.meta.env.PUBLIC_ENV__MODE
+
 const onRenderHtml: OnRenderHtmlSync = (pageContext): ReturnType<OnRenderHtmlSync> => {
   let pageView: ((w: internal.Writable) => void) | string = ''
 
@@ -22,9 +24,7 @@ const onRenderHtml: OnRenderHtmlSync = (pageContext): ReturnType<OnRenderHtmlSyn
 
   if (pageContext.contentOnly) {
     documentHtml =
-      import.meta.env.PUBLIC_ENV__MODE === 'SPA'
-        ? escapeInject`${pageView}`
-        : escapeInject`${pageView}</div></div>`
+      MODE === 'SPA' ? escapeInject`${pageView}` : escapeInject`${pageView}</div></div>`
   } else {
     documentHtml = escapeInject`<!DOCTYPE html>
     <html lang="en"${shellAttribute}>
@@ -47,7 +47,7 @@ const onRenderHtml: OnRenderHtmlSync = (pageContext): ReturnType<OnRenderHtmlSyn
             font-family: 'Space Grotesk';
             font-style: normal;
             font-weight: 400;
-            font-display: block;
+            font-display: ${MODE === 'MPA' ? 'fallback' : 'swap'};
             src: url(/fonts/spacegrotesk/v13/V8mDoQDjQSkFtoMM3T6r8E7mPbF4Cw.woff2) format('woff2');
             unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
           }
@@ -55,12 +55,21 @@ const onRenderHtml: OnRenderHtmlSync = (pageContext): ReturnType<OnRenderHtmlSyn
             font-family: 'Space Grotesk';
             font-style: normal;
             font-weight: 700;
-            font-display: block;
+            font-display: ${MODE === 'MPA' ? 'fallback' : 'swap'};
             src: url(/fonts/spacegrotesk/v13/V8mDoQDjQSkFtoMM3T6r8E7mPbF4Cw.woff2) format('woff2');
             unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
           }
-          body{
-            font-family: 'Space Grotesk', sans-serif;
+          @font-face {
+            font-family: 'Adjusted Arial Fallback';
+            src: local(Arial);
+            size-adjust: 98%;
+            ascent-override: 99%;
+            descent-override: 28%;
+            line-gap-override: 3%;
+          }
+          body, ::before, ::after, input, button {
+            font-family: 'Adjusted Arial Fallback';
+            font-family: 'Space Grotesk', 'Adjusted Arial Fallback', sans-serif;
           }
           [data-css-loaded="false"] .layout::after,
           .layout:not(:has(.content))::after,
