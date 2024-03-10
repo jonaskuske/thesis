@@ -70,6 +70,10 @@ async function startServer() {
     await app.use(devServer.middlewares)
   }
 
+  app.get('/health', (request, reply) => {
+    return { status: 200, statusText: 'OK' }
+  })
+
   await app.register(appRoutes)
   await app.register(citiesRoutes)
   await app.register(locationsRoutes)
