@@ -112,15 +112,10 @@ self.addEventListener('fetch', (event) => {
     const referrer = event.request.referrer
 
     const responseStream = new TransformStream()
+    const shellResponse = caches.match(SHELL_URL) as Promise<Response>
 
     event.respondWith(
-      (async () => {
-        const shellResponse = (await caches.match(SHELL_URL)) as Response
-
-        return new Response(responseStream.readable, {
-          headers: shellResponse.headers,
-        })
-      })(),
+      shellResponse.then(({ headers }) => new Response(responseStream.readable, { headers })),
     )
 
     event.waitUntil(
@@ -132,20 +127,18 @@ self.addEventListener('fetch', (event) => {
 
           if (
             cachedResponseStream &&
-            !cachedResponseStream.locked &&
+            cachedResponseStream.locked === false &&
             responseCache.delete(cacheId)
           ) {
             return cachedResponseStream.pipeTo(responseStream.writable).then(() => cacheShell())
           }
         }
 
-        const shellResponse = await (caches.match(SHELL_URL) as Promise<Response>)
-
-        const shellSent = shellResponse
+        const shellSent = (await shellResponse)
           .body!.pipeThrough(new AdjustShellForPageTransform(url, referrer))
           .pipeTo(responseStream.writable, { preventClose: true })
 
-        const shellHash = shellResponse.headers.get('x-shell-hash')!
+        const shellHash = (await shellResponse).headers.get('x-shell-hash')!
 
         const headers = new Headers(event.request.headers)
         headers.set('x-shell-hash', shellHash)
