@@ -1,12 +1,15 @@
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { randomBytes } from 'node:crypto'
+// import { randomBytes } from 'node:crypto'
 import fastify from 'fastify'
 import compress from '@fastify/compress'
 import cookie from '@fastify/cookie'
 import formbody from '@fastify/formbody'
-import helmet from '@fastify/helmet'
-import { isDev, isProd } from '../utils'
+// import helmet from '@fastify/helmet'
+import {
+  // isDev,
+  isProd,
+} from '../utils'
 import appRoutes from './app'
 import citiesRoutes from './cities'
 import locationsRoutes from './locations'
@@ -26,22 +29,22 @@ async function startServer() {
 
   await app.register(formbody)
 
-  await app.register(helmet, {
-    referrerPolicy: { policy: 'origin-when-cross-origin' },
-    contentSecurityPolicy: {
-      reportOnly: isDev,
-      directives: {
-        scriptSrc: [
-          "'self'",
-          // inline script for async style loading, inserted by service worker
-          "'sha256-3/uIJeHJ/p+H4+NczdkU7XjyfRDgTdak9Ze5eREQRMo='",
-          // eslint-disable-next-line
-          (_, res: any) => `nonce-${(res.cspNonce = randomBytes(16).toString('hex'))}`,
-        ],
-        connectSrc: ["'self'", 'https://nominatim.openstreetmap.org'],
-      },
-    },
-  })
+  // await app.register(helmet, {
+  //   referrerPolicy: { policy: 'origin-when-cross-origin' },
+  //   contentSecurityPolicy: {
+  //     reportOnly: isDev,
+  //     directives: {
+  //       scriptSrc: [
+  //         "'self'",
+  //         // inline script for async style loading, inserted by service worker
+  //         "'sha256-3/uIJeHJ/p+H4+NczdkU7XjyfRDgTdak9Ze5eREQRMo='",
+  //         // eslint-disable-next-line
+  //         (_, res: any) => `nonce-${(res.cspNonce = randomBytes(16).toString('hex'))}`,
+  //       ],
+  //       connectSrc: ["'self'", 'https://nominatim.openstreetmap.org'],
+  //     },
+  //   },
+  // })
 
   if (isProd) {
     const fastifyStatic = (await import('@fastify/static')).default
