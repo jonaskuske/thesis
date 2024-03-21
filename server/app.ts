@@ -21,17 +21,23 @@ async function getShellHash() {
     .digest('hex')
 }
 
-type IHeaders = { 'x-shell-hash'?: string; 'service-worker-navigation-preload'?: string }
+type IHeaders = {
+  'x-shell-hash'?: string
+  'service-worker-navigation-preload'?: string
+  'x-req-url'?: string
+}
 
 const routes: FastifyPluginAsync = async (fastify) => {
   let hash = await getShellHash()
 
   fastify.get<{ Headers: IHeaders }>('*', async (request, reply) => {
     request.headers['x-shell-hash'] ??= request.headers['service-worker-navigation-preload']
+    request.headers['x-req-url'] ??= request.url
 
     if (isDev) hash = await getShellHash()
 
-    const contentOnly = request.headers['x-shell-hash'] === hash
+    const contentOnly =
+      request.headers['x-shell-hash'] === hash && request.headers['x-req-url'] === request.url
 
     const preRenderTime = performance.now()
 
@@ -48,7 +54,9 @@ const routes: FastifyPluginAsync = async (fastify) => {
     if (!pageContext.httpResponse) return
 
     if (contentOnly)
-      request.log.info(`contentOnly: ${request.url} (${request.headers['x-shell-hash']!})`)
+      request.log.warn(
+        `contentOnly: ${request.url} (x-req-url: ${request.headers['x-req-url']}) (contentOnly: ${contentOnly} - ${request.headers['x-shell-hash']!})`,
+      )
 
     const { httpResponse } = pageContext
 

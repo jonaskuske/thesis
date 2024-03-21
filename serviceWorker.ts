@@ -107,7 +107,7 @@ self.addEventListener('fetch', (event) => {
     )
   }
 
-  if (event.request.mode === 'navigate' && event.request.method === 'GET') {
+  if (event.request.mode === 'navigate') {
     const url = new URL(event.request.url)
     const referrer = event.request.referrer
 
@@ -142,6 +142,7 @@ self.addEventListener('fetch', (event) => {
 
         const headers = new Headers(event.request.headers)
         headers.set('x-shell-hash', shellHash)
+        headers.set('x-req-url', url.href)
 
         let serverResponse: Response | undefined
 
@@ -150,17 +151,19 @@ self.addEventListener('fetch', (event) => {
           if (event.preloadResponse != null && isFirefox()) {
             serverResponse = await Promise.any([
               event.preloadResponse.then((res: Response | undefined) => res ?? Promise.reject()),
-              fetch(new Request(event.request, { headers })),
+              fetch(new Request(event.request, { headers, redirect: 'follow' })),
             ])
           } else {
             serverResponse = await Promise.resolve<Response | undefined>(event.preloadResponse)
           }
 
+          serverResponse ??= await fetch(
+            new Request(event.request, { headers, redirect: 'follow' }),
+          )
+
           if (serverResponse?.type === 'opaque' || serverResponse?.type === 'opaqueredirect') {
             throw Error("Received an opaque response that can't be streamed.")
           }
-
-          serverResponse ??= await fetch(new Request(event.request, { headers }))
         } catch (err) {
           if ((err as DOMException).name === 'NetworkError') {
             serverResponse = new Response(
@@ -182,16 +185,18 @@ self.addEventListener('fetch', (event) => {
         }
 
         const shellIsUpToDate = shellHash === serverResponse.headers.get('x-shell-hash')
+        const hadRedirect = serverResponse.url !== event.request.url
 
-        if (!shellIsUpToDate && event.resultingClientId) {
+        if (event.resultingClientId && (hadRedirect || !shellIsUpToDate)) {
           const client = await self.clients.get(event.resultingClientId)
 
           if (isWindowClient(client)) {
+            const nextUrl = hadRedirect ? new URL(serverResponse.url) : url
             responseCache.set(event.resultingClientId, serverResponse.body!)
-            url.searchParams.set('__sw_cache_id', event.resultingClientId)
+            nextUrl.searchParams.set('__sw_cache_id', event.resultingClientId)
             await responseStream.writable.close()
 
-            return client.navigate(url)
+            return client.navigate(nextUrl)
           }
         }
 
