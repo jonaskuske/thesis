@@ -29,27 +29,27 @@
     "tsx": "patch:tsx@npm%3A4.7.1#~/.yarn/patches/tsx-npm-4.7.1-2110587134.patch",
     "urlpattern-polyfill": "^10.0.0",
     "vike": "^0.4.166",
-    "vite": "^5.1.6",
+    "vite": "^5.2.2",
     "vue": "^3.4.21",
     "zip-to-city": "^0.1.1"
   },
   "devDependencies": {
     "@types/connect": "^3.4.38",
-    "@types/node": "^20.11.25",
-    "@typescript-eslint/eslint-plugin": "^7.1.1",
-    "@typescript-eslint/parser": "^7.1.1",
+    "@types/node": "^20.11.30",
+    "@typescript-eslint/eslint-plugin": "^7.3.1",
+    "@typescript-eslint/parser": "^7.3.1",
     "@vitejs/plugin-vue": "^5.0.4",
     "@vue/compiler-sfc": "^3.4.21",
     "@yarnpkg/sdks": "^3.1.0",
-    "esbuild": "^0.20.1",
+    "esbuild": "^0.20.2",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-vue": "^9.22.0",
+    "eslint-plugin-vue": "^9.23.0",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
     "prettier": "~3.2.5",
-    "typescript": "^5.4.2",
-    "vue-tsc": "^2.0.6"
+    "typescript": "^5.4.3",
+    "vue-tsc": "^2.0.7"
   },
   "lint-staged": {
     "*.{cjs,mjs,js,jsx,cts,mts,ts,tsx,vue}": [
