@@ -16,10 +16,7 @@ const routes: FastifyPluginAsync = async (fastify) => {
       const userId = get('user_id', request.cookies) ?? randomUUID()
       const encoded = JSON.stringify(userId)
 
-      await reply
-        .cookie('user_id', encoded)
-        .redirect(303, request.body.r ?? '/')
-        .send()
+      await reply.cookie('user_id', encoded).redirect(303, request.body.r ?? '/')
     },
   )
 }
