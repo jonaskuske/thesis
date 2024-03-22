@@ -23,48 +23,40 @@ if (PROD) {
     .then((data) => new TextDecoder().decode(data))
 }
 
-function verifyResponseStatus(response: Response) {
-  if (!response.ok) throw response
+function verifyResponseStatus(response?: Response) {
+  if (!response?.ok) throw response
   return response
 }
-
-async function cacheShell(updateHash = true): Promise<string> {
-  const [cache, shellResp] = await Promise.all([
-    caches.open(await CACHE_NAME),
-    fetch(SHELL_URL, { headers: { 'cache-control': 'no-cache' } }).then(verifyResponseStatus),
-  ])
-
-  const shellHash = shellResp.headers.get('x-shell-hash')
-  if (!shellHash) throw Error('Shell response is missing the `x-shell-hash` header')
-
-  await cache.put(
-    SHELL_URL,
-    new Response(shellResp.body!.pipeThrough(new ShellTransform()), shellResp),
-  )
-
-  if (PROD) {
-    const cacheFiles = new Set<string>()
-    for (const entry of Object.values(MANIFEST!)) {
-      cacheFiles.add(entry.file)
-      if (Array.isArray(entry.css)) entry.css.forEach((f) => cacheFiles.add(f))
-    }
-    await cache.addAll([
-      ...cacheFiles.values(),
-      '/fonts/spacegrotesk/v13/V8mDoQDjQSkFtoMM3T6r8E7mPbF4Cw.woff2',
-    ])
-  }
-
-  if (updateHash) await self.registration?.navigationPreload?.setHeaderValue(shellHash)
-
-  return shellHash
-}
-
-let initialShellHash: string | null = null
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
     (async () => {
-      initialShellHash = await cacheShell(false)
+      const [cache, shellResp] = await Promise.all([
+        caches.open(await CACHE_NAME),
+        fetch(SHELL_URL, { headers: { 'cache-control': 'no-cache' } }).then(verifyResponseStatus),
+      ])
+
+      if (!shellResp.headers.get('x-shell-hash')) {
+        throw Error('Shell response is missing the `x-shell-hash` header')
+      }
+
+      await cache.put(
+        SHELL_URL,
+        new Response(shellResp.body!.pipeThrough(new ShellTransform()), shellResp),
+      )
+
+      if (PROD) {
+        const cacheFiles = new Set<string>()
+        for (const entry of Object.values(MANIFEST!)) {
+          cacheFiles.add(entry.file)
+          if (Array.isArray(entry.css)) entry.css.forEach((f) => cacheFiles.add(f))
+        }
+        await cache.addAll([
+          ...cacheFiles.values(),
+          '/fonts/spacegrotesk/v13/V8mDoQDjQSkFtoMM3T6r8E7mPbF4Cw.woff2',
+        ])
+      }
+
       await self.skipWaiting()
     })(),
   )
@@ -74,16 +66,19 @@ self.addEventListener('activate', (event) => {
   event.waitUntil(
     (async () => {
       if (self.registration?.navigationPreload?.setHeaderValue != null) {
-        initialShellHash ??= await cacheShell(false)
+        const shellResp = await caches.match(SHELL_URL).then(verifyResponseStatus)
+        const shellHash = shellResp.headers.get('x-shell-hash')!
         await self.registration.navigationPreload.enable()
-        await self.registration.navigationPreload.setHeaderValue(initialShellHash)
+        await self.registration.navigationPreload.setHeaderValue(shellHash)
       }
+
       const allowList = new Set([await CACHE_NAME])
       const cacheKeys = await caches.keys()
       await Promise.all(
         cacheKeys.filter((key) => !allowList.has(key)).map((key) => caches.delete(key)),
       )
-      await self.clients.claim()
+
+      return self.clients.claim()
     })(),
   )
 })
@@ -130,7 +125,7 @@ self.addEventListener('fetch', (event) => {
             cachedResponseStream.locked === false &&
             responseCache.delete(cacheId)
           ) {
-            return cachedResponseStream.pipeTo(responseStream.writable).then(() => cacheShell())
+            return cachedResponseStream.pipeTo(responseStream.writable)
           }
         }
 
@@ -184,10 +179,10 @@ self.addEventListener('fetch', (event) => {
           }
         }
 
-        const shellIsUpToDate = shellHash === serverResponse.headers.get('x-shell-hash')
         const hadRedirect = serverResponse.url !== event.request.url
+        const canUseShell = !hadRedirect && shellHash === serverResponse.headers.get('x-shell-hash')
 
-        if (event.resultingClientId && (hadRedirect || !shellIsUpToDate)) {
+        if (!canUseShell && event.resultingClientId) {
           const client = await self.clients.get(event.resultingClientId)
 
           if (isWindowClient(client)) {
@@ -201,13 +196,10 @@ self.addEventListener('fetch', (event) => {
         }
 
         await shellSent
-        await serverResponse
+
+        return serverResponse
           .body!.pipeThrough(new ContentTransform(url))
           .pipeTo(responseStream.writable)
-
-        if (!shellIsUpToDate) {
-          await cacheShell()
-        }
       })(),
     )
   }
