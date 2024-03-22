@@ -69,11 +69,11 @@ const routes: FastifyPluginAsync = async (fastify) => {
 
         const hintSources = new Set(httpResponse.earlyHints.map((hint) => hint.src))
         const pageEntry = Object.values(assetsManifest!).find(
-          (entry) =>
-            entry.src?.includes('pageConfigValuesAll') && hintSources.has('/' + entry.file),
+          (e) => e.src?.includes('pageConfigValuesAll') && hintSources.has('/' + e.file),
         )
+        const pageEntryImports = (pageEntry?.imports ?? []).map((key) => assetsManifest![key].file)
         const pageEntrySources = new Set(
-          [pageEntry?.file].concat(pageEntry?.imports ?? []).map((file) => '/' + file),
+          [pageEntry?.file, ...pageEntryImports].map((file) => '/' + file),
         )
 
         earlyHints = httpResponse.earlyHints.filter((hint) => !pageEntrySources.has(hint.src))
