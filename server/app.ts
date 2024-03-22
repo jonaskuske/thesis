@@ -1,8 +1,8 @@
 import { PassThrough } from 'node:stream'
 import { createHash } from 'node:crypto'
 import type { FastifyPluginAsync } from 'fastify'
-import { renderPage } from 'vike/server'
-import { isDev } from '../utils'
+import { renderPage, getGlobalContextAsync } from 'vike/server'
+import { isDev, isProd, isAppShellMode } from '../utils'
 
 const _HASH_PREFIX_ = 'v1'
 
@@ -28,13 +28,13 @@ type IHeaders = {
 }
 
 const routes: FastifyPluginAsync = async (fastify) => {
-  let hash = await getShellHash()
+  let hash = isAppShellMode ? await getShellHash() : ''
 
   fastify.get<{ Headers: IHeaders }>('*', async (request, reply) => {
     request.headers['x-shell-hash'] ??= request.headers['service-worker-navigation-preload']
     request.headers['x-req-url'] ??= request.url
 
-    if (isDev) hash = await getShellHash()
+    if (isDev && isAppShellMode) hash = await getShellHash()
 
     const contentOnly =
       request.headers['x-shell-hash'] === hash && request.headers['x-req-url'] === request.url
@@ -60,14 +60,35 @@ const routes: FastifyPluginAsync = async (fastify) => {
 
     const { httpResponse } = pageContext
 
-    await reply.writeEarlyHintsLinks?.([
-      {
-        rel: 'preload',
-        as: 'font',
-        href: `/fonts/spacegrotesk/v13/V8mDoQDjQSkFtoMM3T6r8E7mPbF4Cw.woff2`,
-      },
-      ...httpResponse.earlyHints.map((link) => 'link: ' + link.earlyHintLink),
-    ])
+    if (isProd) {
+      let earlyHints = httpResponse.earlyHints
+
+      // https://github.com/vikejs/vike/issues/1574
+      if (process.env.PUBLIC_ENV__MODE === 'MPA') {
+        const { assetsManifest } = await getGlobalContextAsync()
+
+        const hintSources = new Set(httpResponse.earlyHints.map((hint) => hint.src))
+        const pageEntry = Object.values(assetsManifest!).find(
+          (entry) =>
+            entry.src?.includes('pageConfigValuesAll') && hintSources.has('/' + entry.file),
+        )
+        const pageEntrySources = new Set(
+          [pageEntry?.file].concat(pageEntry?.imports ?? []).map((file) => '/' + file),
+        )
+
+        earlyHints = httpResponse.earlyHints.filter((hint) => !pageEntrySources.has(hint.src))
+      }
+
+      await reply.writeEarlyHintsLinks?.([
+        {
+          href: `/fonts/spacegrotesk/v13/V8mDoQDjQSkFtoMM3T6r8E7mPbF4Cw.woff2`,
+          cors: 'anonymous',
+          rel: 'preload',
+          as: 'font',
+        },
+        ...earlyHints.map((link) => `link: ${link.earlyHintLink}; crossorigin`),
+      ])
+    }
 
     const responseStream = new PassThrough()
 

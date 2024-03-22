@@ -7,6 +7,9 @@ export const isDev = import.meta.env.DEV ?? process.env.NODE_ENV !== 'production
 
 export const isProd = import.meta.env.PROD ?? process.env.NODE_ENV === 'production'
 
+export const isAppShellMode =
+  (import.meta.env.PUBLIC_ENV__APP_SHELL ?? process.env.PUBLIC_ENV__APP_SHELL) === 'true'
+
 export function wait(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }
