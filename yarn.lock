@@ -642,9 +642,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fastify/compress@npm:^7.0.0":
-  version: 7.0.0
-  resolution: "@fastify/compress@npm:7.0.0"
+"@fastify/compress@npm:^7.0.2":
+  version: 7.0.2
+  resolution: "@fastify/compress@npm:7.0.2"
   dependencies:
     "@fastify/accept-negotiator": "npm:^1.1.0"
     fastify-plugin: "npm:^4.5.0"
@@ -654,7 +654,7 @@ __metadata:
     peek-stream: "npm:^1.1.3"
     pump: "npm:^3.0.0"
     pumpify: "npm:^2.0.1"
-  checksum: 10c0/64187dae37207bc4cc5e6a7509b5bf8917ed41248f9306d2609fd3b760164e8f7dfa297544a97060e2247f572c187809a51c4b7eb3eee03e73649c41e967eaee
+  checksum: 10c0/e2dfa254f88fbc9ee848557d6b88a23a44398938419894d073ca074cef480deedcebebc11ae9933a3b45d89e8f57310920770f509ccb661632a66b7ca2daf1fe
   languageName: node
   linkType: hard
 
@@ -5026,7 +5026,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "thesis@workspace:."
   dependencies:
-    "@fastify/compress": "npm:^7.0.0"
+    "@fastify/compress": "npm:^7.0.2"
     "@fastify/cookie": "npm:^9.3.1"
     "@fastify/early-hints": "npm:^1.0.1"
     "@fastify/formbody": "npm:^7.4.0"
@@ -5054,8 +5054,8 @@ __metadata:
     tsx: "patch:tsx@npm%3A4.7.1#~/.yarn/patches/tsx-npm-4.7.1-2110587134.patch"
     typescript: "npm:^5.4.3"
     urlpattern-polyfill: "npm:^10.0.0"
-    vike: "npm:^0.4.166"
-    vite: "npm:^5.2.2"
+    vike: "npm:^0.4.167"
+    vite: "npm:^5.2.6"
     vue: "npm:^3.4.21"
     vue-tsc: "npm:^2.0.7"
     zip-to-city: "npm:^0.1.1"
@@ -5285,9 +5285,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vike@npm:^0.4.166":
-  version: 0.4.166
-  resolution: "vike@npm:0.4.166"
+"vike@npm:^0.4.167":
+  version: 0.4.167
+  resolution: "vike@npm:0.4.167"
   dependencies:
     "@brillout/import": "npm:^0.2.3"
     "@brillout/json-serializer": "npm:^0.5.8"
@@ -5309,13 +5309,13 @@ __metadata:
       optional: true
   bin:
     vike: node/cli/bin-entry.js
-  checksum: 10c0/5574225570b1b05b57cf2c987304193a97f9909b7bb5ebf721e21937c3dace9821bb209efcd5f770b9e863687233f850627cc6f5f3a81a622e77ef941f5ba5d3
+  checksum: 10c0/8157827e006d72591455e58b01cdcff640f6c142b2c14fa0deba591468074c84cbda621141787ab792cbedeb12779274db1ac414e413761368cae6b15e8634f1
   languageName: node
   linkType: hard
 
-"vite@npm:^5.2.2":
-  version: 5.2.2
-  resolution: "vite@npm:5.2.2"
+"vite@npm:^5.2.6":
+  version: 5.2.6
+  resolution: "vite@npm:5.2.6"
   dependencies:
     esbuild: "npm:^0.20.1"
     fsevents: "npm:~2.3.3"
@@ -5349,7 +5349,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 10c0/472c6a1d41707ef51a5056ccc9e347333a3a975beb6069998d3d7a134555662b856e27628cc1354200c32d63373d7e4ef73385a4e90cc3032e48d06fb77928e5
+  checksum: 10c0/9ccaa65521b738ed5d6ad9cd118584a833191d29649eaa77ccb8096a60ded2ca9014193b8b866ad76054d0c89443f7b68b578686e4e2ef83147273e7788408c2
   languageName: node
   linkType: hard
 
