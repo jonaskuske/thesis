@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import * as store from '../../utils/cookies'
 
-import { watch, watchEffect, ref } from 'vue'
+import { watch, watchEffect, ref, computed } from 'vue'
 import AtSign from '../../components/icons/AtSign.vue'
 import Avatar from '../../components/icons/Avatar.vue'
 import Key from '../../components/icons/Key.vue'
@@ -9,9 +9,10 @@ import { useNotificationPermission } from '../../composables/useNotificationPerm
 import { useLocationPermission } from '../../composables/useGeolocationPermission'
 import { usePageData } from '../../composables/usePageData'
 import type { Data } from './+data'
+import { reload } from 'vike/client/router'
 
 const data = usePageData<Data>()
-const userId = ref(data.value.userId)
+const userId = computed(() => data.value.userId)
 const geolocationEnabled = ref(data.value.geolocationEnabled)
 const notificationsEnabled = ref(data.value.notificationsEnabled)
 
@@ -49,15 +50,28 @@ watchEffect(() => {
   }
 })
 
+const loading = ref(false)
+
 async function login() {
-  const id = crypto.randomUUID()
-  await store.set('user_id', id)
-  userId.value = id
+  loading.value = true
+  await fetch('/login', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: '{}',
+  }).then((r) => r.ok || Promise.reject(r))
+  await reload()
+  loading.value = false
 }
 
 async function logout() {
-  await store.remove('user_id')
-  userId.value = null
+  loading.value = true
+  await fetch('/logout', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: '{}',
+  }).then((r) => r.ok || Promise.reject(r))
+  await reload()
+  loading.value = false
 }
 </script>
 
@@ -71,7 +85,7 @@ async function logout() {
       <div>
         <form action="/logout" method="post" @submit.prevent="logout">
           <input type="hidden" name="r" value="/settings" />
-          <button type="submit">Log out</button>
+          <button :disabled="loading" type="submit">Log out</button>
         </form>
         <form action="/change_pw" method="get">
           <button disabled type="submit">Change password</button>
@@ -82,11 +96,11 @@ async function logout() {
       <p>You are not logged in.</p>
       <form action="/login" method="post" @submit.prevent="login">
         <input type="hidden" name="r" value="/settings" />
-        <button type="submit">Log in</button>
+        <button :disabled="loading" type="submit">Log in</button>
       </form>
       <form action="/login" method="post" @submit.prevent="login">
         <input type="hidden" name="r" value="/settings" />
-        <button type="submit">Sign up</button>
+        <button :disabled="loading" type="submit">Sign up</button>
       </form>
     </div>
 
