@@ -46,16 +46,16 @@ const backHref = computed(() => {
   <div v-else class="layout">
     <header v-sticky class="navigation">
       <div class="navigation-outer">
-        <TransitionGroup tag="div" class="navigation-inner">
+        <div tag="div" class="navigation-inner">
           <Link v-show="!isHome && !isShell" key="back" class="back" :href="backHref">
             <span class="sr-only">Back</span>
             <ArrowLeft class="navigation-icon" />
           </Link>
           <h1 key="title" class="title">
-            <Transition mode="out-in">
-              <!-- eslint-disable-next-line vue/no-v-html -->
-              <span :key="title" v-html="showTitle ? title : '&nbsp;'" />
-            </Transition>
+            <!-- <Transition mode="out-in"> -->
+            <!-- eslint-disable-next-line vue/no-v-html -->
+            <span :key="title" v-html="showTitle ? title : '&nbsp;'" />
+            <!-- </Transition> -->
           </h1>
           <Link v-show="editHref" key="edit" :href="editHref" class="edit fill-current">
             <svg
@@ -77,7 +77,7 @@ const backHref = computed(() => {
             </svg>
             <span class="sr-only">Edit</span>
           </Link>
-        </TransitionGroup>
+        </div>
       </div>
     </header>
     <footer class="bottom-nav">

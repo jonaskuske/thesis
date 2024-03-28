@@ -78,8 +78,8 @@ const onRenderHtml: OnRenderHtmlSync = (pageContext): ReturnType<OnRenderHtmlSyn
             content: "Loading...";
             display: block;
             margin: auto;
-            opacity: 0;
-            animation: appear 150ms 450ms ease-in forwards;
+            opacity: 1; /* 0; */
+            /* animation: appear 150ms 450ms ease-in forwards; */
             position: sticky;
             bottom: 50vh;
             left: 0;
@@ -90,7 +90,7 @@ const onRenderHtml: OnRenderHtmlSync = (pageContext): ReturnType<OnRenderHtmlSyn
             display: none;
           }
           .content > * {
-            transition: opacity 350ms ease;
+            /* transition: opacity 350ms ease; */
           }
           .page-transition .content > * {
             opacity: 0;

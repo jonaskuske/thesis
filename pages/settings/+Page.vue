@@ -76,63 +76,63 @@ async function logout() {
 </script>
 
 <template>
-  <TransitionGroup>
-    <h2 key="a">Account</h2>
-    <div v-if="userId" key="b" class="card">
-      <p><AtSign /> tina.tester@gmail.com</p>
-      <h2><Avatar /> Tina Tester</h2>
-      <h2><Key /> **************</h2>
-      <div>
-        <form action="/logout" method="post" @submit.prevent="logout">
-          <input type="hidden" name="r" value="/settings" />
-          <button :disabled="loading" type="submit">Log out</button>
-        </form>
-        <form action="/change_pw" method="get">
-          <button disabled type="submit">Change password</button>
-        </form>
-      </div>
-    </div>
-    <div v-else key="c" class="not-logged-in">
-      <p>You are not logged in.</p>
-      <form action="/login" method="post" @submit.prevent="login">
+  <!-- <TransitionGroup> -->
+  <h2 key="a">Account</h2>
+  <div v-if="userId" key="b" class="card">
+    <p><AtSign /> tina.tester@gmail.com</p>
+    <h2><Avatar /> Tina Tester</h2>
+    <h2><Key /> **************</h2>
+    <div>
+      <form action="/logout" method="post" @submit.prevent="logout">
         <input type="hidden" name="r" value="/settings" />
-        <button :disabled="loading" type="submit">Log in</button>
+        <button :disabled="loading" type="submit">Log out</button>
       </form>
-      <form action="/login" method="post" @submit.prevent="login">
-        <input type="hidden" name="r" value="/settings" />
-        <button :disabled="loading" type="submit">Sign up</button>
+      <form action="/change_pw" method="get">
+        <button disabled type="submit">Change password</button>
       </form>
     </div>
+  </div>
+  <div v-else key="c" class="not-logged-in">
+    <p>You are not logged in.</p>
+    <form action="/login" method="post" @submit.prevent="login">
+      <input type="hidden" name="r" value="/settings" />
+      <button :disabled="loading" type="submit">Log in</button>
+    </form>
+    <form action="/login" method="post" @submit.prevent="login">
+      <input type="hidden" name="r" value="/settings" />
+      <button :disabled="loading" type="submit">Sign up</button>
+    </form>
+  </div>
 
-    <div key="d" class="location">
-      <h2>Location</h2>
-      <input
-        id="location"
-        v-model="geolocationEnabled"
-        type="checkbox"
-        name="location"
-        :disabled="geolocationPermissionState === 'denied'"
-      />
-      <label for="location"> Use GPS location data</label>
-      <p v-if="geolocationPermissionState === 'denied'" style="font-size: 12px">
-        Location access is disabled in system settings.
-      </p>
-    </div>
-    <div key="e" class="notifications">
-      <h2>Notifications</h2>
-      <input
-        id="notifications"
-        v-model="notificationsEnabled"
-        type="checkbox"
-        name="notifications"
-        :disabled="notificationPermissionState === 'denied'"
-      />
-      <label for="notifications"> Enable notifications</label>
-      <p v-if="notificationPermissionState === 'denied'" style="font-size: 12px">
-        Notifications are disabled in system settings.
-      </p>
-    </div>
-  </TransitionGroup>
+  <div key="d" class="location">
+    <h2>Location</h2>
+    <input
+      id="location"
+      v-model="geolocationEnabled"
+      type="checkbox"
+      name="location"
+      :disabled="geolocationPermissionState === 'denied'"
+    />
+    <label for="location"> Use GPS location data</label>
+    <p v-if="geolocationPermissionState === 'denied'" style="font-size: 12px">
+      Location access is disabled in system settings.
+    </p>
+  </div>
+  <div key="e" class="notifications">
+    <h2>Notifications</h2>
+    <input
+      id="notifications"
+      v-model="notificationsEnabled"
+      type="checkbox"
+      name="notifications"
+      :disabled="notificationPermissionState === 'denied'"
+    />
+    <label for="notifications"> Enable notifications</label>
+    <p v-if="notificationPermissionState === 'denied'" style="font-size: 12px">
+      Notifications are disabled in system settings.
+    </p>
+  </div>
+  <!-- </TransitionGroup> -->
 </template>
 
 <style scoped>
