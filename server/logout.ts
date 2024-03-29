@@ -11,7 +11,9 @@ const routes: FastifyPluginAsync = async (fastify) => {
     '/logout',
     { schema: { body: logoutBodySchema } },
     async (request, reply) => {
-      await reply.clearCookie('user_id').redirect(303, request.body.r ?? '/')
+      if (request.headers['accept']?.includes('text/html')) {
+        await reply.clearCookie('user_id').redirect(303, request.body.r ?? '/')
+      } else return reply.clearCookie('user_id').send()
     },
   )
 }
