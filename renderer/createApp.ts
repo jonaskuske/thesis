@@ -6,25 +6,19 @@ import {
   markRaw,
   reactive,
   ref,
-  type Ref,
 } from 'vue'
 import PageShell from '../components/PageShell.vue'
 import { setPageContext } from '../composables/usePageContext'
 import type { PageContext } from 'vike/types'
-import type { Component } from './types'
 
 export function createApp(pageContext: PageContext) {
   const { Page } = pageContext
 
-  let pageRef: Ref<Component>
+  const pageRef = ref(markRaw(Page))
 
   const PageWithWrapper = defineComponent({
-    setup() {
-      pageRef = ref(markRaw(Page))
-      return { Page: pageRef }
-    },
     render() {
-      return h(PageShell, {}, { default: () => h(this.Page) })
+      return h(PageShell, {}, { default: () => h(pageRef.value) })
     },
   })
 
