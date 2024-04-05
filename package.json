@@ -16,29 +16,29 @@
     "postinstall": "husky install || true"
   },
   "dependencies": {
-    "@fastify/compress": "^7.0.2",
+    "@fastify/compress": "^7.0.3",
     "@fastify/cookie": "^9.3.1",
     "@fastify/early-hints": "^1.0.1",
     "@fastify/formbody": "^7.4.0",
     "@fastify/helmet": "^11.1.1",
     "@fastify/middie": "^8.3.0",
-    "@fastify/static": "^7.0.2",
+    "@fastify/static": "^7.0.3",
     "@vue/server-renderer": "^3.4.21",
     "@vue/tsconfig": "^0.5.1",
     "cookie-store": "^4.0.0-next.4",
     "fastify": "^4.26.2",
-    "tsx": "patch:tsx@npm%3A4.7.1#~/.yarn/patches/tsx-npm-4.7.1-2110587134.patch",
+    "tsx": "patch:tsx@npm%3A4.7.2#~/.yarn/patches/tsx-npm-4.7.2-1b4d572ec8.patch",
     "urlpattern-polyfill": "^10.0.0",
-    "vike": "^0.4.167",
-    "vite": "^5.2.7",
+    "vike": "^0.4.168",
+    "vite": "^5.2.8",
     "vue": "^3.4.21",
     "zip-to-city": "^0.1.1"
   },
   "devDependencies": {
     "@types/connect": "^3.4.38",
-    "@types/node": "^20.11.30",
-    "@typescript-eslint/eslint-plugin": "^7.4.0",
-    "@typescript-eslint/parser": "^7.4.0",
+    "@types/node": "^20.12.4",
+    "@typescript-eslint/eslint-plugin": "^7.5.0",
+    "@typescript-eslint/parser": "^7.5.0",
     "@vitejs/plugin-vue": "^5.0.4",
     "@vue/compiler-sfc": "^3.4.21",
     "@yarnpkg/sdks": "^3.1.0",
@@ -49,8 +49,8 @@
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
     "prettier": "~3.2.5",
-    "typescript": "^5.4.3",
-    "vue-tsc": "^2.0.7"
+    "typescript": "^5.4.4",
+    "vue-tsc": "^2.0.10"
   },
   "lint-staged": {
     "*.{cjs,mjs,js,jsx,cts,mts,ts,tsx,vue}": [
