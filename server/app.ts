@@ -1,7 +1,7 @@
 import { PassThrough } from 'node:stream'
 import { createHash } from 'node:crypto'
 import type { FastifyPluginAsync } from 'fastify'
-import { renderPage, getGlobalContextAsync } from 'vike/server'
+import { renderPage } from 'vike/server'
 import { isDev, isProd, isAppShellMode } from '../utils'
 
 const _HASH_PREFIX_ = 'v1'
@@ -61,24 +61,6 @@ const routes: FastifyPluginAsync = async (fastify) => {
     const { httpResponse } = pageContext
 
     if (isProd) {
-      let earlyHints = httpResponse.earlyHints
-
-      // https://github.com/vikejs/vike/issues/1574
-      if (process.env.PUBLIC_ENV__MODE === 'MPA') {
-        const { assetsManifest } = await getGlobalContextAsync()
-
-        const hintSources = new Set(httpResponse.earlyHints.map((hint) => hint.src))
-        const pageEntry = Object.values(assetsManifest!).find(
-          (e) => e.src?.includes('pageConfigValuesAll') && hintSources.has('/' + e.file),
-        )
-        const pageEntryImports = (pageEntry?.imports ?? []).map((key) => assetsManifest![key].file)
-        const pageEntrySources = new Set(
-          [pageEntry?.file, ...pageEntryImports].map((file) => '/' + file),
-        )
-
-        earlyHints = httpResponse.earlyHints.filter((hint) => !pageEntrySources.has(hint.src))
-      }
-
       await reply.writeEarlyHintsLinks?.([
         {
           href: `/fonts/spacegrotesk/v13/V8mDoQDjQSkFtoMM3T6r8E7mPbF4Cw.woff2`,
@@ -86,7 +68,7 @@ const routes: FastifyPluginAsync = async (fastify) => {
           rel: 'preload',
           as: 'font',
         },
-        ...earlyHints.map((link) => `link: ${link.earlyHintLink}; crossorigin`),
+        ...httpResponse.earlyHints.map((link) => `link: ${link.earlyHintLink}; crossorigin`),
       ])
     }
 
