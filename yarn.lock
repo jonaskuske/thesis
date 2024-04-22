@@ -5164,8 +5164,8 @@ __metadata:
     tsx: "patch:tsx@npm%3A4.7.2#~/.yarn/patches/tsx-npm-4.7.2-1b4d572ec8.patch"
     typescript: "npm:^5.4.4"
     urlpattern-polyfill: "npm:^10.0.0"
-    vike: "npm:^0.4.168"
-    vite: "npm:^5.2.9"
+    vike: "npm:^0.4.171"
+    vite: "npm:^5.2.10"
     vue: "npm:^3.4.23"
     vue-tsc: "npm:^2.0.10"
     zip-to-city: "npm:^0.1.1"
@@ -5395,9 +5395,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vike@npm:^0.4.168":
-  version: 0.4.168
-  resolution: "vike@npm:0.4.168"
+"vike@npm:^0.4.171":
+  version: 0.4.171
+  resolution: "vike@npm:0.4.171"
   dependencies:
     "@brillout/import": "npm:^0.2.3"
     "@brillout/json-serializer": "npm:^0.5.8"
@@ -5419,13 +5419,13 @@ __metadata:
       optional: true
   bin:
     vike: node/cli/bin-entry.js
-  checksum: 10c0/e744aea3bbab1048c57a2d7d9e69eab39fdd0384bd201d6545d28f62319b85813198c9902e8153159f71d82b094135493757be885159d0159fab8d55be1c7d2b
+  checksum: 10c0/6838279120c0e7ecbdff0aa948ee49d59e6ea8130b1edd26788d63357de963d6c6a4c90b3c7de9c3e3a06bd622340a68c116ed638845e63f98f445168d0e31f6
   languageName: node
   linkType: hard
 
-"vite@npm:^5.2.9":
-  version: 5.2.9
-  resolution: "vite@npm:5.2.9"
+"vite@npm:^5.2.10":
+  version: 5.2.10
+  resolution: "vite@npm:5.2.10"
   dependencies:
     esbuild: "npm:^0.20.1"
     fsevents: "npm:~2.3.3"
@@ -5459,7 +5459,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 10c0/2bf8faa7ae84d5fffabc28b2b2462128a839b8a7ce6d4dde1794975c8c896443df49a54ef95ad8f0326457648426fd9317a618479ef28049cb195d91985729ed
+  checksum: 10c0/d50630ac8de807a6185cd9b5763b3969b2950a454cf6a4482f3780f183865e8d6f7e3aa57dd70ede1c493aaa861efb25b43562287efbcf8b471b7f3b88857a33
   languageName: node
   linkType: hard
 
