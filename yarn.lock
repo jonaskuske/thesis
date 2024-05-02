@@ -730,15 +730,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fastify/middie@npm:^8.3.0":
-  version: 8.3.0
-  resolution: "@fastify/middie@npm:8.3.0"
+"@fastify/middie@npm:^8.3.1":
+  version: 8.3.1
+  resolution: "@fastify/middie@npm:8.3.1"
   dependencies:
     "@fastify/error": "npm:^3.2.0"
     fastify-plugin: "npm:^4.0.0"
     path-to-regexp: "npm:^6.1.0"
     reusify: "npm:^1.0.4"
-  checksum: 10c0/8cb39ce3f203c66de9ce40eb2cc7324fd3d79fb78872a6b7dcfb0b7cbb7b02e349d710520b7ecb100d8e4bc396fbc7596a0bee9514e8a9f832d171ac3ae572cd
+  checksum: 10c0/6ee8a09bd9ff3d7ba1fe46a838104cea6b79a31511fd331a5f68401b48f325c343726a9f25a0410c668a6193b5b82e0011e5847c2e51d4a97e0dc1d5633eade1
   languageName: node
   linkType: hard
 
@@ -5141,7 +5141,7 @@ __metadata:
     "@fastify/early-hints": "npm:^1.0.1"
     "@fastify/formbody": "npm:^7.4.0"
     "@fastify/helmet": "npm:^11.1.1"
-    "@fastify/middie": "npm:^8.3.0"
+    "@fastify/middie": "npm:^8.3.1"
     "@fastify/static": "npm:^7.0.3"
     "@types/connect": "npm:^3.4.38"
     "@types/node": "npm:^20.12.4"
