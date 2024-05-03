@@ -30,7 +30,7 @@
     "tsx": "patch:tsx@npm%3A4.7.2#~/.yarn/patches/tsx-npm-4.7.2-1b4d572ec8.patch",
     "urlpattern-polyfill": "^10.0.0",
     "vike": "^0.4.171",
-    "vite": "^5.2.10",
+    "vite": "^5.2.11",
     "vue": "^3.4.26",
     "zip-to-city": "^0.1.1"
   },
