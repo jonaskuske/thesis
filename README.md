@@ -11,7 +11,7 @@
 
 ## Usage
 
-**Installation**
+#### Installation
 
 This project requires Node.js version 20 or higher. Once Node is installed, make sure to run `corepack enable` at least once to enable built-in support for package managers like yarn or pnpm.
 
@@ -30,8 +30,6 @@ To deploy the application, you first need to compile it with the build command. 
 `yarn build` - Build for production
 
 `yarn server:prod` - Serve built application in production mode on port [`:3000`](http://localhost:3000)
-
----
 
 ## Configuration through environment variables
 
@@ -85,6 +83,12 @@ Initial load works the same way as the _MPA with stream-stitched App Shell_ vari
 
 [^1]: Stream Stitching is used for the SPA, too, but this is merely an implementation detail caused by architectural constraints specific to this codebase: App Shell architecture for SPAs can be implemented without Stream Stitching.
 
+<br>
+<br>
+<br>
+
 ---
+
+<br>
 
 Jonas Kuske, 2024
