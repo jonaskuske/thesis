@@ -1,0 +1,33 @@
+// Script used to simulate user flow on webpagetest.org
+// Index -> Settings -> Login -> Index -> Search "Buxtehude" -> Add -> Buxtehude -> 2nd Card
+
+// setup: wait until service worker is activated, if on page with app shell
+logData 0
+waitFor (navigator.serviceWorker.controller?.state === 'activated')
+navigate %URL%
+waitFor
+logData 1
+
+setEventName	Home
+navigate	%URL%
+
+setEventName	Settings
+execAndWait	document.querySelector('.nav-link[href="/settings"]').click()
+
+setEventName	Login
+execAndWait	document.querySelector('form[action="/login"]').requestSubmit()
+
+setEventName	ReturnHome
+execAndWait	document.querySelector('.nav-link[href="/"]').click()
+
+setEventName	Search
+execAndWait	(document.querySelector('[name="location"]').value='Buxtehude') && document.querySelector('[name="location"]').dispatchEvent(new Event('input'))
+
+setEventName	Add
+execAndWait	document.querySelector('form[action="/locations"]').requestSubmit()
+
+setEventName	Detail
+execAndWait	document.querySelector('a.city-name').click()
+
+setEventName	Sighting
+execAndWait	document.querySelector('form.sighting:not(:first-child)').requestSubmit()
