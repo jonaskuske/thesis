@@ -71,17 +71,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@brillout/json-serializer@npm:^0.5.8":
-  version: 0.5.8
-  resolution: "@brillout/json-serializer@npm:0.5.8"
-  checksum: 10c0/29a1348f96735145d40f4cbebffce6cbb72d042d25141209f8fe31431862730884614914ee4b79b69996f9d7aa3447ed45c55e51ec1c5bc221a1fc7f58b13e02
+"@brillout/json-serializer@npm:^0.5.10":
+  version: 0.5.10
+  resolution: "@brillout/json-serializer@npm:0.5.10"
+  checksum: 10c0/9ce2558c7cb736c4a70fc73791700ebe1904ee7465938a3c5db586d4378b8c15c7deb04d714f6c4f58c5ec22c2dc1aac28c6b73f0a8848002ee8a9babbacb890
   languageName: node
   linkType: hard
 
-"@brillout/picocolors@npm:^1.0.10":
-  version: 1.0.10
-  resolution: "@brillout/picocolors@npm:1.0.10"
-  checksum: 10c0/b9fed4d0f08ce8617f57c18170412fe2e30beb43d5e8557aadfb0af716181e238f3d0c9efc8d80b362ce816b3813512138d03769b745c054fe59abcffb2781b5
+"@brillout/picocolors@npm:^1.0.13":
+  version: 1.0.13
+  resolution: "@brillout/picocolors@npm:1.0.13"
+  checksum: 10c0/dd22f2ef826b4a47d8d03a4ec31743a8dddf027ccfe75f5f4048bd79776e136c90d4bfffafc206df2281d02e68b3f7108beb8dcb8548b1e840fbd1e6ca396ddb
   languageName: node
   linkType: hard
 
@@ -4818,6 +4818,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"semver@npm:^7.6.2":
+  version: 7.6.2
+  resolution: "semver@npm:7.6.2"
+  bin:
+    semver: bin/semver.js
+  checksum: 10c0/97d3441e97ace8be4b1976433d1c32658f6afaff09f143e52c593bae7eef33de19e3e369c88bd985ce1042c6f441c80c6803078d1de2a9988080b66684cbb30c
+  languageName: node
+  linkType: hard
+
 "set-blocking@npm:^2.0.0":
   version: 2.0.0
   resolution: "set-blocking@npm:2.0.0"
@@ -5164,8 +5173,8 @@ __metadata:
     tsx: "patch:tsx@npm%3A4.7.2#~/.yarn/patches/tsx-npm-4.7.2-1b4d572ec8.patch"
     typescript: "npm:^5.4.4"
     urlpattern-polyfill: "npm:^10.0.0"
-    vike: "npm:^0.4.171"
-    vite: "npm:^5.2.11"
+    vike: "npm:^0.4.174"
+    vite: "npm:^5.2.12"
     vue: "npm:^3.4.27"
     vue-tsc: "npm:^2.0.10"
     zip-to-city: "npm:^0.1.1"
@@ -5395,13 +5404,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vike@npm:^0.4.171":
-  version: 0.4.171
-  resolution: "vike@npm:0.4.171"
+"vike@npm:^0.4.174":
+  version: 0.4.174
+  resolution: "vike@npm:0.4.174"
   dependencies:
     "@brillout/import": "npm:^0.2.3"
-    "@brillout/json-serializer": "npm:^0.5.8"
-    "@brillout/picocolors": "npm:^1.0.10"
+    "@brillout/json-serializer": "npm:^0.5.10"
+    "@brillout/picocolors": "npm:^1.0.13"
     "@brillout/require-shim": "npm:^0.1.2"
     "@brillout/vite-plugin-server-entry": "npm:^0.4.5"
     acorn: "npm:^8.0.0"
@@ -5409,6 +5418,7 @@ __metadata:
     es-module-lexer: "npm:^1.0.0"
     esbuild: "npm:^0.19.0"
     fast-glob: "npm:^3.0.0"
+    semver: "npm:^7.6.2"
     sirv: "npm:^2.0.0"
     source-map-support: "npm:^0.5.0"
   peerDependencies:
@@ -5419,13 +5429,13 @@ __metadata:
       optional: true
   bin:
     vike: node/cli/bin-entry.js
-  checksum: 10c0/6838279120c0e7ecbdff0aa948ee49d59e6ea8130b1edd26788d63357de963d6c6a4c90b3c7de9c3e3a06bd622340a68c116ed638845e63f98f445168d0e31f6
+  checksum: 10c0/1f6dd88ee9e036679a9f58ee3529b2bb1622b1b216fbbe2fd9295552f0e3b078e4c6d3dcb5010859ce6ff1098e123be71b1606b6f931e52116c5c28751e41cac
   languageName: node
   linkType: hard
 
-"vite@npm:^5.2.11":
-  version: 5.2.11
-  resolution: "vite@npm:5.2.11"
+"vite@npm:^5.2.12":
+  version: 5.2.12
+  resolution: "vite@npm:5.2.12"
   dependencies:
     esbuild: "npm:^0.20.1"
     fsevents: "npm:~2.3.3"
@@ -5459,7 +5469,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 10c0/664b8d68e4f5152ae16bd2041af1bbaf11c43630ac461835bc31ff7d019913b33e465386e09f66dc1037d7aeefbb06939e0173787c063319bc2bd30c3b9ad8e4
+  checksum: 10c0/f03fdfc320adea3397df3e327029fd875f8220779f679ab183a3a994e8788b4ce531fee28f830361fb274f3cf08ed9adb9429496ecefdc3faf535b38da7ea8b1
   languageName: node
   linkType: hard
 
