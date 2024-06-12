@@ -4,6 +4,7 @@
 interface ImportMetaEnv {
   readonly PUBLIC_ENV__MODE: 'MPA' | 'SPA' | 'ISOMORPHIC'
   readonly PUBLIC_ENV__APP_SHELL: 'true' | 'false'
+  readonly PUBLIC_ENV__ANIMATIONS: 'true' | 'false'
 }
 
 interface ImportMeta {

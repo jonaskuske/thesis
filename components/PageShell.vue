@@ -10,8 +10,8 @@ import { useIsHome } from '../composables/useIsHome'
 import { useIsShell } from '../composables/useIsShell'
 import { useTitle } from '../composables/useTitle'
 import { vSticky } from '../directives/v-sticky'
-import { computed, ref, onMounted } from 'vue'
-import { isServer } from '../utils/index'
+import { computed, ref, onMounted, Transition } from 'vue'
+import { allowAnimations, isServer } from '../utils/index'
 
 const ctx = usePageContext()
 const contentOnly = isServer ? ctx.contentOnly : false
@@ -45,17 +45,17 @@ const backHref = computed(() => {
 
   <div v-else class="layout">
     <header v-sticky class="navigation">
-      <div class="navigation-outer">
-        <div tag="div" class="navigation-inner">
+      <div class="navigation-outer" :class="allowAnimations && 'allow-animations'">
+        <TransitionGroup tag="div" class="navigation-inner">
           <Link v-show="!isHome && !isShell" key="back" class="back" :href="backHref">
             <span class="sr-only">Back</span>
             <ArrowLeft class="navigation-icon" />
           </Link>
           <h1 key="title" class="title">
-            <!-- <Transition mode="out-in"> -->
-            <!-- eslint-disable-next-line vue/no-v-html -->
-            <span :key="title" v-html="showTitle ? title : '&nbsp;'" />
-            <!-- </Transition> -->
+            <Component :is="allowAnimations ? Transition : 'span'" mode="out-in">
+              <!-- eslint-disable-next-line vue/no-v-html -->
+              <span :key="title" v-html="showTitle ? title : '&nbsp;'" />
+            </Component>
           </h1>
           <Link v-show="editHref" key="edit" :href="editHref" class="edit fill-current">
             <svg
@@ -77,7 +77,7 @@ const backHref = computed(() => {
             </svg>
             <span class="sr-only">Edit</span>
           </Link>
-        </div>
+        </TransitionGroup>
       </div>
     </header>
     <footer class="bottom-nav">
@@ -215,38 +215,38 @@ nav ul li {
   margin-right: 6px;
   margin-left: -6px;
 }
-.back.v-move {
+.allow-animations .back.v-move {
   transition: transform 1ms;
 }
-.back.v-enter-from,
-.back.v-leave-to,
-.edit.v-enter-from,
-.edit.v-leave-to {
+.allow-animations .back.v-enter-from,
+.allow-animations .back.v-leave-to,
+.allow-animations .edit.v-enter-from,
+.allow-animations .edit.v-leave-to {
   opacity: 0;
 }
-.back.v-enter-active,
-.edit.v-enter-active {
+.allow-animations .back.v-enter-active,
+.allow-animations .edit.v-enter-active {
   transition: opacity 200ms 225ms ease-in;
 }
-.back.v-leave-active {
+.allow-animations .back.v-leave-active {
   position: absolute;
   visibility: hidden;
 }
-.edit.v-leave-active {
+.allow-animations .edit.v-leave-active {
   transition: opacity 200ms ease-in;
 }
 
-.title.v-move {
+.allow-animations .title.v-move {
   transition: transform 450ms ease-out;
 }
-.title .v-leave-to,
-.title .v-enter-from {
+.allow-animations .title .v-leave-to,
+.allow-animations .title .v-enter-from {
   opacity: 0;
 }
-.title .v-leave-active {
+.allow-animations .title .v-leave-active {
   transition: opacity 200ms 120ms ease-in;
 }
-.title .v-enter-active {
+.allow-animations .title .v-enter-active {
   transition: opacity 400ms ease-out;
 }
 

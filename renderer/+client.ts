@@ -1,3 +1,4 @@
+import { allowAnimations } from '../utils'
 import { applyStickyObserver, type StickyObserverDirection } from '../utils/applyStickyObserver'
 
 if (import.meta.env.PUBLIC_ENV__APP_SHELL === 'true') {
@@ -9,12 +10,15 @@ if (import.meta.env.PUBLIC_ENV__APP_SHELL === 'true') {
   document.title = title
 
   if (titleEl.textContent !== title) {
-    // void titleEl
-    // .animate([{ opacity: 0 }], { duration: 150, easing: 'ease-in' })
-    // .finished.then(() => {
-    titleEl.textContent = title
-    // titleEl.animate([{ opacity: 1 }], { duration: 150, easing: 'ease-in' })
-    // })
+    if (!allowAnimations) titleEl.textContent = title
+    else {
+      void titleEl
+        .animate([{ opacity: 0 }], { duration: 150, easing: 'ease-in' })
+        .finished.then(() => {
+          titleEl.textContent = title
+          titleEl.animate([{ opacity: 1 }], { duration: 150, easing: 'ease-in' })
+        })
+    }
   }
 }
 

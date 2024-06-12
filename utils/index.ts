@@ -10,6 +10,10 @@ export const isProd = import.meta.env.PROD ?? process.env.NODE_ENV === 'producti
 export const isAppShellMode =
   (import.meta.env.PUBLIC_ENV__APP_SHELL ?? process.env.PUBLIC_ENV__APP_SHELL) === 'true'
 
+export const allowAnimations =
+  (import.meta.env.PUBLIC_ENV__ANIMATIONS ??
+    (typeof process !== 'undefined' && process.env.PUBLIC_ENV__ANIMATIONS)) === 'true'
+
 export function wait(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }

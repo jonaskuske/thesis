@@ -3,6 +3,7 @@ import { escapeInject, stampPipe } from 'vike/server'
 import type { OnRenderHtmlSync } from 'vike/types'
 import { createApp } from './createApp'
 import type internal from 'stream'
+import { allowAnimations } from '../utils'
 
 const MODE = import.meta.env.PUBLIC_ENV__MODE
 
@@ -19,6 +20,7 @@ const onRenderHtml: OnRenderHtmlSync = (pageContext): ReturnType<OnRenderHtmlSyn
   const title = pageContext.title ?? pageContext.config.title ?? 'ISS Tracker'
 
   const shellAttribute = pageContext.urlPathname === '/_shell' ? ' data-app-shell=true' : ''
+  const classAttribute = allowAnimations ? ' class=allow-animations' : ''
 
   let documentHtml: ReturnType<typeof escapeInject>
 
@@ -27,7 +29,7 @@ const onRenderHtml: OnRenderHtmlSync = (pageContext): ReturnType<OnRenderHtmlSyn
       MODE === 'SPA' ? escapeInject`${pageView}` : escapeInject`${pageView}</div></div>`
   } else {
     documentHtml = escapeInject`<!DOCTYPE html>
-    <html lang="en"${shellAttribute}>
+    <html lang="en"${shellAttribute}${classAttribute}>
       <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -78,19 +80,24 @@ const onRenderHtml: OnRenderHtmlSync = (pageContext): ReturnType<OnRenderHtmlSyn
             content: "Loading...";
             display: block;
             margin: auto;
-            opacity: 1; /* 0; */
-            /* animation: appear 150ms 450ms ease-in forwards; */
             position: sticky;
             bottom: 50vh;
             left: 0;
             width: 100%;
             text-align: center;
           }
+          .allow-animations[data-css-loaded="false"] .layout::after,
+          .allow-animations .layout:not(:has(.content))::after,
+          .allow-animations #app:empty::after,
+          .allow-animations .page-transition .content::after {
+            opacity: 0;
+            animation: appear 150ms 450ms ease-in forwards;
+          }
           [data-css-loaded="false"] .content {
             display: none;
           }
-          .content > * {
-            /* transition: opacity 350ms ease; */
+          .allow-animations .content > * {
+            transition: opacity 350ms ease;
           }
           .page-transition .content > * {
             opacity: 0;
