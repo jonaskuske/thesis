@@ -13,10 +13,10 @@ if (import.meta.env.PUBLIC_ENV__APP_SHELL === 'true') {
     if (!allowAnimations) titleEl.textContent = title
     else {
       void titleEl
-        .animate([{ opacity: 0 }], { duration: 150, easing: 'ease-in' })
+        .animate([{ opacity: 0 }], { duration: 150, easing: 'ease-in', fill: 'forwards' })
         .finished.then(() => {
           titleEl.textContent = title
-          titleEl.animate([{ opacity: 1 }], { duration: 150, easing: 'ease-in' })
+          titleEl.animate([{ opacity: 1 }], { duration: 150, easing: 'ease-in', fill: 'forwards' })
         })
     }
   }

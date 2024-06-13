@@ -310,7 +310,7 @@ class AdjustShellForPageTransform extends TransformStream<BufferSource, BufferSo
 
           if (MODE === 'MPA') {
             const referrerPath = referrer && new URL(referrer).pathname
-            title = referrerPath !== '/' && pathToTitleMap.get(referrerPath)
+            title = pathToTitleMap.get(referrerPath)
           }
 
           decoded = decoded.replace(
