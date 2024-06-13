@@ -384,8 +384,8 @@ class ContentTransform extends TransformStream<BufferSource, BufferSource> {
 
         this.bufferString += this.decoder.decode(chunk, { stream: true })
 
-        if (MODE === 'MPA' && /data-title="([^"]+)"/.test(this.bufferString)) {
-          pathToTitleMap.set(url.pathname, this.bufferString.match(/data-title="([^"]+)"/)![1])
+        if (MODE === 'MPA' && /data-site-title="([^"]+)"/.test(this.bufferString)) {
+          pathToTitleMap.set(url.pathname, this.bufferString.match(/data-site-title="([^"]+)"/)![1])
         }
 
         const regex =

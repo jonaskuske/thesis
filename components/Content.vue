@@ -5,7 +5,7 @@ const title = useTitle()
 </script>
 
 <template>
-  <div class="content" :data-title="title">
+  <div class="content" :data-site-title="title">
     <Suspense>
       <slot />
     </Suspense>
