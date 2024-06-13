@@ -11,6 +11,8 @@ export default {
       },
     },
     title: { env: { client: true, server: true } },
+    // only load +client.ts files when in MPA mode
+    client: { env: { server: process.env.PUBLIC_ENV__MODE === 'MPA' } },
   },
 } satisfies Config
 
