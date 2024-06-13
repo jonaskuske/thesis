@@ -1,12 +1,18 @@
+import { render } from 'vike/abort'
 import type { OnBeforeRenderSync } from 'vike/types'
 import cities from 'zip-to-city/germany.json'
 
 const onBeforeRender: OnBeforeRenderSync = (pageContext): ReturnType<OnBeforeRenderSync> => {
   const id = pageContext.routeParams.locationId
+  const city = cities.find((c) => c.id === id)?.city
+
+  if (!city) {
+    throw render(404)
+  }
 
   return {
     pageContext: {
-      title: cities.find((c) => c.id === id)?.city || '404',
+      title: city,
     },
   }
 }
