@@ -5173,7 +5173,7 @@ __metadata:
     tsx: "patch:tsx@npm%3A4.7.2#~/.yarn/patches/tsx-npm-4.7.2-1b4d572ec8.patch"
     typescript: "npm:^5.4.4"
     urlpattern-polyfill: "npm:^10.0.0"
-    vike: "npm:^0.4.176"
+    vike: "patch:vike@npm%3A0.4.176#~/.yarn/patches/vike-npm-0.4.176-1693e9675d.patch"
     vite: "npm:^5.2.13"
     vue: "npm:^3.4.27"
     vue-tsc: "npm:^2.0.10"
@@ -5404,7 +5404,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vike@npm:^0.4.176":
+"vike@npm:0.4.176":
   version: 0.4.176
   resolution: "vike@npm:0.4.176"
   dependencies:
@@ -5430,6 +5430,35 @@ __metadata:
   bin:
     vike: node/cli/bin-entry.js
   checksum: 10c0/96785790331683e7826161220145639208b23e4f0bd257cad90ea1ed35e006b45550e318ee1fb77bcbdd27aa8251966470162405cdb8b1c03704c434f523a2eb
+  languageName: node
+  linkType: hard
+
+"vike@patch:vike@npm%3A0.4.176#~/.yarn/patches/vike-npm-0.4.176-1693e9675d.patch":
+  version: 0.4.176
+  resolution: "vike@patch:vike@npm%3A0.4.176#~/.yarn/patches/vike-npm-0.4.176-1693e9675d.patch::version=0.4.176&hash=45dd28"
+  dependencies:
+    "@brillout/import": "npm:^0.2.3"
+    "@brillout/json-serializer": "npm:^0.5.10"
+    "@brillout/picocolors": "npm:^1.0.13"
+    "@brillout/require-shim": "npm:^0.1.2"
+    "@brillout/vite-plugin-server-entry": "npm:^0.4.5"
+    acorn: "npm:^8.0.0"
+    cac: "npm:^6.0.0"
+    es-module-lexer: "npm:^1.0.0"
+    esbuild: "npm:^0.19.0"
+    fast-glob: "npm:^3.0.0"
+    semver: "npm:^7.6.2"
+    sirv: "npm:^2.0.0"
+    source-map-support: "npm:^0.5.0"
+  peerDependencies:
+    react-streaming: ">=0.3.5"
+    vite: ">=4.4.0"
+  peerDependenciesMeta:
+    react-streaming:
+      optional: true
+  bin:
+    vike: node/cli/bin-entry.js
+  checksum: 10c0/d1c8037bad764ee7bf9bdd73991347699c8485eea53fd2d67bcaebc250e0e294035a36e90722ed9045f3b6381c059fbf7c4da8148c2987a36058bba779ac3deb
   languageName: node
   linkType: hard
 
