@@ -26,7 +26,7 @@
     "@vue/server-renderer": "^3.4.31",
     "@vue/tsconfig": "^0.5.1",
     "cookie-store": "^4.0.0-next.4",
-    "fastify": "^4.28.0",
+    "fastify": "^4.28.1",
     "tsx": "patch:tsx@npm%3A4.15.5#~/.yarn/patches/tsx-npm-4.15.5-50c280cb18.patch",
     "urlpattern-polyfill": "^10.0.0",
     "vike": "0.4.177",
