@@ -55,10 +55,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@brillout/json-serializer@npm:^0.5.10":
-  version: 0.5.10
-  resolution: "@brillout/json-serializer@npm:0.5.10"
-  checksum: 10c0/9ce2558c7cb736c4a70fc73791700ebe1904ee7465938a3c5db586d4378b8c15c7deb04d714f6c4f58c5ec22c2dc1aac28c6b73f0a8848002ee8a9babbacb890
+"@brillout/json-serializer@npm:^0.5.13":
+  version: 0.5.13
+  resolution: "@brillout/json-serializer@npm:0.5.13"
+  checksum: 10c0/03d83927456328339dcc15024dee0025924654078eb4b7fcbad56ec6adea6dd4342cfa686bd1106dd459afef49a0447cb222e86db20945a32a7f4fba59e04a75
   languageName: node
   linkType: hard
 
@@ -4715,8 +4715,8 @@ __metadata:
     tsx: "patch:tsx@npm%3A4.15.5#~/.yarn/patches/tsx-npm-4.15.5-50c280cb18.patch"
     typescript: "npm:^5.4.5"
     urlpattern-polyfill: "npm:^10.0.0"
-    vike: "npm:0.4.178"
-    vite: "npm:^5.3.3"
+    vike: "npm:0.4.180"
+    vite: "npm:^5.3.4"
     vue: "npm:^3.4.31"
     vue-tsc: "npm:^2.0.21"
     zip-to-city: "npm:^0.1.1"
@@ -4946,12 +4946,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vike@npm:0.4.178":
-  version: 0.4.178
-  resolution: "vike@npm:0.4.178"
+"vike@npm:0.4.180":
+  version: 0.4.180
+  resolution: "vike@npm:0.4.180"
   dependencies:
     "@brillout/import": "npm:^0.2.3"
-    "@brillout/json-serializer": "npm:^0.5.10"
+    "@brillout/json-serializer": "npm:^0.5.13"
     "@brillout/picocolors": "npm:^1.0.13"
     "@brillout/require-shim": "npm:^0.1.2"
     "@brillout/vite-plugin-server-entry": "npm:^0.4.5"
@@ -4964,20 +4964,20 @@ __metadata:
     sirv: "npm:^2.0.0"
     source-map-support: "npm:^0.5.0"
   peerDependencies:
-    react-streaming: ">=0.3.36"
+    react-streaming: ">=0.3.42"
     vite: ">=4.4.0"
   peerDependenciesMeta:
     react-streaming:
       optional: true
   bin:
     vike: node/cli/bin-entry.js
-  checksum: 10c0/fa1fe4f247ef4a2e2bc6858f938aa398d37d9c21928721e511ac1d3c61a91a72feaebbf9df8e00bb68e87e9a3cdd6906a249c3db86fcce3d826dc27def715c94
+  checksum: 10c0/40da2f31a838238920858e59ade1eeec57672d843d40dfe2ed608d495c6a3dd97961dc4dd7fa62bc2373d65f4958dfe508886949834d4e14d14ba26e21334199
   languageName: node
   linkType: hard
 
-"vite@npm:^5.3.3":
-  version: 5.3.3
-  resolution: "vite@npm:5.3.3"
+"vite@npm:^5.3.4":
+  version: 5.3.4
+  resolution: "vite@npm:5.3.4"
   dependencies:
     esbuild: "npm:^0.21.3"
     fsevents: "npm:~2.3.3"
@@ -5011,7 +5011,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 10c0/a796872e1d11875d994615cd00da185c80eeb7753034d35c096050bf3c269c02004070cf623c5fe2a4a90ea2f12488e6f9d13933ec810f117f1b931e1b5e3385
+  checksum: 10c0/604a1c8698bcf09d6889533c552f20137c80cb5027e9e7ddf6215d51e3df763414f8712168c22b3c8c16383aff9447094c05f21d7cca3c115874ff9d12e1538e
   languageName: node
   linkType: hard
 
