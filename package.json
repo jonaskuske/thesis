@@ -23,15 +23,15 @@
     "@fastify/helmet": "^11.1.1",
     "@fastify/middie": "^8.3.1",
     "@fastify/static": "^7.0.4",
-    "@vue/server-renderer": "^3.4.37",
+    "@vue/server-renderer": "^3.4.38",
     "@vue/tsconfig": "^0.5.1",
     "cookie-store": "^4.0.0-next.4",
     "fastify": "^4.28.1",
     "tsx": "patch:tsx@npm%3A4.15.5#~/.yarn/patches/tsx-npm-4.15.5-50c280cb18.patch",
     "urlpattern-polyfill": "^10.0.0",
     "vike": "0.4.184",
-    "vite": "^5.4.0",
-    "vue": "^3.4.37",
+    "vite": "^5.4.1",
+    "vue": "^3.4.38",
     "zip-to-city": "^0.1.1"
   },
   "devDependencies": {
