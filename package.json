@@ -29,7 +29,7 @@
     "fastify": "^4.28.1",
     "tsx": "patch:tsx@npm%3A4.15.5#~/.yarn/patches/tsx-npm-4.15.5-50c280cb18.patch",
     "urlpattern-polyfill": "^10.0.0",
-    "vike": "0.4.184",
+    "vike": "0.4.186",
     "vite": "^5.4.1",
     "vue": "^3.4.38",
     "zip-to-city": "^0.1.1"
