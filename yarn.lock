@@ -490,13 +490,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fastify/cookie@npm:^9.3.1":
-  version: 9.3.1
-  resolution: "@fastify/cookie@npm:9.3.1"
+"@fastify/cookie@npm:^9.4.0":
+  version: 9.4.0
+  resolution: "@fastify/cookie@npm:9.4.0"
   dependencies:
     cookie-signature: "npm:^1.1.0"
     fastify-plugin: "npm:^4.0.0"
-  checksum: 10c0/817acbda0cab3af30bca1ce7e25ad203cdcd0953c5ff5fb71ec54a0979812217ff4ec67b8cce48cd021168e3297abe48b6b30cb74a4a1b84dd70ea1fe2342211
+  checksum: 10c0/24d2fd4648fc28078c793dc862c53c7f3b356813e5482058b004e6c3733fd2ea432fc5e123ffb77d767b833f8c177501f2c45eda5d5d01bd6ed7040d3e3fd9b6
   languageName: node
   linkType: hard
 
@@ -4718,7 +4718,7 @@ __metadata:
   resolution: "thesis@workspace:."
   dependencies:
     "@fastify/compress": "npm:^7.0.3"
-    "@fastify/cookie": "npm:^9.3.1"
+    "@fastify/cookie": "npm:^9.4.0"
     "@fastify/early-hints": "npm:^1.0.1"
     "@fastify/formbody": "npm:^7.4.0"
     "@fastify/helmet": "npm:^11.1.1"
@@ -4745,7 +4745,7 @@ __metadata:
     tsx: "patch:tsx@npm%3A4.15.5#~/.yarn/patches/tsx-npm-4.15.5-50c280cb18.patch"
     typescript: "npm:^5.4.5"
     urlpattern-polyfill: "npm:^10.0.0"
-    vike: "npm:0.4.186"
+    vike: "npm:0.4.188"
     vite: "npm:^5.4.1"
     vue: "npm:^3.4.38"
     vue-tsc: "npm:^2.0.21"
@@ -4976,9 +4976,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vike@npm:0.4.186":
-  version: 0.4.186
-  resolution: "vike@npm:0.4.186"
+"vike@npm:0.4.188":
+  version: 0.4.188
+  resolution: "vike@npm:0.4.188"
   dependencies:
     "@brillout/import": "npm:^0.2.3"
     "@brillout/json-serializer": "npm:^0.5.13"
@@ -5001,7 +5001,7 @@ __metadata:
       optional: true
   bin:
     vike: node/cli/bin-entry.js
-  checksum: 10c0/7b52570897ecdd9d021c692dacc9d570302b7dcb6069062c0c7156241a8b80593d31cdf8d0456c46bf192e4a6e48fbc2c8976a379221c77aa121edc1a742a421
+  checksum: 10c0/8a9e2d4b55a7b9f979d3a9a4af16f4045cc742f03a27c75116342c70d9c5ef686e5657170b715ec5be93050447133ff56c0c23fe20064c5f70deb3c2511bec90
   languageName: node
   linkType: hard
 
