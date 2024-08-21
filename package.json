@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@fastify/compress": "^7.0.3",
-    "@fastify/cookie": "^9.3.1",
+    "@fastify/cookie": "^9.4.0",
     "@fastify/early-hints": "^1.0.1",
     "@fastify/formbody": "^7.4.0",
     "@fastify/helmet": "^11.1.1",
@@ -29,8 +29,8 @@
     "fastify": "^4.28.1",
     "tsx": "patch:tsx@npm%3A4.15.5#~/.yarn/patches/tsx-npm-4.15.5-50c280cb18.patch",
     "urlpattern-polyfill": "^10.0.0",
-    "vike": "0.4.186",
-    "vite": "^5.4.1",
+    "vike": "0.4.191",
+    "vite": "^5.4.2",
     "vue": "^3.4.38",
     "zip-to-city": "^0.1.1"
   },
