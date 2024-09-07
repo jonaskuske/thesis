@@ -2,7 +2,7 @@ FROM node:20.11.0-alpine AS build
 WORKDIR /usr/src/app
 RUN apk add bash
 SHELL [ "/bin/bash", "-c" ]
-COPY ./.yarn ./.yarn
+COPY .yarn .yarn
 COPY package.json yarn.lock .yarnrc.yml ./
 RUN yarn install --immutable
 COPY . .
@@ -16,17 +16,16 @@ RUN yarn build
 
 FROM node:20.11.0-alpine AS runtime
 WORKDIR /usr/src/app
+RUN chown -R node:node .
 ENV NODE_ENV=production
 ENV PORT=80
-COPY .yarn/patches .yarn/patches
-COPY .yarn/releases .yarn/releases
-COPY package.json yarn.lock .yarnrc.yml ./
-RUN yarn workspaces focus --production
-COPY ./server ./server
-COPY ./utils ./utils
-COPY --from=build /usr/src/app/dist ./dist
+COPY --chown=node:node .yarn .yarn
+COPY --chown=node:node package.json yarn.lock .yarnrc.yml ./
+RUN yarn workspaces focus --production && yarn cache clean --mirror && chown -R node:node .yarn
+COPY --chown=node:node ./server ./server
+COPY --chown=node:node ./utils ./utils
+COPY --chown=node:node --from=build /usr/src/app/dist ./dist
 EXPOSE 80
 HEALTHCHECK --retries=2 --timeout=7s CMD wget --no-verbose --tries=1 --spider http://127.0.0.1/health || exit 1
-RUN chown -R node:node .
 USER node
 CMD [ "yarn", "server:prod" ]
