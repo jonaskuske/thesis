@@ -26,7 +26,7 @@ COPY ./server ./server
 COPY ./utils ./utils
 COPY --from=build /usr/src/app/dist ./dist
 EXPOSE 80
-HEALTHCHECK --retries=2 --timeout=7s CMD wget --no-verbose --tries=1 --spider http://localhost/health || exit 1
+# HEALTHCHECK --retries=2 --timeout=7s CMD wget --no-verbose --tries=1 --spider http://localhost/health || exit 1
 RUN chown -R node:node .
 USER node
 CMD [ "yarn", "server:prod" ]
