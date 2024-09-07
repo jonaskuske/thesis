@@ -91,5 +91,5 @@ async function startServer() {
   await app.register(logoutRoutes)
 
   const port = Number(process.env.PORT ?? 3000)
-  await app.listen({ port, host: '0.0.0.0' })
+  await app.listen({ port })
 }
