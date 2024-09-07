@@ -10,7 +10,7 @@
     "build:sw": "esbuild ./serviceWorker.ts --define:import.meta.env.DEV=false --define:import.meta.env.PROD=true --define:import.meta.env.BASE_URL=\\\"/\\\" --define:import.meta.env.PUBLIC_ENV__MODE=\\\"$PUBLIC_ENV__MODE\\\" --define:import.meta.env.PUBLIC_ENV__APP_SHELL=\\\"$PUBLIC_ENV__APP_SHELL\\\" --bundle --platform=browser --target=es2022 --minify --sourcemap --inject:utils/asset-manifest.js --outfile=dist/client/serviceWorker.ts",
     "server": "tsx ./server",
     "server:prod": "NODE_ENV=production tsx ./server",
-    "lint": "eslint . --ext .js,.cjs,.mjs,.jsx,.ts,.cts,.mts,.tsx,.vue",
+    "lint": "eslint .",
     "typecheck": "vue-tsc --noEmit",
     "typecheck:watch": "run typecheck --watch",
     "postinstall": "husky install || true"
@@ -35,21 +35,21 @@
     "zip-to-city": "^0.1.1"
   },
   "devDependencies": {
+    "@eslint/js": "^9.10.0",
     "@types/connect": "^3.4.38",
     "@types/node": "^20.16.5",
-    "@typescript-eslint/eslint-plugin": "^7.18.0",
-    "@typescript-eslint/parser": "^7.18.0",
     "@vitejs/plugin-vue": "^5.1.3",
     "@vue/compiler-sfc": "^3.5.3",
     "@yarnpkg/sdks": "^3.2.0",
     "esbuild": "^0.23.1",
-    "eslint": "8.57.0",
+    "eslint": "9.10.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-vue": "^9.28.0",
     "husky": "^9.1.5",
     "lint-staged": "^15.2.10",
     "prettier": "~3.3.3",
     "typescript": "^5.5.4",
+    "typescript-eslint": "^8.4.0",
     "vue-tsc": "^2.1.6"
   },
   "lint-staged": {
@@ -64,70 +64,5 @@
     "singleQuote": true,
     "printWidth": 100,
     "trailingComma": "all"
-  },
-  "eslintConfig": {
-    "root": true,
-    "extends": [
-      "eslint:recommended",
-      "plugin:@typescript-eslint/eslint-recommended",
-      "plugin:@typescript-eslint/recommended-requiring-type-checking",
-      "plugin:vue/vue3-recommended",
-      "prettier"
-    ],
-    "env": {
-      "es2022": true
-    },
-    "plugins": [
-      "@typescript-eslint"
-    ],
-    "parserOptions": {
-      "parser": "@typescript-eslint/parser",
-      "ecmaVersion": "latest",
-      "project": [
-        "./tsconfig.json",
-        "./tsconfig.sw.json"
-      ],
-      "extraFileExtensions": [
-        ".vue"
-      ]
-    },
-    "rules": {
-      "vue/multi-word-component-names": "off",
-      "vue/no-setup-props-destructure": "off",
-      "no-unused-vars": "off",
-      "@typescript-eslint/no-unused-vars": [
-        "error",
-        {
-          "ignoreRestSiblings": true,
-          "argsIgnorePattern": "^_|ctx|pageContext|err|res|rej|resolve|reject|resp|req|response|reply|request|evt|event|cb|callback"
-        }
-      ],
-      "@typescript-eslint/consistent-type-imports": "error",
-      "@typescript-eslint/no-unsafe-argument": "off",
-      "@typescript-eslint/no-namespace": "off",
-      "@typescript-eslint/require-await": "off",
-      "@typescript-eslint/no-this-alias": "off",
-      "vue/require-toggle-inside-transition": "off",
-      "vue/no-lone-template": "off"
-    }
-  },
-  "eslintIgnore": [
-    "*.min.*",
-    "*.d.ts",
-    "CHANGELOG.md",
-    "dist",
-    "LICENSE*",
-    "output",
-    "coverage",
-    "public",
-    "temp",
-    "packages-lock.json",
-    "pnpm-lock.yaml",
-    "yarn.lock",
-    "yarn/",
-    "__snapshots__",
-    "!.github",
-    "!.vitepress",
-    "!.vscode"
-  ]
+  }
 }

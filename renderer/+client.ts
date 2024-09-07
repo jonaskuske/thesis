@@ -2,7 +2,7 @@ import { allowAnimations } from '../utils'
 import { applyStickyObserver, type StickyObserverDirection } from '../utils/applyStickyObserver'
 
 if (import.meta.env.PUBLIC_ENV__APP_SHELL === 'true') {
-  import('./initServiceWorker')
+  void import('./initServiceWorker')
 
   const title = document.querySelector<HTMLDivElement>('.content')!.dataset.siteTitle as string
   const titleEl = document.querySelector<HTMLAnchorElement>('.navigation .title span')!

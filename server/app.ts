@@ -15,7 +15,7 @@ async function getShellHash() {
     language: 'de',
   })
 
-  const body = (await shell.httpResponse?.getBody())!
+  const body = await shell.httpResponse.getBody()
   return createHash('SHA1')
     .update(_HASH_PREFIX_ + body)
     .digest('hex')

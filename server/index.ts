@@ -62,11 +62,9 @@ async function startServer() {
       maxAge: isProd ? 1000 * 60 * 60 * 24 * 365 : 1000 * 60,
       setHeaders(res, path) {
         if (path.endsWith('.ts')) {
-          // eslint-disable-next-line @typescript-eslint/no-floating-promises
           res.setHeader('content-type', 'text/javascript;charset=utf-8')
         }
         if (/s(?:ervice)?-?(?:worker)?\.[jt]s/i.test(path)) {
-          // eslint-disable-next-line @typescript-eslint/no-floating-promises
           res.setHeader('cache-control', 'no-cache')
         }
       },

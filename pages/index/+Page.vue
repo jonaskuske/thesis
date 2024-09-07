@@ -20,7 +20,7 @@ const locationIds = computed(() => data.value.locationIds)
 const isMPA = import.meta.env.PUBLIC_ENV__MODE === 'MPA'
 
 watch(search, (search, _, onCleanup) => {
-  let abortHandler = new AbortController()
+  const abortHandler = new AbortController()
 
   if (!search.length) results.value = []
   else {

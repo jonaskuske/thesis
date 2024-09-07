@@ -13,6 +13,11 @@
     "lib": ["ES2022", "WebWorker"],
     "target": "ES2022",
     "module": "ES2022",
-    "types": []
+    "types": [],
+    "strict": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "isolatedModules": true
   }
 }

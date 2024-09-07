@@ -14,7 +14,7 @@ async function deleteLocation() {
   isLoading.value = true
 
   const locationIds = new Set((await cookies.get('location_ids')) ?? [])
-  locationIds.delete(ctx.routeParams!.value!.locationId)
+  locationIds.delete(ctx.routeParams.value.locationId)
   await cookies.set('location_ids', [...locationIds])
 
   isLoading.value = false
