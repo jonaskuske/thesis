@@ -1,8 +1,14 @@
-.dockerignore
-Dockerfile
-node_modules
 README.md
+.github
 .husky
 .vscode
+.yarn/*
+!.yarn/releases
+!.yarn/patches
 dist
 node_modules
+.gitignore
+.gitattributes
+Dockerfile
+.dockerignore
+.pnp.*
