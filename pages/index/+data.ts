@@ -1,5 +1,5 @@
-import cities from 'zip-to-city/germany.json'
-import * as store from '../../utils/cookies'
+import cities from 'zip-to-city/germany.json' with { type: 'json' }
+import * as store from '../../utils/cookies.ts'
 import type { PageContextServer } from 'vike/types'
 
 export type Data = Awaited<ReturnType<typeof data>>

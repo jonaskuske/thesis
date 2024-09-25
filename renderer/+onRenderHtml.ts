@@ -1,9 +1,9 @@
 import { pipeToNodeWritable, type SSRContext } from '@vue/server-renderer'
 import { escapeInject, stampPipe } from 'vike/server'
 import type { OnRenderHtmlSync } from 'vike/types'
-import { createApp } from './createApp'
+import { createApp } from './createApp.ts'
 import type internal from 'stream'
-import { allowAnimations } from '../utils'
+import { allowAnimations } from '../utils/index.ts'
 
 const MODE = import.meta.env.PUBLIC_ENV__MODE
 

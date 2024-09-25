@@ -10,12 +10,12 @@ import earlyHints from '@fastify/early-hints'
 import {
   // isDev,
   isProd,
-} from '../utils'
-import appRoutes from './app'
-import citiesRoutes from './cities'
-import locationsRoutes from './locations'
-import loginRoutes from './login'
-import logoutRoutes from './logout'
+} from '../utils/index.ts'
+import appRoutes from './app.ts'
+import citiesRoutes from './cities.ts'
+import locationsRoutes from './locations.ts'
+import loginRoutes from './login.ts'
+import logoutRoutes from './logout.ts'
 
 const root = fileURLToPath(new URL('..', import.meta.url))
 

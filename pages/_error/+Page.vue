@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { usePageContext } from '../../composables/usePageContext'
+import { usePageContext } from '../../composables/usePageContext.ts'
 
 const { is404 } = usePageContext()
 </script>

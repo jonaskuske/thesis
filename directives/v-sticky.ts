@@ -1,5 +1,5 @@
 import { type ObjectDirective } from 'vue'
-import { applyStickyObserver, type StickyObserverDirection } from '../utils/applyStickyObserver'
+import { applyStickyObserver, type StickyObserverDirection } from '../utils/applyStickyObserver.ts'
 
 export const vSticky: ObjectDirective<HTMLElement & { __stickyObs?: IntersectionObserver }> = {
   mounted(el, { arg }) {

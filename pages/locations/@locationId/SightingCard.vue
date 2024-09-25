@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { Data } from './+data'
+import type { Data } from './+data.ts'
 import Calendar from '../../../components/icons/Calendar.vue'
 import Clock from '../../../components/icons/Clock.vue'
-import { usePageContext } from '../../../composables/usePageContext'
+import { usePageContext } from '../../../composables/usePageContext.ts'
 
 const ctx = usePageContext()
 const props = defineProps<{ sighting: Data['sightings'][0] }>()

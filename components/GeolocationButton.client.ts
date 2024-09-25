@@ -1,6 +1,6 @@
 export type GeolocationData = { address: { postcode: string } }
 
-import { GeolocationPermission } from '../utils/GeolocationPermission'
+import { GeolocationPermission } from '../utils/GeolocationPermission.ts'
 
 const geolocationPermission = new GeolocationPermission()
 

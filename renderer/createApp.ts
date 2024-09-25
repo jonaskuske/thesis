@@ -8,7 +8,7 @@ import {
   ref,
 } from 'vue'
 import PageShell from '../components/PageShell.vue'
-import { setPageContext } from '../composables/usePageContext'
+import { setPageContext } from '../composables/usePageContext.ts'
 import type { PageContext } from 'vike/types'
 
 export function createApp(pageContext: PageContext) {

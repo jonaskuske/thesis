@@ -1,5 +1,8 @@
-import '../../renderer/+client'
-import { GeolocationButton, type GeolocationData } from '../../components/GeolocationButton.client'
+import '../../renderer/+client.ts'
+import {
+  GeolocationButton,
+  type GeolocationData,
+} from '../../components/GeolocationButton.client.ts'
 import type CitiesJson from 'zip-to-city/germany.json'
 type Cities = typeof CitiesJson
 

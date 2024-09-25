@@ -1,4 +1,4 @@
-FROM node:20.17.0-alpine3.20 AS build
+FROM node:22.9.0-alpine3.20 AS build
 WORKDIR /usr/src/app
 RUN apk add bash
 SHELL [ "/bin/bash", "-c" ]
@@ -14,7 +14,7 @@ ENV PUBLIC_ENV__MODE=${PUBLIC_ENV__MODE}
 ENV PUBLIC_ENV__ANIMATIONS=${PUBLIC_ENV__ANIMATIONS}
 RUN yarn build
 
-FROM node:20.17.0-alpine3.20 AS runtime
+FROM node:22.9.0-alpine3.20 AS runtime
 WORKDIR /usr/src/app
 RUN chown -R node:node .
 ENV NODE_ENV=production

@@ -1,5 +1,5 @@
-import { allowAnimations } from '../utils'
-import { applyStickyObserver, type StickyObserverDirection } from '../utils/applyStickyObserver'
+import { allowAnimations } from '../utils/index.ts'
+import { applyStickyObserver, type StickyObserverDirection } from '../utils/applyStickyObserver.ts'
 
 if (import.meta.env.PUBLIC_ENV__APP_SHELL === 'true') {
   void import('./initServiceWorker')

@@ -5,6 +5,7 @@
   "compilerOptions": {
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "moduleResolution": "Bundler",
+    "allowImportingTsExtensions": true,
     "types": ["node"],
     "strict": true,
     "noImplicitOverride": true,

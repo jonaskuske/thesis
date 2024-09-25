@@ -1,5 +1,5 @@
 import { ref, onMounted } from 'vue'
-import { GeolocationPermission } from '../utils/GeolocationPermission'
+import { GeolocationPermission } from '../utils/GeolocationPermission.ts'
 
 let geolocationPermission: GeolocationPermission
 

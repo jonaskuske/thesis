@@ -1,4 +1,4 @@
-import { isServer } from '.'
+import { isServer } from './index.ts'
 import type { CookieStore } from 'cookie-store'
 
 type KeyValMap = {

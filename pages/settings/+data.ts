@@ -1,5 +1,5 @@
 import type { PageContextServer } from 'vike/types'
-import * as store from '../../utils/cookies'
+import * as store from '../../utils/cookies.ts'
 
 export type Data = Awaited<ReturnType<typeof data>>
 

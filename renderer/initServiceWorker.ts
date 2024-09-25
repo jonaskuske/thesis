@@ -1,4 +1,4 @@
-import { isDev } from '../utils'
+import { isDev } from '../utils/index.ts'
 
 const windowUrl = new URL(window.location.href)
 

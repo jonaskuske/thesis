@@ -2,10 +2,10 @@
 import { computed, ref } from 'vue'
 import NoFlyOverGraphic from '../../../components/NoFlyOverGraphic.vue'
 import { usePageData } from '../../../composables/usePageData'
-import type { Data } from './+data'
+import type { Data } from './+data.ts'
 import ExpandedSightingCard from './ExpandedSightingCard.vue'
 import SightingCard from './SightingCard.vue'
-import { usePageContext } from '../../../composables/usePageContext'
+import { usePageContext } from '../../../composables/usePageContext.ts'
 const { urlParsed } = usePageContext()
 const data = usePageData<Data>()
 

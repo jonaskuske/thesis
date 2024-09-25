@@ -1,5 +1,5 @@
 import { computed, type Ref } from 'vue'
-import { usePageContext } from './usePageContext'
+import { usePageContext } from './usePageContext.ts'
 
 export function useIsShell(): Ref<boolean> {
   const ctx = usePageContext()

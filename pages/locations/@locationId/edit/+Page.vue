@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { navigate } from 'vike/client/router'
-import { usePageContext } from '../../../../composables/usePageContext'
-import * as cookies from '../../../../utils/cookies'
+import { usePageContext } from '../../../../composables/usePageContext.ts'
+import * as cookies from '../../../../utils/cookies.ts'
 
 const ctx = usePageContext()
 

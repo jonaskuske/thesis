@@ -1,4 +1,4 @@
-import { createApp } from './createApp'
+import { createApp } from './createApp.ts'
 import type { OnRenderClientSync } from 'vike/types'
 
 declare class URLPattern {

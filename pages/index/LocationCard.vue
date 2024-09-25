@@ -4,7 +4,7 @@ import Link from '../../components/Link.vue'
 import Cloud from '../../components/icons/Cloud.vue'
 import Calendar from '../../components/icons/Calendar.vue'
 import Clock from '../../components/icons/Clock.vue'
-import { usePageContext } from '../../composables/usePageContext'
+import { usePageContext } from '../../composables/usePageContext.ts'
 
 const ctx = usePageContext()
 

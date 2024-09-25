@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { watch, ref, computed } from 'vue'
 import { reload } from 'vike/client/router'
-import { usePageData } from '../../composables/usePageData'
+import { usePageData } from '../../composables/usePageData.ts'
 import GeolocationButton from '../../components/GeolocationButton.vue'
 import LocationList from './LocationList.vue'
 import Search from '../../components/icons/Search.vue'
 import SearchResult from './SearchResult.vue'
 import type cities from 'zip-to-city/germany.json'
-import type { Data } from './+data'
-import * as cookies from '../../utils/cookies'
+import type { Data } from './+data.ts'
+import * as cookies from '../../utils/cookies.ts'
 
 const data = usePageData<Data>()
 

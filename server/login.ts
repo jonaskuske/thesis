@@ -1,5 +1,5 @@
 import type { FastifyPluginAsync } from 'fastify'
-import { get } from '../utils/cookies'
+import { get } from '../utils/cookies.ts'
 import { randomUUID } from 'crypto'
 
 const loginBodySchema = {

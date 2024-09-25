@@ -1,5 +1,5 @@
 import type { FastifyPluginAsync } from 'fastify'
-import cities from 'zip-to-city/germany.json'
+import cities from 'zip-to-city/germany.json' with { type: 'json' }
 
 type IQuerystring = { search?: string; include?: string[]; limit?: number }
 

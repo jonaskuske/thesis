@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useTitle } from '../composables/useTitle'
+import { useTitle } from '../composables/useTitle.ts'
 
 const title = useTitle()
 </script>

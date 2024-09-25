@@ -1,16 +1,16 @@
 <script lang="ts" setup>
-import * as store from '../../utils/cookies'
+import * as store from '../../utils/cookies.ts'
 
 import { watch, watchEffect, ref, computed, TransitionGroup, defineComponent } from 'vue'
 import AtSign from '../../components/icons/AtSign.vue'
 import Avatar from '../../components/icons/Avatar.vue'
 import Key from '../../components/icons/Key.vue'
-import { useNotificationPermission } from '../../composables/useNotificationPermission'
-import { useLocationPermission } from '../../composables/useGeolocationPermission'
-import { usePageData } from '../../composables/usePageData'
-import type { Data } from './+data'
+import { useNotificationPermission } from '../../composables/useNotificationPermission.ts'
+import { useLocationPermission } from '../../composables/useGeolocationPermission.ts'
+import { usePageData } from '../../composables/usePageData.ts'
+import type { Data } from './+data.ts'
 import { reload } from 'vike/client/router'
-import { allowAnimations } from '../../utils'
+import { allowAnimations } from '../../utils/index.ts'
 
 const Wrapper = defineComponent((props, { slots }) => {
   return () => slots.default?.()

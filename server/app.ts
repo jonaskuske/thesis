@@ -2,7 +2,7 @@ import { PassThrough } from 'node:stream'
 import { createHash } from 'node:crypto'
 import type { FastifyPluginAsync } from 'fastify'
 import { renderPage } from 'vike/server'
-import { isDev, isProd, isAppShellMode } from '../utils'
+import { isDev, isProd, isAppShellMode } from '../utils/index.ts'
 
 const _HASH_PREFIX_ = 'v1'
 

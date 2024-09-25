@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, watchEffect } from 'vue'
-import { useLocationPermission } from '../composables/useGeolocationPermission'
+import { useLocationPermission } from '../composables/useGeolocationPermission.ts'
 
 const emit = defineEmits<{
   (e: 'location', address: Record<string, string>): void
