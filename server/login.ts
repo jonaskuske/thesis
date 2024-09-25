@@ -17,7 +17,7 @@ const routes: FastifyPluginAsync = async (fastify) => {
       const encoded = JSON.stringify(userId)
 
       if (request.headers['accept']?.includes('text/html')) {
-        await reply.cookie('user_id', encoded).redirect(303, request.body.r ?? '/')
+        await reply.cookie('user_id', encoded).redirect(request.body.r ?? '/', 303)
       } else return reply.cookie('user_id', encoded).send()
     },
   )
