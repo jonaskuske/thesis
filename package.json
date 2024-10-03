@@ -28,7 +28,7 @@
     "cookie-store": "^4.0.0-next.4",
     "fastify": "^5.0.0",
     "urlpattern-polyfill": "^10.0.0",
-    "vike": "0.4.197",
+    "vike": "0.4.198",
     "vite": "^5.4.8",
     "vue": "^3.5.10",
     "zip-to-city": "^0.1.1"
