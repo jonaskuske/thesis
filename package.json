@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@fastify/compress": "^8.0.1",
-    "@fastify/cookie": "^10.0.1",
+    "@fastify/cookie": "^11.0.1",
     "@fastify/early-hints": "^1.0.1",
     "@fastify/formbody": "^8.0.1",
     "@fastify/helmet": "^12.0.1",
