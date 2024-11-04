@@ -78,12 +78,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@brillout/vite-plugin-server-entry@npm:^0.4.11":
-  version: 0.4.12
-  resolution: "@brillout/vite-plugin-server-entry@npm:0.4.12"
+"@brillout/vite-plugin-server-entry@npm:^0.5.0":
+  version: 0.5.1
+  resolution: "@brillout/vite-plugin-server-entry@npm:0.5.1"
   dependencies:
     "@brillout/import": "npm:^0.2.3"
-  checksum: 10c0/6a5121b46a872e29d9cc3aee708bc845ce10e2e75b015b738876105dceb02d4374d1f5104f14b372b1982445d3aa38f9059e0bbf6ba21816744a4fe4191fe417
+  checksum: 10c0/50b84a933b59f2460a48a51d1fa687076dfd590e1fe8862fc61754b2caa6be88dc30e841fb43286928b00f1a7bb44c6c7ee3768a9f783498d29782cba5d3343a
   languageName: node
   linkType: hard
 
@@ -893,13 +893,6 @@ __metadata:
   version: 0.11.0
   resolution: "@pkgjs/parseargs@npm:0.11.0"
   checksum: 10c0/5bd7576bb1b38a47a7fc7b51ac9f38748e772beebc56200450c4a817d712232b8f1d3ef70532c80840243c657d491cf6a6be1e3a214cff907645819fdc34aadd
-  languageName: node
-  linkType: hard
-
-"@polka/url@npm:^1.0.0-next.24":
-  version: 1.0.0-next.25
-  resolution: "@polka/url@npm:1.0.0-next.25"
-  checksum: 10c0/ef61f0a0fe94bb6e1143fc5b9d5a12e6ca9dbd2c57843ebf81db432c21b9f1005c09e8a1ef8b6d5ddfa42146ca65b640feb2d353bd0d3546da46ba59e48a5349
   languageName: node
   linkType: hard
 
@@ -3835,13 +3828,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mrmime@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "mrmime@npm:2.0.0"
-  checksum: 10c0/312b35ed288986aec90955410b21ed7427fd1e4ee318cb5fc18765c8d029eeded9444faa46589e5b1ed6b35fb2054a802ac8dcb917ddf6b3e189cb3bf11a965c
-  languageName: node
-  linkType: hard
-
 "ms@npm:^2.1.3":
   version: 2.1.3
   resolution: "ms@npm:2.1.3"
@@ -4611,17 +4597,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sirv@npm:^2.0.0":
-  version: 2.0.4
-  resolution: "sirv@npm:2.0.4"
-  dependencies:
-    "@polka/url": "npm:^1.0.0-next.24"
-    mrmime: "npm:^2.0.0"
-    totalist: "npm:^3.0.0"
-  checksum: 10c0/68f8ee857f6a9415e9c07a1f31c7c561df8d5f1b1ba79bee3de583fa37da8718def5309f6b1c6e2c3ef77de45d74f5e49efc7959214443aa92d42e9c99180a4e
-  languageName: node
-  linkType: hard
-
 "slice-ansi@npm:^5.0.0":
   version: 5.0.0
   resolution: "slice-ansi@npm:5.0.0"
@@ -4905,7 +4880,7 @@ __metadata:
     typescript: "npm:^5.6.2"
     typescript-eslint: "npm:^8.7.0"
     urlpattern-polyfill: "npm:^10.0.0"
-    vike: "npm:0.4.199"
+    vike: "npm:0.4.200"
     vite: "npm:^5.4.10"
     vue: "npm:^3.5.12"
     vue-tsc: "npm:^2.1.6"
@@ -4966,13 +4941,6 @@ __metadata:
   version: 1.0.1
   resolution: "toidentifier@npm:1.0.1"
   checksum: 10c0/93937279934bd66cc3270016dd8d0afec14fb7c94a05c72dc57321f8bd1fa97e5bea6d1f7c89e728d077ca31ea125b78320a616a6c6cd0e6b9cb94cb864381c1
-  languageName: node
-  linkType: hard
-
-"totalist@npm:^3.0.0":
-  version: 3.0.1
-  resolution: "totalist@npm:3.0.1"
-  checksum: 10c0/4bb1fadb69c3edbef91c73ebef9d25b33bbf69afe1e37ce544d5f7d13854cda15e47132f3e0dc4cafe300ddb8578c77c50a65004d8b6e97e77934a69aa924863
   languageName: node
   linkType: hard
 
@@ -5111,22 +5079,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vike@npm:0.4.199":
-  version: 0.4.199
-  resolution: "vike@npm:0.4.199"
+"vike@npm:0.4.200":
+  version: 0.4.200
+  resolution: "vike@npm:0.4.200"
   dependencies:
     "@brillout/import": "npm:^0.2.3"
     "@brillout/json-serializer": "npm:^0.5.13"
     "@brillout/picocolors": "npm:^1.0.15"
     "@brillout/require-shim": "npm:^0.1.2"
-    "@brillout/vite-plugin-server-entry": "npm:^0.4.11"
+    "@brillout/vite-plugin-server-entry": "npm:^0.5.0"
     acorn: "npm:^8.0.0"
     cac: "npm:^6.0.0"
     es-module-lexer: "npm:^1.0.0"
     esbuild: "npm:^0.19.0 || ^0.20.0 || ^0.21.0 || ^0.22.0 || ^0.23.0"
     fast-glob: "npm:^3.0.0"
     semver: "npm:^7.0.0"
-    sirv: "npm:^2.0.0"
     source-map-support: "npm:^0.5.0"
   peerDependencies:
     react-streaming: ">=0.3.42"
@@ -5136,7 +5103,7 @@ __metadata:
       optional: true
   bin:
     vike: node/cli/bin-entry.js
-  checksum: 10c0/f5d0186341ba2bd424d9ed1a502f63473892a70931ddca8b0fe8fb734f7646e68d1a5d1e4d1bc5a48cdec744339af930083b2f207e99fa65e6cd26ab36a89c3d
+  checksum: 10c0/790428d4d3cf270dcd9d0df97ec2df1188c523e59883bf921baae16a650449617f0eff61d35e6910a8e8ecfbe3ed8fe4a09a03387445c6e3b052b6e18aaa61ff
   languageName: node
   linkType: hard
 
