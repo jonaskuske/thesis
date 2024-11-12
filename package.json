@@ -29,7 +29,7 @@
     "fastify": "^5.1.0",
     "urlpattern-polyfill": "^10.0.0",
     "vike": "0.4.201",
-    "vite": "^5.4.10",
+    "vite": "^5.4.11",
     "vue": "^3.5.12",
     "zip-to-city": "^0.1.1"
   },
