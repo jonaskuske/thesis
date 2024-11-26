@@ -20,7 +20,7 @@
     "@fastify/cookie": "^11.0.1",
     "@fastify/early-hints": "^1.0.1",
     "@fastify/formbody": "^8.0.1",
-    "@fastify/helmet": "^12.0.1",
+    "@fastify/helmet": "^13.0.0",
     "@fastify/middie": "^9.0.2",
     "@fastify/static": "^8.0.3",
     "@vue/server-renderer": "^3.5.13",
