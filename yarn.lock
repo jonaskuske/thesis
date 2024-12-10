@@ -57,10 +57,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@brillout/json-serializer@npm:^0.5.13":
-  version: 0.5.13
-  resolution: "@brillout/json-serializer@npm:0.5.13"
-  checksum: 10c0/03d83927456328339dcc15024dee0025924654078eb4b7fcbad56ec6adea6dd4342cfa686bd1106dd459afef49a0447cb222e86db20945a32a7f4fba59e04a75
+"@brillout/json-serializer@npm:^0.5.15":
+  version: 0.5.15
+  resolution: "@brillout/json-serializer@npm:0.5.15"
+  checksum: 10c0/eb04c5f8f4d736a5494eb7b7e6ec8f80a913fd76bf462ff593c886e17e67729270a2aaaba17523d34a8b8b660ed9999ee18af04b6b77a9c68179ef4a83a00759
   languageName: node
   linkType: hard
 
@@ -4423,7 +4423,7 @@ __metadata:
     typescript: "npm:^5.6.2"
     typescript-eslint: "npm:^8.7.0"
     urlpattern-polyfill: "npm:^10.0.0"
-    vike: "npm:0.4.206"
+    vike: "npm:0.4.208"
     vite: "npm:^6.0.3"
     vue: "npm:^3.5.13"
     vue-tsc: "npm:^2.1.6"
@@ -4622,12 +4622,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vike@npm:0.4.206":
-  version: 0.4.206
-  resolution: "vike@npm:0.4.206"
+"vike@npm:0.4.208":
+  version: 0.4.208
+  resolution: "vike@npm:0.4.208"
   dependencies:
     "@brillout/import": "npm:^0.2.3"
-    "@brillout/json-serializer": "npm:^0.5.13"
+    "@brillout/json-serializer": "npm:^0.5.15"
     "@brillout/picocolors": "npm:^1.0.15"
     "@brillout/require-shim": "npm:^0.1.2"
     "@brillout/vite-plugin-server-entry": "npm:^0.5.0"
@@ -4646,7 +4646,7 @@ __metadata:
       optional: true
   bin:
     vike: node/cli/bin-entry.js
-  checksum: 10c0/b75d5f5d8d1bdcbd1ab41f065d2babf0d7a4c442315f1205e8138f1d0ee4a1d6629cfe31c66bf0b18599b76c827dfa64af08b3dd32384ec2d1b37db45276bbb1
+  checksum: 10c0/0e5b0f4df954b04abdab656237322a1783780c485ba17a583f47a78a52be718b58176a64decbe9ba8866fd7211e12b79f4f8aae8f6326120ec4f93b5cd9bff70
   languageName: node
   linkType: hard
 
