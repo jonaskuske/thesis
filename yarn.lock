@@ -64,7 +64,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@brillout/picocolors@npm:^1.0.15":
+"@brillout/picocolors@npm:^1.0.14, @brillout/picocolors@npm:^1.0.15":
   version: 1.0.15
   resolution: "@brillout/picocolors@npm:1.0.15"
   checksum: 10c0/9d122076579f516fcd8fe80470961f19018c6a8f8f6fd628a476557ab2f85cd02ddb122728b4baeac0988ed292cb29ea7d07137e30708e6294a850cd62cb54b4
@@ -78,12 +78,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@brillout/vite-plugin-server-entry@npm:^0.5.0":
-  version: 0.5.1
-  resolution: "@brillout/vite-plugin-server-entry@npm:0.5.1"
+"@brillout/vite-plugin-server-entry@npm:^0.5.6":
+  version: 0.5.6
+  resolution: "@brillout/vite-plugin-server-entry@npm:0.5.6"
   dependencies:
     "@brillout/import": "npm:^0.2.3"
-  checksum: 10c0/50b84a933b59f2460a48a51d1fa687076dfd590e1fe8862fc61754b2caa6be88dc30e841fb43286928b00f1a7bb44c6c7ee3768a9f783498d29782cba5d3343a
+    "@brillout/picocolors": "npm:^1.0.14"
+  checksum: 10c0/2d5875588874737645092451fd803477359ba6c2f0c4d81fce2ec3044f4d0d35b078cdadaac6083ec99162290957fb9fdc769203d1ec844d2cb6b6b2d65ba0bb
   languageName: node
   linkType: hard
 
@@ -4423,7 +4424,7 @@ __metadata:
     typescript: "npm:^5.6.2"
     typescript-eslint: "npm:^8.7.0"
     urlpattern-polyfill: "npm:^10.0.0"
-    vike: "npm:0.4.208"
+    vike: "npm:0.4.209"
     vite: "npm:^6.0.3"
     vue: "npm:^3.5.13"
     vue-tsc: "npm:^2.1.6"
@@ -4622,15 +4623,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vike@npm:0.4.208":
-  version: 0.4.208
-  resolution: "vike@npm:0.4.208"
+"vike@npm:0.4.209":
+  version: 0.4.209
+  resolution: "vike@npm:0.4.209"
   dependencies:
     "@brillout/import": "npm:^0.2.3"
     "@brillout/json-serializer": "npm:^0.5.15"
     "@brillout/picocolors": "npm:^1.0.15"
     "@brillout/require-shim": "npm:^0.1.2"
-    "@brillout/vite-plugin-server-entry": "npm:^0.5.0"
+    "@brillout/vite-plugin-server-entry": "npm:^0.5.6"
     acorn: "npm:^8.0.0"
     cac: "npm:^6.0.0"
     es-module-lexer: "npm:^1.0.0"
@@ -4646,7 +4647,7 @@ __metadata:
       optional: true
   bin:
     vike: node/cli/bin-entry.js
-  checksum: 10c0/0e5b0f4df954b04abdab656237322a1783780c485ba17a583f47a78a52be718b58176a64decbe9ba8866fd7211e12b79f4f8aae8f6326120ec4f93b5cd9bff70
+  checksum: 10c0/20905f4e444090f5e08153c2cce0ef8fce294f61dc921071c4e57ee229314a96318384c17582f5002c095f0c9186e7e238160e2f54c07c23a55e4b29d6ccfbb9
   languageName: node
   linkType: hard
 
