@@ -1,6 +1,6 @@
 {
   "name": "thesis",
-  "packageManager": "yarn@4.4.1",
+  "packageManager": "yarn@4.6.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -34,22 +34,22 @@
     "zip-to-city": "^0.1.1"
   },
   "devDependencies": {
-    "@eslint/js": "^9.11.1",
+    "@eslint/js": "^9.17.0",
     "@types/connect": "^3.4.38",
-    "@types/node": "^20.16.8",
-    "@vitejs/plugin-vue": "^5.1.4",
-    "@vue/compiler-sfc": "^3.5.8",
+    "@types/node": "^22.10.3",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "@vue/compiler-sfc": "^3.5.13",
     "@yarnpkg/sdks": "^3.2.0",
-    "esbuild": "^0.24.0",
-    "eslint": "9.11.1",
+    "esbuild": "^0.24.2",
+    "eslint": "9.17.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-vue": "^9.28.0",
-    "husky": "^9.1.6",
-    "lint-staged": "^15.2.10",
-    "prettier": "~3.3.3",
-    "typescript": "^5.6.2",
-    "typescript-eslint": "^8.7.0",
-    "vue-tsc": "^2.1.6"
+    "eslint-plugin-vue": "^9.32.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.3.0",
+    "prettier": "~3.4.2",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.19.0",
+    "vue-tsc": "^2.2.0"
   },
   "lint-staged": {
     "*.{cjs,mjs,js,jsx,cts,mts,ts,tsx,vue}": [
