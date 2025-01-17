@@ -4338,7 +4338,7 @@ __metadata:
     typescript: "npm:^5.7.2"
     typescript-eslint: "npm:^8.19.0"
     urlpattern-polyfill: "npm:^10.0.0"
-    vike: "npm:0.4.216"
+    vike: "npm:0.4.217"
     vite: "npm:^6.0.7"
     vue: "npm:^3.5.13"
     vue-tsc: "npm:^2.2.0"
@@ -4537,9 +4537,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vike@npm:0.4.216":
-  version: 0.4.216
-  resolution: "vike@npm:0.4.216"
+"vike@npm:0.4.217":
+  version: 0.4.217
+  resolution: "vike@npm:0.4.217"
   dependencies:
     "@brillout/import": "npm:^0.2.3"
     "@brillout/json-serializer": "npm:^0.5.15"
@@ -4565,7 +4565,7 @@ __metadata:
       optional: true
   bin:
     vike: node/cli/bin.js
-  checksum: 10c0/048edf035c1f6543090d2e5e7ec9a715a159bdab93b705031888a914998a18f8890034469419ccac814d08678fe7ef42e417df9d63e436b8129fabdd81390e35
+  checksum: 10c0/336f8c641ef96b6a1cf1ccf87f360b0f2555c89e9bd7d1050a47ef3ae142ec002b7ad81098d85700a7aee1eebc280f162624c639ad821bb4a845877101d720ba
   languageName: node
   linkType: hard
 
