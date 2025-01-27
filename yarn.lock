@@ -78,13 +78,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@brillout/vite-plugin-server-entry@npm:^0.5.6":
-  version: 0.5.6
-  resolution: "@brillout/vite-plugin-server-entry@npm:0.5.6"
+"@brillout/vite-plugin-server-entry@npm:^0.5.8":
+  version: 0.5.8
+  resolution: "@brillout/vite-plugin-server-entry@npm:0.5.8"
   dependencies:
     "@brillout/import": "npm:^0.2.3"
     "@brillout/picocolors": "npm:^1.0.14"
-  checksum: 10c0/2d5875588874737645092451fd803477359ba6c2f0c4d81fce2ec3044f4d0d35b078cdadaac6083ec99162290957fb9fdc769203d1ec844d2cb6b6b2d65ba0bb
+  checksum: 10c0/dfe28b2edbdb8bb2c4707bbf8b8072dd8fa1d089b834e26e1def33f6bba346f2bc3c7cf5610a2d22c5461bb5f0765723fc9000be7ec4c80b1ad33e6abe53c814
   languageName: node
   linkType: hard
 
@@ -4338,7 +4338,7 @@ __metadata:
     typescript: "npm:^5.7.2"
     typescript-eslint: "npm:^8.19.0"
     urlpattern-polyfill: "npm:^10.0.0"
-    vike: "npm:0.4.218"
+    vike: "npm:0.4.219"
     vite: "npm:^6.0.11"
     vue: "npm:^3.5.13"
     vue-tsc: "npm:^2.2.0"
@@ -4537,15 +4537,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vike@npm:0.4.218":
-  version: 0.4.218
-  resolution: "vike@npm:0.4.218"
+"vike@npm:0.4.219":
+  version: 0.4.219
+  resolution: "vike@npm:0.4.219"
   dependencies:
     "@brillout/import": "npm:^0.2.3"
     "@brillout/json-serializer": "npm:^0.5.15"
     "@brillout/picocolors": "npm:^1.0.15"
     "@brillout/require-shim": "npm:^0.1.2"
-    "@brillout/vite-plugin-server-entry": "npm:^0.5.6"
+    "@brillout/vite-plugin-server-entry": "npm:^0.5.8"
     acorn: "npm:^8.0.0"
     cac: "npm:^6.0.0"
     es-module-lexer: "npm:^1.0.0"
@@ -4565,7 +4565,7 @@ __metadata:
       optional: true
   bin:
     vike: node/cli/bin.js
-  checksum: 10c0/9678a374bbf576b9c1b2ed175e641ad0593cbc2a5495fcd679473b03527784106794ae6b1f9c0ae649468e3eb3a2e0381d8e79f059e46465713291e6f2abda78
+  checksum: 10c0/abac9fb9c1c559d38db0be2669a10dff4a2c5b475c249f3ca98b1986acf62d46426dd8eeafb14f519d6161a354fa3432b4fcd25297144664ed4d365f68460bc9
   languageName: node
   linkType: hard
 
