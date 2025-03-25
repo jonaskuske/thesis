@@ -78,13 +78,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@brillout/vite-plugin-server-entry@npm:^0.6.3":
-  version: 0.6.3
-  resolution: "@brillout/vite-plugin-server-entry@npm:0.6.3"
+"@brillout/vite-plugin-server-entry@npm:^0.7.1":
+  version: 0.7.1
+  resolution: "@brillout/vite-plugin-server-entry@npm:0.7.1"
   dependencies:
     "@brillout/import": "npm:^0.2.6"
     "@brillout/picocolors": "npm:^1.0.26"
-  checksum: 10c0/6f830154c234ea90c60181bdbe6292700171e2de2f82d1008696310c70ca7020e6dde033ff7d2d50746f4a0c5374cd8778ed6ac1eb670d94cd527fbfeb6aecf5
+  checksum: 10c0/297f8ddb943cc8d6d83a653792d7b773cebf0f8823200573c1ebcf461b0ca582433db7d257ff48797f90fb1d8d762160123bf4d3a76b9980f8cf6670b2a3fe47
   languageName: node
   linkType: hard
 
@@ -4868,8 +4868,8 @@ __metadata:
     typescript: "npm:^5.7.2"
     typescript-eslint: "npm:^8.19.0"
     urlpattern-polyfill: "npm:^10.0.0"
-    vike: "npm:0.4.225"
-    vite: "npm:^6.2.2"
+    vike: "npm:0.4.226"
+    vite: "npm:^6.2.3"
     vue: "npm:^3.5.13"
     vue-tsc: "npm:^2.2.0"
     zip-to-city: "npm:^0.1.1"
@@ -5084,15 +5084,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vike@npm:0.4.225":
-  version: 0.4.225
-  resolution: "vike@npm:0.4.225"
+"vike@npm:0.4.226":
+  version: 0.4.226
+  resolution: "vike@npm:0.4.226"
   dependencies:
     "@brillout/import": "npm:^0.2.6"
     "@brillout/json-serializer": "npm:^0.5.15"
     "@brillout/picocolors": "npm:^1.0.26"
     "@brillout/require-shim": "npm:^0.1.2"
-    "@brillout/vite-plugin-server-entry": "npm:^0.6.3"
+    "@brillout/vite-plugin-server-entry": "npm:^0.7.1"
     acorn: "npm:^8.0.0"
     cac: "npm:^6.0.0"
     es-module-lexer: "npm:^1.0.0"
@@ -5114,7 +5114,7 @@ __metadata:
       optional: true
   bin:
     vike: node/cli/bin.js
-  checksum: 10c0/ea4837a7279655c6fb7147fe1758e80683bd22419abc6fc604d2162e7b188cc267af1871812b94aa16535b15075a91512b722fc7f056307673e25f20cac05769
+  checksum: 10c0/3a3cf6a08e992bbe33813256d7064d37293dbd42ac99e206e451773910306591a759c64001d49460b457bd64e1f1234470a8e988daf7c6938124d876b3fb2ff9
   languageName: node
   linkType: hard
 
@@ -5170,9 +5170,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^6.2.2":
-  version: 6.2.2
-  resolution: "vite@npm:6.2.2"
+"vite@npm:^6.2.3":
+  version: 6.2.3
+  resolution: "vite@npm:6.2.3"
   dependencies:
     esbuild: "npm:^0.25.0"
     fsevents: "npm:~2.3.3"
@@ -5218,7 +5218,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 10c0/52f5b1c10cfe5e3b6382c6de1811ebbf76df9b5a8bab3d65169446c6b54a5f1528f775b1548009a6d8aad11def20fba046bb3e9abb10c0c2c9ccd78118623bb8
+  checksum: 10c0/ba6ad7e83e5a63fb0b6f62d3a3963624b8784bdc1bfa2a83e16cf268fb58c76bd9f8e69f39ed34bf8711cdb8fd7702916f878781da53c232c34ef7a85e0600cf
   languageName: node
   linkType: hard
 
