@@ -2761,9 +2761,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fastify@npm:^5.2.1":
-  version: 5.2.1
-  resolution: "fastify@npm:5.2.1"
+"fastify@npm:^5.2.2":
+  version: 5.2.2
+  resolution: "fastify@npm:5.2.2"
   dependencies:
     "@fastify/ajv-compiler": "npm:^4.0.0"
     "@fastify/error": "npm:^4.0.0"
@@ -2780,7 +2780,7 @@ __metadata:
     secure-json-parse: "npm:^3.0.1"
     semver: "npm:^7.6.0"
     toad-cache: "npm:^3.7.0"
-  checksum: 10c0/00163bcac121e5fcb097dec0230d8e7918f0d5aa4be1ddce87f6571a13d31c9691d20def5dbd12df047bc3fc372cb0a72a392feecf3e2c958dc0931e52d262cb
+  checksum: 10c0/2925f6b8370f72f86c1461645cdf6895f335c30b3fca37deed70339f568e77f7d69e83656dc11994d70b239319a63615673714db3111363bd5f83a3e56424a88
   languageName: node
   linkType: hard
 
@@ -4861,14 +4861,14 @@ __metadata:
     eslint: "npm:9.17.0"
     eslint-config-prettier: "npm:^9.1.0"
     eslint-plugin-vue: "npm:^9.32.0"
-    fastify: "npm:^5.2.1"
+    fastify: "npm:^5.2.2"
     husky: "npm:^9.1.7"
     lint-staged: "npm:^15.3.0"
     prettier: "npm:~3.4.2"
     typescript: "npm:^5.7.2"
     typescript-eslint: "npm:^8.19.0"
     urlpattern-polyfill: "npm:^10.0.0"
-    vike: "npm:0.4.226"
+    vike: "npm:0.4.227"
     vite: "npm:^6.2.3"
     vue: "npm:^3.5.13"
     vue-tsc: "npm:^2.2.0"
@@ -5084,9 +5084,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vike@npm:0.4.226":
-  version: 0.4.226
-  resolution: "vike@npm:0.4.226"
+"vike@npm:0.4.227":
+  version: 0.4.227
+  resolution: "vike@npm:0.4.227"
   dependencies:
     "@brillout/import": "npm:^0.2.6"
     "@brillout/json-serializer": "npm:^0.5.15"
@@ -5114,7 +5114,7 @@ __metadata:
       optional: true
   bin:
     vike: node/cli/bin.js
-  checksum: 10c0/3a3cf6a08e992bbe33813256d7064d37293dbd42ac99e206e451773910306591a759c64001d49460b457bd64e1f1234470a8e988daf7c6938124d876b3fb2ff9
+  checksum: 10c0/c9418d9c2dfb13c98b6d7b2b8bae0083c0e399d26a312235f9022e0677f24356a2d1a5e9c37842a5f4aea569963a597ecd842d4ffa6cfca83f93058cd0b4f8dd
   languageName: node
   linkType: hard
 
