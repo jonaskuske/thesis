@@ -78,13 +78,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@brillout/vite-plugin-server-entry@npm:^0.7.1":
-  version: 0.7.1
-  resolution: "@brillout/vite-plugin-server-entry@npm:0.7.1"
+"@brillout/vite-plugin-server-entry@npm:^0.7.5":
+  version: 0.7.5
+  resolution: "@brillout/vite-plugin-server-entry@npm:0.7.5"
   dependencies:
     "@brillout/import": "npm:^0.2.6"
     "@brillout/picocolors": "npm:^1.0.26"
-  checksum: 10c0/297f8ddb943cc8d6d83a653792d7b773cebf0f8823200573c1ebcf461b0ca582433db7d257ff48797f90fb1d8d762160123bf4d3a76b9980f8cf6670b2a3fe47
+  checksum: 10c0/44ec5c94ba1d6fc8abf853f564163f2469da96184f2df7fc3194cb26e09efee7b7c291db5c3ae3db52e0941e59281c451589ca95c437b49530e216cecb2b4ad6
   languageName: node
   linkType: hard
 
@@ -3520,6 +3520,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"magic-string@npm:^0.30.17":
+  version: 0.30.17
+  resolution: "magic-string@npm:0.30.17"
+  dependencies:
+    "@jridgewell/sourcemap-codec": "npm:^1.5.0"
+  checksum: 10c0/16826e415d04b88378f200fe022b53e638e3838b9e496edda6c0e086d7753a44a6ed187adc72d19f3623810589bf139af1a315541cd6a26ae0771a0193eaf7b8
+  languageName: node
+  linkType: hard
+
 "make-fetch-happen@npm:^13.0.0":
   version: 13.0.1
   resolution: "make-fetch-happen@npm:13.0.1"
@@ -4868,8 +4877,8 @@ __metadata:
     typescript: "npm:^5.7.2"
     typescript-eslint: "npm:^8.19.0"
     urlpattern-polyfill: "npm:^10.0.0"
-    vike: "npm:0.4.227"
-    vite: "npm:^6.2.5"
+    vike: "npm:0.4.228"
+    vite: "npm:^6.2.6"
     vue: "npm:^3.5.13"
     vue-tsc: "npm:^2.2.0"
     zip-to-city: "npm:^0.1.1"
@@ -5084,20 +5093,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vike@npm:0.4.227":
-  version: 0.4.227
-  resolution: "vike@npm:0.4.227"
+"vike@npm:0.4.228":
+  version: 0.4.228
+  resolution: "vike@npm:0.4.228"
   dependencies:
     "@brillout/import": "npm:^0.2.6"
     "@brillout/json-serializer": "npm:^0.5.15"
     "@brillout/picocolors": "npm:^1.0.26"
     "@brillout/require-shim": "npm:^0.1.2"
-    "@brillout/vite-plugin-server-entry": "npm:^0.7.1"
+    "@brillout/vite-plugin-server-entry": "npm:^0.7.5"
     acorn: "npm:^8.0.0"
     cac: "npm:^6.0.0"
     es-module-lexer: "npm:^1.0.0"
     esbuild: "npm:^0.19.0 || ^0.20.0 || ^0.21.0 || ^0.22.0 || ^0.23.0 || ^0.24.0"
     json5: "npm:^2.0.0"
+    magic-string: "npm:^0.30.17"
     picomatch: "npm:^4.0.2"
     semver: "npm:^7.0.0"
     sirv: "npm:^3.0.1"
@@ -5114,7 +5124,7 @@ __metadata:
       optional: true
   bin:
     vike: node/cli/bin.js
-  checksum: 10c0/c9418d9c2dfb13c98b6d7b2b8bae0083c0e399d26a312235f9022e0677f24356a2d1a5e9c37842a5f4aea569963a597ecd842d4ffa6cfca83f93058cd0b4f8dd
+  checksum: 10c0/b9ec5b19e0ad14a75c02626a5afd0dceae00661f89fafe261d31c291cc2032922a866c0c41f5ca38290dd14170d20d1542e487baf6955ec67603eb00b76fb693
   languageName: node
   linkType: hard
 
@@ -5170,9 +5180,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^6.2.5":
-  version: 6.2.5
-  resolution: "vite@npm:6.2.5"
+"vite@npm:^6.2.6":
+  version: 6.2.6
+  resolution: "vite@npm:6.2.6"
   dependencies:
     esbuild: "npm:^0.25.0"
     fsevents: "npm:~2.3.3"
@@ -5218,7 +5228,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 10c0/226bb3c1875e1982559007007580e8d083b81f5289f18e28841d622ba030599e1bd9926adccc8264879e319e9f9e4f48a38a0dc52a5dfcdf2a9cb7313bfc1816
+  checksum: 10c0/68a2ed3e61bdd654c59b817b4f3203065241c66d1739faa707499130f3007bc3a666c7a8320a4198e275e62b5e4d34d9b78a6533f69e321d366e76f5093b2071
   languageName: node
   linkType: hard
 
