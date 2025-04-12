@@ -8,6 +8,8 @@ COPY presentation .
 RUN --mount=src=../.yarn/releases,dst=../.yarn/releases --mount=src=public,dst=../public yarn build --base /slides/
 
 FROM nginx:1.25.4-alpine3.18
-COPY public /usr/share/nginx/html/public
-COPY version-selector.html /usr/share/nginx/html/index.html
-COPY --from=build /usr/src/app/dist /usr/share/nginx/html/slides
+WORKDIR /usr/share/nginx/html
+COPY public ./public
+COPY version-selector.html ./index.html
+COPY ["./doc/Stream Stitching and the App Shell Model.pdf", "./"]
+COPY --from=build /usr/src/app/dist ./slides
