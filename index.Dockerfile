@@ -2,10 +2,12 @@ FROM node:22.9.0-alpine3.20 AS build
 WORKDIR /usr/src/app
 RUN apk add bash
 SHELL [ "/bin/bash", "-c" ]
+COPY /.yarn/releases ../.yarn/releases
 COPY presentation/package.json presentation/yarn.lock presentation/.yarnrc.yml ./
-RUN --mount=src=../.yarn/releases,dst=../.yarn/releases yarn install --immutable
+RUN yarn install --immutable
 COPY presentation .
-RUN --mount=src=../.yarn/releases,dst=../.yarn/releases --mount=src=public,dst=../public yarn build --base /slides/
+COPY public ../public
+RUN yarn build --base /slides/
 
 FROM nginx:1.25.4-alpine3.18
 WORKDIR /usr/share/nginx/html
