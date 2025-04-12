@@ -9,7 +9,6 @@ RUN --mount=src=../.yarn/releases,dst=../.yarn/releases --mount=src=public,dst=.
 
 FROM nginx:1.25.4-alpine3.18
 WORKDIR /usr/share/nginx/html
-COPY public ./public
-COPY version-selector.html ./index.html
+COPY public index.html ./
 COPY ["./doc/Stream Stitching and the App Shell Model.pdf", "./"]
 COPY --from=build /usr/src/app/dist ./slides
