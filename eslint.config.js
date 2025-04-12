@@ -47,6 +47,7 @@ export default tseslint.config(
       '*.d.ts',
       'CHANGELOG.md',
       'dist',
+      'data',
       'LICENSE*',
       'output',
       'coverage',
