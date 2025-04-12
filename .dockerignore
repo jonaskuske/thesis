@@ -7,7 +7,9 @@ README.md
 !.yarn/patches
 !.yarn/plugins
 dist
+**/dist
 node_modules
+**/node_modules
 .gitignore
 .gitattributes
 Dockerfile
