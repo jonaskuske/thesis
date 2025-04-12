@@ -61,9 +61,6 @@ async function startServer() {
       immutable: true,
       maxAge: isProd ? 1000 * 60 * 60 * 24 * 365 : 1000 * 60,
       setHeaders(res, path) {
-        if (path.endsWith('.ts')) {
-          res.setHeader('content-type', 'text/javascript;charset=utf-8')
-        }
         if (/s(?:ervice)?-?(?:worker)?\.[jt]s/i.test(path)) {
           res.setHeader('cache-control', 'no-cache')
         }

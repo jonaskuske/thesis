@@ -7,7 +7,9 @@ if (windowUrl.searchParams.has('__sw_cache_id')) {
   window.history.pushState(history.state, '', windowUrl.href)
 }
 
+const swFileType = isDev ? 'ts' : 'js'
+
 navigator.serviceWorker
-  .register('/serviceWorker.ts', { type: isDev ? 'module' : 'classic' })
+  .register(`/serviceWorker.${swFileType}`, { type: isDev ? 'module' : 'classic' })
   .then(() => console.log('Service Worker registered.'))
   .catch((err) => console.error('Failed to register Service Worker:', err))

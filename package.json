@@ -7,7 +7,7 @@
     "dev": "run server",
     "prod": "run build && run server:prod",
     "build": "vite build && run build:sw",
-    "build:sw": "esbuild ./serviceWorker.ts --define:import.meta.env.DEV=false --define:import.meta.env.PROD=true --define:import.meta.env.BASE_URL=\\\"/\\\" --define:import.meta.env.PUBLIC_ENV__MODE=\\\"$PUBLIC_ENV__MODE\\\" --define:import.meta.env.PUBLIC_ENV__APP_SHELL=\\\"$PUBLIC_ENV__APP_SHELL\\\" --bundle --platform=browser --target=es2022 --minify --sourcemap --inject:utils/asset-manifest.js --outfile=dist/client/serviceWorker.ts",
+    "build:sw": "esbuild ./serviceWorker.ts --define:import.meta.env.DEV=false --define:import.meta.env.PROD=true --define:import.meta.env.BASE_URL=\\\"/\\\" --define:import.meta.env.PUBLIC_ENV__MODE=\\\"$PUBLIC_ENV__MODE\\\" --define:import.meta.env.PUBLIC_ENV__APP_SHELL=\\\"$PUBLIC_ENV__APP_SHELL\\\" --bundle --platform=browser --target=es2022 --minify --sourcemap --inject:utils/asset-manifest.js --outfile=dist/client/serviceWorker.js",
     "server": "node --experimental-strip-types ./server/index.ts",
     "server:prod": "NODE_ENV=production node --experimental-strip-types ./server/index.ts",
     "lint": "eslint .",
