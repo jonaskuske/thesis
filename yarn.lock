@@ -2775,9 +2775,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fastify@npm:^5.3.0":
-  version: 5.3.0
-  resolution: "fastify@npm:5.3.0"
+"fastify@npm:^5.3.1":
+  version: 5.3.1
+  resolution: "fastify@npm:5.3.1"
   dependencies:
     "@fastify/ajv-compiler": "npm:^4.0.0"
     "@fastify/error": "npm:^4.0.0"
@@ -2794,7 +2794,7 @@ __metadata:
     secure-json-parse: "npm:^4.0.0"
     semver: "npm:^7.6.0"
     toad-cache: "npm:^3.7.0"
-  checksum: 10c0/db98502a47117f96748bad73eed61665893349ee917e1eaf0e913dcfa81a0b68a61665a7bb92533b6aaba5d3daacd032374a2e1621526e28456bae9ef8dcff78
+  checksum: 10c0/f48349f785bb33fededaf00409f85c763f03eb711a657d9550647900c34defc0d88a0e831ed2e4527be876189befb49e50161ddce21f1b05fba1d9b6f2b0326a
   languageName: node
   linkType: hard
 
@@ -4894,7 +4894,7 @@ __metadata:
     eslint: "npm:9.17.0"
     eslint-config-prettier: "npm:^9.1.0"
     eslint-plugin-vue: "npm:^9.32.0"
-    fastify: "npm:^5.3.0"
+    fastify: "npm:^5.3.1"
     husky: "npm:^9.1.7"
     lint-staged: "npm:^15.3.0"
     prettier: "npm:~3.4.2"
@@ -4902,7 +4902,7 @@ __metadata:
     typescript-eslint: "npm:^8.19.0"
     urlpattern-polyfill: "npm:^10.0.0"
     vike: "npm:0.4.228"
-    vite: "npm:^6.3.1"
+    vite: "npm:^6.3.2"
     vue: "npm:^3.5.13"
     vue-tsc: "npm:^2.2.0"
     zip-to-city: "npm:^0.1.1"
@@ -5204,9 +5204,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^6.3.1":
-  version: 6.3.1
-  resolution: "vite@npm:6.3.1"
+"vite@npm:^6.3.2":
+  version: 6.3.2
+  resolution: "vite@npm:6.3.2"
   dependencies:
     esbuild: "npm:^0.25.0"
     fdir: "npm:^6.4.3"
@@ -5255,7 +5255,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 10c0/79a330a9cd0348195e9b693e0576c5480436fd7b21da53fda84877027274d39ef00fa26516fdbbf8b561700c2994c26d31d5460404e8d6982bd19ed28533a6fa
+  checksum: 10c0/08681e83e8338f3915cee729d8296bb9cfd53f71d6796816445d58cd84a8387396a3f5f3e179c52b09e98ccf7247ec3fabb50b95b0e7f3289a619ef8bf71bd8a
   languageName: node
   linkType: hard
 
