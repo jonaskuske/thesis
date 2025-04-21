@@ -26,7 +26,7 @@
     "@vue/server-renderer": "^3.5.13",
     "@vue/tsconfig": "^0.7.0",
     "cookie-store": "^4.0.0-next.4",
-    "fastify": "^5.3.1",
+    "fastify": "^5.3.2",
     "urlpattern-polyfill": "^10.0.0",
     "vike": "0.4.228",
     "vite": "^6.3.2",
