@@ -26,10 +26,10 @@
     "@vue/server-renderer": "^3.5.18",
     "@vue/tsconfig": "^0.7.0",
     "cookie-store": "^4.0.0-next.4",
-    "fastify": "^5.4.0",
+    "fastify": "^5.5.0",
     "urlpattern-polyfill": "^10.1.0",
     "vike": "0.4.236",
-    "vite": "^7.1.1",
+    "vite": "^7.1.2",
     "vue": "^3.5.18",
     "zip-to-city": "^0.1.1"
   },
