@@ -92,10 +92,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@brillout/json-serializer@npm:^0.5.16":
-  version: 0.5.16
-  resolution: "@brillout/json-serializer@npm:0.5.16"
-  checksum: 10c0/76045f33fdde4be3dd4f74dade7eab1e22b2f1237c25df43894259bb6e4c298bc4280e4f28c893f7c74f86efbe34345a37d683fdd4da039a8208ec9b79df415f
+"@brillout/json-serializer@npm:^0.5.17":
+  version: 0.5.17
+  resolution: "@brillout/json-serializer@npm:0.5.17"
+  checksum: 10c0/0fdf57adc4d479b4c11d703e2567f63b4161f537e3ee755834cc420844b2ee61cc3ee165ae5756278c74be1d5fab027420fbdde41da8ae8f97203df51d833df4
   languageName: node
   linkType: hard
 
@@ -113,13 +113,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@brillout/vite-plugin-server-entry@npm:^0.7.8":
-  version: 0.7.8
-  resolution: "@brillout/vite-plugin-server-entry@npm:0.7.8"
+"@brillout/vite-plugin-server-entry@npm:^0.7.12":
+  version: 0.7.12
+  resolution: "@brillout/vite-plugin-server-entry@npm:0.7.12"
   dependencies:
     "@brillout/import": "npm:^0.2.6"
     "@brillout/picocolors": "npm:^1.0.26"
-  checksum: 10c0/ce871900d302526aafba2018ed2244b8bd33c8edd06c10fd972e3b1cba6f5106d931d5240a3626591db6e028e3f080218fb7eb4b95b6f9c1919c349a6c8b0f8b
+  checksum: 10c0/c8095305b7ec6eea8a739b760259a3556b256038dd382eb8d33a4420e52507b3a57799e3c6457f5b5d22b388caedfd8baae058c877be247657d68b0eaa5a0b05
   languageName: node
   linkType: hard
 
@@ -1726,9 +1726,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vue/tsconfig@npm:^0.7.0":
-  version: 0.7.0
-  resolution: "@vue/tsconfig@npm:0.7.0"
+"@vue/tsconfig@npm:^0.8.1":
+  version: 0.8.1
+  resolution: "@vue/tsconfig@npm:0.8.1"
   peerDependencies:
     typescript: 5.x
     vue: ^3.4.0
@@ -1737,7 +1737,7 @@ __metadata:
       optional: true
     vue:
       optional: true
-  checksum: 10c0/5b36db5ee9e14b47e516164a21ebbf24e558042a16162a69291fe3dc0dcdf598bc0d9dada1b1008d95afab97a22396e8579e4f0df141a015ffa0837bf6ccbf2f
+  checksum: 10c0/f4e37182dc2560ce2c78e66fbf837000dba5460c12913ef37f5d54b6c0da518df1118fcc1968ff51d9541287a9d9d105fb17072b0dbb095919cfb50d1fe67a78
   languageName: node
   linkType: hard
 
@@ -5271,7 +5271,7 @@ __metadata:
     "@vitejs/plugin-vue": "npm:^5.2.1"
     "@vue/compiler-sfc": "npm:^3.5.13"
     "@vue/server-renderer": "npm:^3.5.18"
-    "@vue/tsconfig": "npm:^0.7.0"
+    "@vue/tsconfig": "npm:^0.8.1"
     "@yarnpkg/sdks": "npm:^3.2.0"
     cookie-store: "npm:^4.0.0-next.4"
     esbuild: "npm:^0.24.2"
@@ -5285,7 +5285,7 @@ __metadata:
     typescript: "npm:^5.7.2"
     typescript-eslint: "npm:^8.19.0"
     urlpattern-polyfill: "npm:^10.1.0"
-    vike: "npm:0.4.236"
+    vike: "npm:0.4.237"
     vite: "npm:^7.1.2"
     vue: "npm:^3.5.18"
     vue-tsc: "npm:^2.2.0"
@@ -5511,15 +5511,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vike@npm:0.4.236":
-  version: 0.4.236
-  resolution: "vike@npm:0.4.236"
+"vike@npm:0.4.237":
+  version: 0.4.237
+  resolution: "vike@npm:0.4.237"
   dependencies:
     "@brillout/import": "npm:^0.2.6"
-    "@brillout/json-serializer": "npm:^0.5.16"
+    "@brillout/json-serializer": "npm:^0.5.17"
     "@brillout/picocolors": "npm:^1.0.26"
     "@brillout/require-shim": "npm:^0.1.2"
-    "@brillout/vite-plugin-server-entry": "npm:^0.7.8"
+    "@brillout/vite-plugin-server-entry": "npm:^0.7.12"
     acorn: "npm:^8.0.0"
     cac: "npm:^6.0.0"
     es-module-lexer: "npm:^1.0.0"
@@ -5542,7 +5542,7 @@ __metadata:
       optional: true
   bin:
     vike: node/cli/bin.js
-  checksum: 10c0/78e9541457507efddad32df94bc789590848b5514b3ec57913a83fe69e82b7c7c210c85704f6cf9283a85b2b43215f37499b924f3cabe83b6525b1051b298465
+  checksum: 10c0/2396386091b4800f770d551b59f42a328e5e2c2a9c32f23844c71883728704c2dc09628812dfac2d0e1da33421ee841d936c10c6d0e3daa6c3b0d3668fde1981
   languageName: node
   linkType: hard
 
