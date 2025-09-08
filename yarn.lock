@@ -3009,9 +3009,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fastify@npm:^5.5.0":
-  version: 5.5.0
-  resolution: "fastify@npm:5.5.0"
+"fastify@npm:^5.6.0":
+  version: 5.6.0
+  resolution: "fastify@npm:5.6.0"
   dependencies:
     "@fastify/ajv-compiler": "npm:^4.0.0"
     "@fastify/error": "npm:^4.0.0"
@@ -3028,7 +3028,7 @@ __metadata:
     secure-json-parse: "npm:^4.0.0"
     semver: "npm:^7.6.0"
     toad-cache: "npm:^3.7.0"
-  checksum: 10c0/d7def1f65ebaf6cc47c439c5bd6e933fef1250942e169b842feaf7716f602f4504954bf1715d8f61d2f3f2e8d76e825ee90c6e3f26fcef80a758fbb8a1ed712c
+  checksum: 10c0/551c599cf19c358b050a1eaeeb36232cdeaa952cd72fc756283cd13a7ab06cdf93df56a918525b0291f927fba894663d01dca9fcd4d783de878bf61e973ded4c
   languageName: node
   linkType: hard
 
@@ -5099,7 +5099,7 @@ __metadata:
     eslint: "npm:9.17.0"
     eslint-config-prettier: "npm:^9.1.0"
     eslint-plugin-vue: "npm:^9.32.0"
-    fastify: "npm:^5.5.0"
+    fastify: "npm:^5.6.0"
     husky: "npm:^9.1.7"
     lint-staged: "npm:^15.3.0"
     prettier: "npm:~3.4.2"
@@ -5107,7 +5107,7 @@ __metadata:
     typescript-eslint: "npm:^8.19.0"
     urlpattern-polyfill: "npm:^10.1.0"
     vike: "npm:0.4.239"
-    vite: "npm:^7.1.4"
+    vite: "npm:^7.1.5"
     vue: "npm:^3.5.21"
     vue-tsc: "npm:^2.2.0"
     zip-to-city: "npm:^0.1.1"
@@ -5150,6 +5150,16 @@ __metadata:
     fdir: "npm:^6.4.4"
     picomatch: "npm:^4.0.2"
   checksum: 10c0/f789ed6c924287a9b7d3612056ed0cda67306cd2c80c249fd280cf1504742b12583a2089b61f4abbd24605f390809017240e250241f09938054c9b363e51c0a6
+  languageName: node
+  linkType: hard
+
+"tinyglobby@npm:^0.2.15":
+  version: 0.2.15
+  resolution: "tinyglobby@npm:0.2.15"
+  dependencies:
+    fdir: "npm:^6.5.0"
+    picomatch: "npm:^4.0.3"
+  checksum: 10c0/869c31490d0d88eedb8305d178d4c75e7463e820df5a9b9d388291daf93e8b1eb5de1dad1c1e139767e4269fe75f3b10d5009b2cc14db96ff98986920a186844
   languageName: node
   linkType: hard
 
@@ -5422,9 +5432,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^7.1.4":
-  version: 7.1.4
-  resolution: "vite@npm:7.1.4"
+"vite@npm:^7.1.5":
+  version: 7.1.5
+  resolution: "vite@npm:7.1.5"
   dependencies:
     esbuild: "npm:^0.25.0"
     fdir: "npm:^6.5.0"
@@ -5432,7 +5442,7 @@ __metadata:
     picomatch: "npm:^4.0.3"
     postcss: "npm:^8.5.6"
     rollup: "npm:^4.43.0"
-    tinyglobby: "npm:^0.2.14"
+    tinyglobby: "npm:^0.2.15"
   peerDependencies:
     "@types/node": ^20.19.0 || >=22.12.0
     jiti: ">=1.21.0"
@@ -5473,7 +5483,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 10c0/dbe2ba29926ffe8985c93d1b3718dcc9040080b7fa10a74c82a52aad7449136a391ba17b265288ff03b864e6f1033b9b537247521a96d5491a9d4af90ac04702
+  checksum: 10c0/782d2f20c25541b26d1fb39bef5f194149caff39dc25b7836e25f049ca919f2e2ce186bddb21f3f20f6195354b3579ec637a8ca08d65b117f8b6f81e3e730a9c
   languageName: node
   linkType: hard
 
