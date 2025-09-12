@@ -113,13 +113,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@brillout/vite-plugin-server-entry@npm:^0.7.13":
-  version: 0.7.13
-  resolution: "@brillout/vite-plugin-server-entry@npm:0.7.13"
+"@brillout/vite-plugin-server-entry@npm:^0.7.15":
+  version: 0.7.15
+  resolution: "@brillout/vite-plugin-server-entry@npm:0.7.15"
   dependencies:
     "@brillout/import": "npm:^0.2.6"
     "@brillout/picocolors": "npm:^1.0.26"
-  checksum: 10c0/2f742383caa0594f51bfa8d11488115952a892993f29ff4a0a41ca702bd56b49bdaca0eb031d80d9fe6373403458671718290942d43304f5e4fd64c9b5814326
+  checksum: 10c0/e56941d91c7837d7733930b4c357e688f2ee209f83e9f304fe79b2f8ece70b6d9a6dc8c09fd61afd49d4797ecbb1e07f0826d1b40047adc5143e74d4974a9291
   languageName: node
   linkType: hard
 
@@ -3053,18 +3053,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fdir@npm:^6.4.4":
-  version: 6.4.4
-  resolution: "fdir@npm:6.4.4"
-  peerDependencies:
-    picomatch: ^3 || ^4
-  peerDependenciesMeta:
-    picomatch:
-      optional: true
-  checksum: 10c0/6ccc33be16945ee7bc841e1b4178c0b4cf18d3804894cb482aa514651c962a162f96da7ffc6ebfaf0df311689fb70091b04dd6caffe28d56b9ebdc0e7ccadfdd
-  languageName: node
-  linkType: hard
-
 "fdir@npm:^6.5.0":
   version: 6.5.0
   resolution: "fdir@npm:6.5.0"
@@ -5106,7 +5094,7 @@ __metadata:
     typescript: "npm:^5.7.2"
     typescript-eslint: "npm:^8.19.0"
     urlpattern-polyfill: "npm:^10.1.0"
-    vike: "npm:0.4.239"
+    vike: "npm:0.4.240"
     vite: "npm:^7.1.5"
     vue: "npm:^3.5.21"
     vue-tsc: "npm:^2.2.0"
@@ -5140,16 +5128,6 @@ __metadata:
     fdir: "npm:^6.4.3"
     picomatch: "npm:^4.0.2"
   checksum: 10c0/7c9be4fd3625630e262dcb19015302aad3b4ba7fc620f269313e688f2161ea8724d6cb4444baab5ef2826eb6bed72647b169a33ec8eea37501832a2526ff540f
-  languageName: node
-  linkType: hard
-
-"tinyglobby@npm:^0.2.14":
-  version: 0.2.14
-  resolution: "tinyglobby@npm:0.2.14"
-  dependencies:
-    fdir: "npm:^6.4.4"
-    picomatch: "npm:^4.0.2"
-  checksum: 10c0/f789ed6c924287a9b7d3612056ed0cda67306cd2c80c249fd280cf1504742b12583a2089b61f4abbd24605f390809017240e250241f09938054c9b363e51c0a6
   languageName: node
   linkType: hard
 
@@ -5342,15 +5320,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vike@npm:0.4.239":
-  version: 0.4.239
-  resolution: "vike@npm:0.4.239"
+"vike@npm:0.4.240":
+  version: 0.4.240
+  resolution: "vike@npm:0.4.240"
   dependencies:
     "@brillout/import": "npm:^0.2.6"
     "@brillout/json-serializer": "npm:^0.5.20"
     "@brillout/picocolors": "npm:^1.0.26"
     "@brillout/require-shim": "npm:^0.1.2"
-    "@brillout/vite-plugin-server-entry": "npm:^0.7.13"
+    "@brillout/vite-plugin-server-entry": "npm:^0.7.15"
     acorn: "npm:^8.0.0"
     cac: "npm:^6.0.0"
     es-module-lexer: "npm:^1.0.0"
@@ -5362,10 +5340,10 @@ __metadata:
     sirv: "npm:^3.0.1"
     source-map-support: "npm:^0.5.0"
     tinyglobby: "npm:^0.2.10"
-    vite: "npm:>=6.0.0"
+    vite: "npm:>=6.3.0"
   peerDependencies:
     react-streaming: ">=0.3.42"
-    vite: ">=6.0.0"
+    vite: ">=6.3.0"
   peerDependenciesMeta:
     react-streaming:
       optional: true
@@ -5373,66 +5351,11 @@ __metadata:
       optional: true
   bin:
     vike: node/cli/bin.js
-  checksum: 10c0/e3574f62c6e2a5524e7629da71e723d0facea6f5b87572c08a7287bda15baaa8e06e6793f6f4fff12384e2a11a99719e264d9f768651db583c9a9c8862e4eaf5
+  checksum: 10c0/b2c7d0090384913ef44fe6aa5cf7c84cd54664d4965cedd6c101e09be111d85156922ff897107d69522fbf6932e690e891bb1b766e73fda6fca8c0a1060d0008
   languageName: node
   linkType: hard
 
-"vite@npm:>=6.0.0":
-  version: 7.1.3
-  resolution: "vite@npm:7.1.3"
-  dependencies:
-    esbuild: "npm:^0.25.0"
-    fdir: "npm:^6.5.0"
-    fsevents: "npm:~2.3.3"
-    picomatch: "npm:^4.0.3"
-    postcss: "npm:^8.5.6"
-    rollup: "npm:^4.43.0"
-    tinyglobby: "npm:^0.2.14"
-  peerDependencies:
-    "@types/node": ^20.19.0 || >=22.12.0
-    jiti: ">=1.21.0"
-    less: ^4.0.0
-    lightningcss: ^1.21.0
-    sass: ^1.70.0
-    sass-embedded: ^1.70.0
-    stylus: ">=0.54.8"
-    sugarss: ^5.0.0
-    terser: ^5.16.0
-    tsx: ^4.8.1
-    yaml: ^2.4.2
-  dependenciesMeta:
-    fsevents:
-      optional: true
-  peerDependenciesMeta:
-    "@types/node":
-      optional: true
-    jiti:
-      optional: true
-    less:
-      optional: true
-    lightningcss:
-      optional: true
-    sass:
-      optional: true
-    sass-embedded:
-      optional: true
-    stylus:
-      optional: true
-    sugarss:
-      optional: true
-    terser:
-      optional: true
-    tsx:
-      optional: true
-    yaml:
-      optional: true
-  bin:
-    vite: bin/vite.js
-  checksum: 10c0/a0aa418beab80673dc9a3e9d1fa49472955d6ef9d41a4c9c6bd402953f411346f612864dae267adfb2bb8ceeb894482369316ffae5816c84fd45990e352b727d
-  languageName: node
-  linkType: hard
-
-"vite@npm:^7.1.5":
+"vite@npm:>=6.3.0, vite@npm:^7.1.5":
   version: 7.1.5
   resolution: "vite@npm:7.1.5"
   dependencies:
