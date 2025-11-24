@@ -23,14 +23,14 @@
     "@fastify/helmet": "^13.0.2",
     "@fastify/middie": "^9.0.3",
     "@fastify/static": "^8.3.0",
-    "@vue/server-renderer": "^3.5.24",
+    "@vue/server-renderer": "^3.5.25",
     "@vue/tsconfig": "^0.8.1",
     "cookie-store": "^4.0.0-next.4",
     "fastify": "^5.6.2",
     "urlpattern-polyfill": "^10.1.0",
     "vike": "0.4.247",
     "vite": "^7.2.4",
-    "vue": "^3.5.24",
+    "vue": "^3.5.25",
     "zip-to-city": "^0.1.1"
   },
   "devDependencies": {
