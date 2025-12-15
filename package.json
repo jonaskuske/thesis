@@ -28,8 +28,8 @@
     "cookie-store": "^4.0.0-next.4",
     "fastify": "^5.6.2",
     "urlpattern-polyfill": "^10.1.0",
-    "vike": "0.4.247",
-    "vite": "^7.2.6",
+    "vike": "0.4.249",
+    "vite": "^7.2.7",
     "vue": "^3.5.25",
     "zip-to-city": "^0.1.1"
   },
